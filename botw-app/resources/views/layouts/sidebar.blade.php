@@ -181,27 +181,27 @@
               </div>
             </div>
             <!-- parent pages-->
-            <a class="nav-link" href="/staff-masters" role="button" aria-expanded="false">
+            <a class="nav-link" href="{{ route('staffppa.index') }}" role="button" aria-expanded="false">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-astronaut"></span></span><span class="nav-link-text ps-1">Staffs</span>
               </div>
             </a>
 
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
+            <a class="nav-link" href="{{ route('penggajian.index') }}" role="button" aria-expanded="false">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check-alt"></span></span><span class="nav-link-text ps-1">Penggajian</span>
                 </div>
             </a>
 
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
+            <a class="nav-link" href="{{ route('jabatanstaff.index') }}" role="button" aria-expanded="false">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-star"></span></span><span class="nav-link-text ps-1">Jabatan</span>
                 </div>
             </a>
 
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-wolf-pack-battalion"></span></span><span class="nav-link-text ps-1">Laporan Absensi Karyawan</span>
+            <a class="nav-link" href="" role="button" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-wolf-pack-battalion"></span></span><span class="nav-link-text ps-1">Laporan Absensi Anda</span>
               </div>
             </a>
 
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
+            <a class="nav-link" href="" role="button" aria-expanded="false">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check"></span></span><span class="nav-link-text ps-1">Laporan Transaksi Keuangan</span>
               </div>
             </a>

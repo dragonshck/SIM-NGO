@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AbsensiStaffController;
 use App\Http\Controllers\AnakPPAController;
+use App\Http\Controllers\JabatanStaffController;
+use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\StaffPPAController;
 use App\Http\Controllers\TutorAnakController;
-use App\Models\StaffPPA;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,20 +39,14 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
         return view('layouts.main');
     });
 
-    // Master Karyawan
-    Route::get('/staff-masters', [StaffPPAController::class, 'index'])->name('master-staff');
-    Route::get('/staff-tambah', [StaffPPAController::class, 'create'])->name('tambah-staff');
-    Route::post('/staff-insert', [StaffPPAController::class, 'store'])->name('master-staff');
+    Route::resource('staffppa', StaffPPAController::class);
+    Route::resource('penggajian', PenggajianController::class);
+    Route::resource('absensistaff', AbsensiStaffController::class);
+    Route::resource('jabatanstaff', JabatanStaffController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:tutor']], function () {
-    Route::get('/portal', function () {
-        return view('layouts.main');
-    });
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {
-    Route::get('/portal', function () {
-        return view('layouts.main');
-    });
 });
