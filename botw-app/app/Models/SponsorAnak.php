@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class SponsorAnak extends Model
 {
     use HasFactory;
+    protected $table = 'sponsor_anaks';
+    protected $fillable = [
+        'nama_sponsor',
+        'fotoprofil',
+        'fotocover',
+        'origin_country',
+
+    ];
 
     public function sponsoranak()
     {

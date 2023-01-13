@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('createdatasponsorheader')
 <div class="row">
@@ -6,7 +6,8 @@
       <div class="card mb-3 btn-reveal-trigger">
         <div class="card-header position-relative min-vh-25 mb-8">
           <div class="cover-image">
-            <form action="/tambah-data-sponsor" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('sponsormaster.store') }}" method="POST" enctype="multipart/form-data">
+              @csrf
             <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url(../../assets/img/generic/4.jpg);">
             </div>
             <!--/.bg-holder-->
@@ -34,14 +35,13 @@
           <h5 class="mb-0">Profile Settings</h5>
         </div>
         <div class="card-body bg-light">
-            @csrf
             <div class="col-lg-8">
               <label class="form-label" for="full-name">Full Name</label>
               <input class="form-control" id="full-name" type="text" name="nama_sponsor">
             </div>
             <div class="col-lg-8">
               <label class="form-label" for="home-addr">Origin Country</label>
-              <input class="form-control" id="home-addr" type="text" name="origincountry">
+              <input class="form-control" id="home-addr" type="text" name="origin_country">
             </div>
             <div class="col-12 d-flex justify-content-end">
               <button class="btn btn-primary" type="submit">Add </button>

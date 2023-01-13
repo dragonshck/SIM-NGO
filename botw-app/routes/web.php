@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\AbsensiStaffController;
 use App\Http\Controllers\AnakPPAController;
+use App\Http\Controllers\BantuananakController;
+use App\Http\Controllers\HadiahsponsorController;
 use App\Http\Controllers\JabatanStaffController;
 use App\Http\Controllers\PenggajianController;
+use App\Http\Controllers\RewardsanakController;
+use App\Http\Controllers\SponsorAnakController;
 use App\Http\Controllers\StaffPPAController;
 use App\Http\Controllers\TutorAnakController;
 use App\Models\Penggajian;
@@ -42,11 +46,19 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::resource('staffppa', StaffPPAController::class);
     Route::resource('penggajian', PenggajianController::class);
     Route::get('/fetch-gaji/{id}', [PenggajianController::class, 'getGajiByStaff']);
-    Route::resource('absensistaff', AbsensiStaffController::class);
+
     Route::resource('jabatanstaff', JabatanStaffController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
+    Route::resource('bantuananak', BantuananakController::class);
+    Route::resource('hadiahsponsor', HadiahsponsorController::class);
+    Route::resource('rewardsanak', RewardsanakController::class);
+});
+
+Route::group(['middleware' => ['auth', 'role:sekretaris']], function () {
+    Route::resource('absensistaff', AbsensiStaffController::class);
+    Route::resource('sponsormaster', SponsorAnakController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:mentor']], function () {

@@ -100,6 +100,7 @@
           {{-- Taruh Yield Disini --}}
 
           {{-- Koordinator --}}
+          {{-- Staff Masters --}}
           @yield('liststaff')
           @yield('detailstaff')
           @yield('createstaff')
@@ -115,9 +116,22 @@
 
 
           {{-- Bendahara --}}
+          {{-- TRX Bantuan --}}
           @yield('listbantuan')
           @yield('detailbantuan')
           @yield('formplusbantuan')
+
+          {{-- Sekretaris --}}
+          {{-- Sponsor Masters --}}
+          @yield('listdatasponsor')
+          @yield('createdatasponsorheader')
+          @yield('createdatasponsorcontent')
+          @yield('updatedatasponsorheader')
+          @yield('updatedatasponsorcontent')
+          {{-- Absensi Staff --}}
+          @yield('listabsenstaff')
+          @yield('formtambahabsenstaff')
+          @yield('detailabsenstaff')
 
           
 
@@ -166,7 +180,11 @@
     <script src="{{ asset('falcon/public/assets/js/theme.js') }}"></script>
     <script src="{{ asset('falcon/public/assets/js/flatpickr.js') }}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    @yield('jawascript')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @yield('jawascript')\
+    @yield('getPeriodeAbsensi')
   </body>
 
 </html>
