@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('listbantuan')
 <div class="card z-index-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
   <div class="card-header">
@@ -8,15 +8,6 @@
       </div>
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
         <div class="d-none" id="table-purchases-actions">
-          <div class="d-flex">
-            <select class="form-select form-select-sm" aria-label="Bulk actions">
-              <option selected="">Bulk actions</option>
-              <option value="Refund">Refund</option>
-              <option value="Delete">Delete</option>
-              <option value="Archive">Archive</option>
-            </select>
-            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
-          </div>
         </div>
         <div id="table-purchases-replace-element">
           <a href="/show-penerimaan-bantuan" class="btn btn-falcon-default btn-sm" type="button"><svg class="svg-inline--fa fa-plus fa-w-14" data-fa-transform="shrink-3 down-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.625em;"><g transform="translate(224 256)"><g transform="translate(0, 64)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path></g></g></svg><!-- <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span> Font Awesome fontawesome.com --><span class="d-none d-sm-inline-block ms-1">New</span></a>

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('detailbantuan')
 <div class="card mb-3">
     <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url({{ asset('falcon-style/public/assets/img/icons/spot-illustrations/corner-4.png')}});opacity: 0.7;">

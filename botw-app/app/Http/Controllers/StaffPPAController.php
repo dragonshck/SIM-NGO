@@ -17,7 +17,7 @@ class StaffPPAController extends Controller
      */
     public function index()
     {
-        $staff = StaffPPA::with('user')->latest()->paginate(10);
+        $staff = StaffPPA::with('user')->get();
         return view('staff.list', compact('staff'));
     }
 
@@ -74,7 +74,7 @@ class StaffPPAController extends Controller
             'permanent_address' => $request->permanent_address
         ]);
 
-        return redirect()->route('master-staff');
+        return redirect()->route('staff.index');
     }
 
     /**
@@ -96,7 +96,8 @@ class StaffPPAController extends Controller
      */
     public function edit(StaffPPA $staffPPA)
     {
-        return view('staff.update');
+        $staff = StaffPPA::with('user')->findOrFail($staffPPA->id);
+        return view('staff.update', compact('staff'));
     }
 
     /**
@@ -108,7 +109,40 @@ class StaffPPAController extends Controller
      */
     public function update(Request $request, StaffPPA $staffPPA)
     {
-        //
+        $request->validate([
+            'name'              => 'required|string|max:255',
+            'email'             => 'required|string|email|max:255|unique:users,email,' . $staffPPA->user_id,
+            'gender'            => 'required|string',
+            'phone'             => 'required|string|max:255',
+            'dateofbirth'       => 'required|date',
+            'current_addr'   => 'required|string|max:255',
+            'perm_addr' => 'required|string|max:255'
+        ]);
+
+        $user = User::findOrFail($staffPPA->user_id);
+
+        if ($request->hasFile('profile_picture')) {
+            $profile = Str::slug($user->name) . '-' . $user->id . '.' . $request->profile_picture->getClientOriginalExtension();
+            $request->profile_picture->move(public_path('images/profile'), $profile);
+        } else {
+            $profile = $user->profile_picture;
+        }
+
+        $user->update([
+            'name'              => $request->name,
+            'email'             => $request->email,
+            'profile_picture'   => $profile
+        ]);
+
+        $user->staff()->update([
+            'gender'            => $request->gender,
+            'phone'             => $request->phone,
+            'dateofbirth'       => $request->dateofbirth,
+            'current_address'   => $request->current_address,
+            'permanent_address' => $request->permanent_address
+        ]);
+
+        return redirect()->route('staff.index');
     }
 
     /**
@@ -119,6 +153,21 @@ class StaffPPAController extends Controller
      */
     public function destroy(StaffPPA $staffPPA)
     {
-        //
+        $user = User::findOrFail($staffPPA->user_id);
+
+        $user->teacher()->delete();
+
+        $user->removeRole('tutor');
+
+        if ($user->delete()) {
+            if ($user->profile_picture != 'avatar.png') {
+                $image_path = public_path() . '/images/profile/' . $user->profile_picture;
+                if (is_file($image_path) && file_exists($image_path)) {
+                    unlink($image_path);
+                }
+            }
+        }
+
+        return redirect()->route('staff.index');
     }
 }

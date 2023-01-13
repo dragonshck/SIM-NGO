@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JabatanStaff;
 use App\Models\Penggajian;
+use App\Models\StaffPPA;
 use Illuminate\Http\Request;
 
 class PenggajianController extends Controller
@@ -14,7 +16,10 @@ class PenggajianController extends Controller
      */
     public function index()
     {
-        //
+        // $data_gaji = Penggajian::all();
+        $data_gaji = Penggajian::with('staff')->get();
+        // dd($data_gaji->toArray());
+        return view('penggajian.paycheckstaff', compact('data_gaji'));
     }
 
     /**
@@ -24,7 +29,8 @@ class PenggajianController extends Controller
      */
     public function create()
     {
-        //
+        $data_staff = StaffPPA::with('user')->get();
+        return view('penggajian._inputgaji', compact('data_staff'));
     }
 
     /**
@@ -35,7 +41,10 @@ class PenggajianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Penggajian::create($request->all());
+        // $data_gaji = $request->all();
+        // dd($data_gaji);
+        return redirect()->route('penggajian.index');
     }
 
     /**
@@ -46,7 +55,11 @@ class PenggajianController extends Controller
      */
     public function show(Penggajian $penggajian)
     {
-        //
+        $gaji = Penggajian::with('staff')->findOrFail($penggajian->id);
+        $uang_lembur = $gaji->uang_overtime;
+        $waktu_lembur = $gaji->jumlah_overtime;
+        $total_lembur = $uang_lembur * $waktu_lembur;
+        return view('penggajian._detailgaji', compact('gaji', 'total_lembur'));
     }
 
     /**
@@ -81,5 +94,12 @@ class PenggajianController extends Controller
     public function destroy(Penggajian $penggajian)
     {
         //
+    }
+
+    public function getGajiByStaff($id)
+    {
+        $data_staff = StaffPPA::where('id', $id)->first();
+        $data_gaji = JabatanStaff::where('id', $data_staff->jabatan_staff_id)->first();
+        return json_encode(['success' => true, 'data' => $data_gaji]);
     }
 }

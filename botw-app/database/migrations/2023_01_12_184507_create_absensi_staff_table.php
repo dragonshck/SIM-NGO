@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StaffPPA;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,9 @@ class CreateAbsensiStaffTable extends Migration
     {
         Schema::create('absensi_staff', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(StaffPPA::class);
+            $table->double('status_absen');
+            $table->date('tanggal_absen');
             $table->timestamps();
         });
     }

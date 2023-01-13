@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('inputjabatan')
 <div class="card">
     <div class="card-body position-relative">
@@ -9,11 +9,11 @@
               </div>
             </div>
           </div>
-          <form class="row g-3" action="/add-role" method="POST" enctype="multipart/form-data">
+          <form class="row g-3" action="{{ route('jabatanstaff.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6">
               <label class="form-label" for="inputEmail4">Name</label>
-              <input class="form-control" id="inputEmail4" type="text" name="name" />
+              <input class="form-control" id="inputEmail4" type="text" name="nama_jabatan" />
             </div>
             <div class="col-md-6">
               <label class="form-label" for="inputPassword4">Gaji Pokok</label>
@@ -21,11 +21,11 @@
             </div>
             <div class="col-12">
               <label class="form-label" for="inputAddress">Transport</label>
-              <input class="form-control" id="inputAddress" type="text" name="transport" />
+              <input class="form-control" id="inputAddress" type="text" name="tunjangan_kendaraan" />
             </div>
             <div class="col-12">
                 <label class="form-label" for="inputAddress">Uang Makan</label>
-                <input class="form-control" id="inputAddress" type="text" name="uang_makan" />
+                <input class="form-control" id="inputAddress" type="text" name="tunjangan_makanan" />
               </div>
             <div class="col-12">
               <button class="btn btn-primary" type="submit">Submit</button>

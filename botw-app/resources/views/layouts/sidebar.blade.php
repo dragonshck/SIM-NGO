@@ -92,15 +92,29 @@
                 </div>
             </a>
             <!-- parent pages-->
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><svg class="svg-inline--fa fa-comments fa-w-18" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg><!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span class="nav-link-text ps-1">Logbook Mengajar</span>
-                </div>
+            <a class="nav-link" href="{{ route('tutor.index') }}" role="button" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-wolf-pack-battalion"></span></span><span class="nav-link-text ps-1">Tutor</span>
+              </div>
             </a>
             <!-- parent pages-->
-            <a class="nav-link" href="../app/chat.html" role="button" aria-expanded="false">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><svg class="svg-inline--fa fa-comments fa-w-18" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg><!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span class="nav-link-text ps-1">Kelompok Umur</span>
-                </div>
+            <a class="nav-link dropdown-indicator" href="#user" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="user">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">Kelompok Umur</span>
+              </div>
             </a>
+            <ul class="nav false collapse" id="user" style="">
+              <li class="nav-item"><a class="nav-link" href="../../../pages/user/profile.html" aria-expanded="false">
+                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Master Kelompok Umur</span>
+                  </div>
+                </a>
+                <!-- more inner pages-->
+              </li>
+              <li class="nav-item"><a class="nav-link" href="../../../pages/user/settings.html" aria-expanded="false">
+                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Assign Kelompok Umur</span>
+                  </div>
+                </a>
+                <!-- more inner pages-->
+              </li>
+            </ul>
         </li>
         @endcan
 
@@ -194,16 +208,6 @@
             <a class="nav-link" href="{{ route('jabatanstaff.index') }}" role="button" aria-expanded="false">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-star"></span></span><span class="nav-link-text ps-1">Jabatan</span>
                 </div>
-            </a>
-
-            <a class="nav-link" href="" role="button" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-wolf-pack-battalion"></span></span><span class="nav-link-text ps-1">Laporan Absensi Anda</span>
-              </div>
-            </a>
-
-            <a class="nav-link" href="" role="button" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check"></span></span><span class="nav-link-text ps-1">Laporan Transaksi Keuangan</span>
-              </div>
             </a>
         </li>
         @endcan

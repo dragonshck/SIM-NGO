@@ -38,6 +38,7 @@
     <link href="{{ asset('falcon/public/assets/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('falcon/public/assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('falcon/public/assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
+    <link href="{{ asset('falcon/public/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet" />
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -103,6 +104,20 @@
           @yield('detailstaff')
           @yield('createstaff')
           @yield('update')
+          {{-- Jabatan --}}
+          @yield('listjabatan')
+          @yield('inputjabatan')
+          @yield('updatejabatan')
+          {{-- Gaji --}}
+          @yield('listgaji')
+          @yield('inputgajistaff')
+          @yield('detailgaji')
+
+
+          {{-- Bendahara --}}
+          @yield('listbantuan')
+          @yield('detailbantuan')
+          @yield('formplusbantuan')
 
           
 
@@ -149,6 +164,9 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="{{ asset('falcon/public/vendors/list.js/list.min.js') }}"></script>
     <script src="{{ asset('falcon/public/assets/js/theme.js') }}"></script>
+    <script src="{{ asset('falcon/public/assets/js/flatpickr.js') }}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    @yield('jawascript')
   </body>
 
 </html>

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('updatejabatan')
 <div class="card">
     <div class="card-body position-relative">
@@ -9,7 +9,7 @@
               </div>
             </div>
           </div>
-          <form class="row g-3" action="/edit-role/{{ $data -> id }}" method="POST" enctype="multipart/form-data">
+          <form class="row g-3" action="{{ route('jabatanstaff.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6">
               <label class="form-label" for="inputEmail4">Name</label>

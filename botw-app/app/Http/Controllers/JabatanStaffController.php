@@ -14,7 +14,8 @@ class JabatanStaffController extends Controller
      */
     public function index()
     {
-        //
+        $dataku = JabatanStaff::all();
+        return view('staff.jabatan.listjabatan', compact('dataku'));
     }
 
     /**
@@ -24,7 +25,7 @@ class JabatanStaffController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.jabatan._createjabatan');
     }
 
     /**
@@ -35,7 +36,8 @@ class JabatanStaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        JabatanStaff::create($request->all());
+        return redirect()->route('jabatanstaff.index');
     }
 
     /**
@@ -46,7 +48,6 @@ class JabatanStaffController extends Controller
      */
     public function show(JabatanStaff $jabatanStaff)
     {
-        //
     }
 
     /**
@@ -55,9 +56,10 @@ class JabatanStaffController extends Controller
      * @param  \App\Models\JabatanStaff  $jabatanStaff
      * @return \Illuminate\Http\Response
      */
-    public function edit(JabatanStaff $jabatanStaff)
+    public function edit($id)
     {
-        //
+        $data = JabatanStaff::find($id);
+        return view('staff.jabatan._editjabatan', compact('data'));
     }
 
     /**
@@ -67,9 +69,11 @@ class JabatanStaffController extends Controller
      * @param  \App\Models\JabatanStaff  $jabatanStaff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JabatanStaff $jabatanStaff)
+    public function update(Request $request, $id)
     {
-        //
+        $data = JabatanStaff::find($id);
+        $data->update($request->all());
+        return redirect()->route('jabatanstaff.index');
     }
 
     /**
@@ -78,8 +82,10 @@ class JabatanStaffController extends Controller
      * @param  \App\Models\JabatanStaff  $jabatanStaff
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JabatanStaff $jabatanStaff)
+    public function destroy($id)
     {
-        //
+        $data = JabatanStaff::find($id);
+        $data->delete();
+        return redirect()->route('jabatanstaff.index');
     }
 }
