@@ -38,8 +38,8 @@
                       <div class="ms-2">{{ $item -> staff -> user -> name }}</div>
                     </div>
                   </td>
-                      <td class="text-nowrap">{{ $item -> tgl_salary }}</td>
-                  <td class="text-nowrap">{{ $item -> total }}</td>
+                      <td class="text-nowrap">{{ \Carbon\Carbon::parse($item -> tgl_salary)->format('j F, Y') }}</td>
+                  <td class="text-nowrap">@currency($item -> total)</td>
                   <td><span class="badge badge rounded-pill d-block p-2 badge-soft-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                   </td>
                   <td class="text-end">

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('formeditkodeabsensi')
 <div class="card">
@@ -10,8 +10,9 @@
               </div>
             </div>
           </div>
-          <form class="row g-3" action="/edit-kodeabsensi/{{ $data -> id }}" method="POST" enctype="multipart/form-data">
+          <form class="row g-3" action="{{ route('kodeabsensi.update', $data -> id)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="col-md-6">
               <label class="form-label" for="inputEmail4">Kode</label>
               <input class="form-control" id="inputEmail4" type="text" name="kode_absen" value="{{ $data -> kode_absen }}"/>

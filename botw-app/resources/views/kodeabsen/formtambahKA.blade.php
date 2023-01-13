@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('formkodeabsensi')
 <div class="card">
@@ -10,7 +10,7 @@
               </div>
             </div>
           </div>
-          <form class="row g-3" action="/tambah-data-kode-absensi" method="POST" enctype="multipart/form-data">
+          <form class="row g-3" action="{{ route('kodeabsensi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6">
               <label class="form-label" for="inputEmail4">Kode</label>
@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label" for="inputPassword4">Nama Kode</label>
-              <input class="form-control" id="inputPassword4" type="text" name="nama_kabsen"/>
+              <input class="form-control" id="inputPassword4" type="text" name="nama_absen"/>
             </div>
             <div class="col-12">
               <label class="form-label" for="inputAddress">Keterangan Kode</label>

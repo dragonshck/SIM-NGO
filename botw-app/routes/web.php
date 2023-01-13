@@ -5,6 +5,8 @@ use App\Http\Controllers\AnakPPAController;
 use App\Http\Controllers\BantuananakController;
 use App\Http\Controllers\HadiahsponsorController;
 use App\Http\Controllers\JabatanStaffController;
+use App\Http\Controllers\KelompokUmurController;
+use App\Http\Controllers\KodeabsensiController;
 use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\RewardsanakController;
 use App\Http\Controllers\SponsorAnakController;
@@ -63,6 +65,8 @@ Route::group(['middleware' => ['auth', 'role:sekretaris']], function () {
 
 Route::group(['middleware' => ['auth', 'role:mentor']], function () {
     Route::resource('tutor', TutorAnakController::class);
+    Route::resource('kelompokumur', KelompokUmurController::class);
+    Route::resource('kodeabsensi', KodeabsensiController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {

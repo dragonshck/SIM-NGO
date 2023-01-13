@@ -22,13 +22,14 @@ class AbsensiStaffController extends Controller
         // $bulan = Carbon::parse($tgl)->format('F');
         // $absen = AbsensiStaff::with('absen2staff')->groupBy($bulan)->get();
 
-        $absen = DB::select('select tanggal_absen, count(tanggal_absen) from `absensi_staff` group by `tanggal_absen` order by `tanggal_absen` asc;');
+        $absen = DB::select('select tanggal_absen, count(tanggal_absen) from `absensi_staff` group by `periode` order by `periode` asc;');
         // ->groupBy(function ($val) {
         //     return Carbon::parse($val->tanggal_absen)->format('m');
         // });
 
         // dd($absen)->toArray();
-        $data = AbsensiStaff::groupBy('periode')->orderBy('periode', 'desc')->get();
+        $data = AbsensiStaff::groupBy('periode')->orderBy('tanggal_absen', 'desc')->get();
+        // dd($data->toArray());
 
         return view('staff.absensi.absenstaff', compact('absen', 'data'));
     }
@@ -54,7 +55,8 @@ class AbsensiStaffController extends Controller
     {
         // $list_absensi = $request->absensi;
         $absensi = $request->tanggal_absen;
-        // dd($absensi);
+        $period = $request->periode;
+        // dd($request->toArray());
         $list_absensi = $request->absensi;
         foreach ($list_absensi as $index => $item) {
 
@@ -62,7 +64,7 @@ class AbsensiStaffController extends Controller
                 'status_absen' => $item,
                 'staff_p_p_a_id' => $index,
                 'tanggal_absen' => $absensi,
-                'periode' => date('F')
+                'periode' => $period
             ]);
         }
 

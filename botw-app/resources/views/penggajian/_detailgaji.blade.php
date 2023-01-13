@@ -39,11 +39,11 @@
               <tbody>
                 <tr>
                   <th class="text-sm-end">Invoice No:</th>
-                  <td>14</td>
+                  <td>{{ $gaji -> id }}</td>
                 </tr>
                 <tr>
                   <th class="text-sm-end">Tanggal Gaji:</th>
-                  <td>{{ $gaji -> tgl_salary }}</td>
+                  <td>{{ \Carbon\Carbon::parse($gaji -> tgl_salary)->format('j F, Y') }}</td>
                 </tr>
               </tbody>
             </table>
@@ -66,10 +66,10 @@
               <td class="align-middle">
                 <h6 class="mb-0 text-nowrap"></h6>
               </td>
-              <td class="align-middle text-center">{{ $gaji -> staff -> jabatan -> gaji_pokok }}</td>
-              <td class="align-middle text-center">{{ $gaji -> staff -> jabatan -> tunjangan_kendaraan }}</td>
-              <td class="align-middle text-center">{{ $gaji -> staff -> jabatan -> tunjangan_makanan }}</td>
-              <td class="align-middle text-end">{{ $total_lembur }}</td>
+              <td class="align-middle text-center">@currency($gaji -> staff -> jabatan -> gaji_pokok)</td>
+              <td class="align-middle text-center">@currency($gaji -> staff -> jabatan -> tunjangan_kendaraan)</td>
+              <td class="align-middle text-center">@currency($gaji -> staff -> jabatan -> tunjangan_makanan)</td>
+              <td class="align-middle text-end">@currency($total_lembur)</td>
             </tr>
           </tbody>
         </table>
@@ -80,7 +80,7 @@
             <tbody>
             <tr class="border-top border-top-2 fw-bolder text-900">
               <th>Total:</th>
-              <td>{{ $gaji -> total }}</td>
+              <td>@currency($gaji -> total)</td>
             </tr>
           </tbody></table>
         </div>

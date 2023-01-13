@@ -25,7 +25,7 @@
             </thead>
             <tbody>
               {{-- {{ dd($data); }} --}}
-              @foreach ($data as $item)
+              @foreach ($absen as $item)
                 <tr class="btn-reveal-trigger">
                   <td>
                     <a class="btn btn-outline-success btn-sm" type="button" href="{{ route('absensistaff.show', \Carbon\Carbon::parse($item->tanggal_absen)->format('F')) }}">View Absen

@@ -133,6 +133,13 @@
           @yield('formtambahabsenstaff')
           @yield('detailabsenstaff')
 
+          {{-- Mentor --}}
+          {{-- Kode Absensi Masters --}}
+          @yield('listkodeabsensi')
+          @yield('formkodeabsensi')
+          @yield('formeditkodeabsensi')
+
+
           
 
 

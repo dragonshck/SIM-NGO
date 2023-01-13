@@ -21,7 +21,7 @@
         <div class="mb-3 row">
           <label class="col-sm-2 col-form-label" for="staticEmail">Periode</label>
           <div class="col-sm-10">
-            <input class="form-control" id="periodz" type="text" disabled value="" />
+            <input class="form-control" id="periodz" name="periode" type="text" value="" />
             <div class="mb-3 row"></div>
           </div>
         <div class="mb-3">

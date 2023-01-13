@@ -32,9 +32,9 @@
                       <div class="ms-2">{{ $item -> nama_jabatan }}</div>
                     </div>
                   </td>
-                  <td class="align-middle text-nowrap">{{ $item -> gaji_pokok }}</td>
-                  <td class="align-middle text-nowrap">{{ $item -> tunjangan_kendaraan }}</td>
-                  <td class="align-middle text-nowrap">{{ $item -> tunjangan_makanan }}</td>
+                  <td class="align-middle text-nowrap">@currency($item -> gaji_pokok)</td>
+                  <td class="align-middle text-nowrap">@currency($item -> tunjangan_kendaraan)</td>
+                  <td class="align-middle text-nowrap">@currency($item -> tunjangan_makanan)</td>
                   <td class="w-auto">
                     <div class="btn-group btn-group hover-actions end-0 me-4">
                       <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="/role-edit/{{ $item -> id }}"><span class="fas fa-edit"></span></a>
