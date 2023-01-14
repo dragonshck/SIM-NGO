@@ -9,11 +9,16 @@ class AnakPPA extends Model
 {
     use HasFactory;
 
+    protected $table = 'anakppa';
+
     protected $fillable = [
-        'name',
-        'fotoprofil',
-        'fotocover',
-        'phone'
+        'phone',
+        'current_addr',
+        'perm_addr',
+        'dateob',
+        'anak_id',
+        'kelompok_umur_id',
+        'sponsor_anak_id'
     ];
 
     public function user()
@@ -23,12 +28,12 @@ class AnakPPA extends Model
 
     public function sponsor()
     {
-        return $this->belongsTo(SponsorAnak::class);
+        return $this->belongsTo(SponsorAnak::class, 'sponsor_anak_id', 'id');
     }
 
     public function kelompokumur()
     {
-        return $this->belongsTo(KelompokUmur::class, 'kelompok_umur_id');
+        return $this->belongsTo(KelompokUmur::class, 'kelompok_umur_id', 'id');
     }
 
     public function attendances()

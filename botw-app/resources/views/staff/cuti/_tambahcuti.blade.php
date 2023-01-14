@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('tambahcutibang')
 <div class="card">
     <div class="card-body">
@@ -7,16 +7,13 @@
               <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Tambah Data Cuti</h5>
             </div>
           </div>
-        <form action="/add-cuti" method="POST" enctype="multipart/form-data" class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone">
+        <form action="{{ route('cutiizin.store') }}" method="POST" enctype="multipart/form-data" class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone">
           @csrf
           <div class="mb-3">
-            <label class="form-label" for="basic-form-gender">Pilih Karyawan</label>
-            <select class="form-select" id="basic-form-gender" aria-label="Default select example" name="staff_id">
-              <option selected="selected">Pilih Karyawan</option>
-              @foreach ($data_staff as $itemtype)
-                <option value="{{ $itemtype -> id }}">{{ $itemtype -> nama }}</option>
-              @endforeach
-            </select>
+            <label class="form-label" for="datepicker"> </label>
+            <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1">{{ auth()->user()->name; }}</span>
+              <input class="form-control" type="text" placeholder="Username" aria-label="Nama" name="staff_id" aria-describedby="basic-addon1" value="{{ auth()->user()->id; }}"/>
+            </div>
           </div>
             <div class="mb-3">
                 <label class="form-label" for="datepicker">Start Date</label>

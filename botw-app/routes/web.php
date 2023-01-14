@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiStaffController;
 use App\Http\Controllers\AnakPPAController;
 use App\Http\Controllers\BantuananakController;
+use App\Http\Controllers\CutistaffController;
 use App\Http\Controllers\HadiahsponsorController;
 use App\Http\Controllers\JabatanStaffController;
 use App\Http\Controllers\KelompokUmurController;
@@ -38,6 +39,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
     Route::resource('staff', StaffPPAController::class);
+    Route::resource('cutiizin', CutistaffController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
@@ -48,6 +50,7 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::resource('staffppa', StaffPPAController::class);
     Route::resource('penggajian', PenggajianController::class);
     Route::get('/fetch-gaji/{id}', [PenggajianController::class, 'getGajiByStaff']);
+    Route::get('/ubah-status-cuti/{id}', [CutiStaffController::class, 'status_update']);
 
     Route::resource('jabatanstaff', JabatanStaffController::class);
 });
@@ -67,6 +70,7 @@ Route::group(['middleware' => ['auth', 'role:mentor']], function () {
     Route::resource('tutor', TutorAnakController::class);
     Route::resource('kelompokumur', KelompokUmurController::class);
     Route::resource('kodeabsensi', KodeabsensiController::class);
+    Route::resource('anak', AnakPPAController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {

@@ -38,4 +38,9 @@ class StaffPPA extends Model
     {
         return $this->hasMany(AbsensiStaff::class);
     }
+
+    public function cuti()
+    {
+        return $this->hasMany(cutistaff::class);
+    }
 }

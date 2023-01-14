@@ -9,6 +9,7 @@ class TutorAnak extends Model
 {
     use HasFactory;
 
+    protected $table = 'tutor';
     protected $fillable = [
         'name',
         'fotoprofil',

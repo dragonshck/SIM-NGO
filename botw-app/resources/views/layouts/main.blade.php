@@ -113,6 +113,10 @@
           @yield('listgaji')
           @yield('inputgajistaff')
           @yield('detailgaji')
+          {{-- Cuti --}}
+          @yield('cutialter')
+          @yield('tambahcutibang')
+          @yield('detailcutibang')
 
 
           {{-- Bendahara --}}
@@ -138,6 +142,13 @@
           @yield('listkodeabsensi')
           @yield('formkodeabsensi')
           @yield('formeditkodeabsensi')
+          {{-- Anak Masters --}}
+          @yield('daftaranak')
+          @yield('anakedit-header')
+          @yield('anakedit-main')
+          @yield('detaildataanak')
+          @yield('anakupdate-header')
+          @yield('anakupdate-main')
 
 
           
