@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KelompokUmur;
+use App\Models\TutorAnak;
 use Illuminate\Http\Request;
 
 class KelompokUmurController extends Controller
@@ -14,7 +15,8 @@ class KelompokUmurController extends Controller
      */
     public function index()
     {
-        //
+        $dataku = KelompokUmur::withCount('anakku')->get();
+        return view('datakelumur.kelompokumur', compact('dataku'));
     }
 
     /**
@@ -24,7 +26,8 @@ class KelompokUmurController extends Controller
      */
     public function create()
     {
-        //
+        $tutor = TutorAnak::latest()->get();
+        return view('datakelumur.tambahdatakode', compact('tutor'));
     }
 
     /**
@@ -35,7 +38,19 @@ class KelompokUmurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'ku_name'        => 'required|string|max:255',
+            'ku_description'     => 'required|numeric',
+            'tutor_anak_id'        => 'required|numeric',
+        ]);
+
+        KelompokUmur::create([
+            'ku_name'        => $request->ku_name,
+            'ku_description'     => $request->ku_description,
+            'tutor_anak_id'        => $request->tutor_anak_id,
+        ]);
+
+        return redirect()->route('kelompokumur.index');
     }
 
     /**
@@ -55,9 +70,11 @@ class KelompokUmurController extends Controller
      * @param  \App\Models\KelompokUmur  $kelompokUmur
      * @return \Illuminate\Http\Response
      */
-    public function edit(KelompokUmur $kelompokUmur)
+    public function edit($id)
     {
-        //
+        $tutor = TutorAnak::latest()->get();
+        $ku = KelompokUmur::findOrFail($id);
+        return view('datakelumur.editdatakode', compact('tutor', 'ku'));
     }
 
     /**
@@ -67,9 +84,23 @@ class KelompokUmurController extends Controller
      * @param  \App\Models\KelompokUmur  $kelompokUmur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KelompokUmur $kelompokUmur)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'ku_name'        => 'required|string|max:255',
+            'ku_description'     => 'required|numeric',
+            'tutor_anak_id'        => 'required|numeric',
+        ]);
+
+        $class = KelompokUmur::findOrFail($id);
+
+        $class->update([
+            'ku_name'        => $request->ku_name,
+            'ku_description'     => $request->ku_description,
+            'tutor_anak_id'        => $request->tutor_anak_id,
+        ]);
+
+        return redirect()->route('kelompokumur.index');
     }
 
     /**
@@ -78,8 +109,13 @@ class KelompokUmurController extends Controller
      * @param  \App\Models\KelompokUmur  $kelompokUmur
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KelompokUmur $kelompokUmur)
+    public function destroy($id)
     {
-        //
+        $class = KelompokUmur::findOrFail($id);
+
+        $class->tutor()->detach();
+        $class->delete();
+
+        return back();
     }
 }

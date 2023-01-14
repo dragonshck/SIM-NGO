@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('formtambahdata')
     <div class="card">
@@ -10,19 +10,24 @@
                   </div>
                 </div>
               </div>
-              <form class="row g-3" action="/insertkelompokumur" method="POST" enctype="multipart/form-data">
+              <form class="row g-3" action="{{ route('kelompokumur.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-6">
-                  <label class="form-label" for="inputEmail4">Kode</label>
-                  <input class="form-control" id="inputEmail4" type="text" name="kode_ku" />
-                </div>
-                <div class="col-md-6">
                   <label class="form-label" for="inputPassword4">Nama Kode</label>
-                  <input class="form-control" id="inputPassword4" type="text" name="nama_ku"/>
+                  <input class="form-control" id="inputPassword4" type="text" name="ku_name"/>
                 </div>
                 <div class="col-12">
                   <label class="form-label" for="inputAddress">Keterangan Kode</label>
-                  <input class="form-control" id="inputAddress" type="text" name="keterangan" />
+                  <input class="form-control" id="inputAddress" type="text" name="ku_description" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="inputEmail4">Assign Tutor</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected="">Open this select menu</option>
+                    @foreach ($tutor as $item)
+                      <option value="{{ $item -> user -> id }}">{{ $item -> user -> name }}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="col-12">
                   <button class="btn btn-primary" type="submit">Submit</button>

@@ -19,6 +19,6 @@ class SponsorAnak extends Model
 
     public function sponsoranak()
     {
-        return $this->hasMany(AnakPPA::class, 'sponsor_anak_id');
+        return $this->hasOne(AnakPPA::class);
     }
 }

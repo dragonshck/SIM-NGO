@@ -154,6 +154,42 @@ class AnakPPAController extends Controller
      */
     public function update(Request $request, AnakPPA $anakPPA)
     {
+        $request->validate([
+            'name'              => 'required|string|max:255',
+            'email'             => 'required|string|email|max:255|unique:users, email' . $anakPPA->user_id,
+            'password'          => 'required|string|min:8',
+            'sponsor_anak_id'         => 'required|numeric',
+            'kelompok_umur_id'          => 'required|numeric',
+            'gender'            => 'required|string',
+            'phone'             => 'required|string|max:255',
+            'dateob'       => 'required|date',
+            'current_addr'   => 'required|string|max:255',
+            'perm_addr' => 'required|string|max:255'
+        ]);
+
+        if ($request->hasFile('profile_picture')) {
+            $profile = Str::slug($anakPPA->user->name) . '-' . $anakPPA->user->id . '.' . $request->profile_picture->getClientOriginalExtension();
+            $request->profile_picture->move(public_path('images/profile'), $profile);
+        } else {
+            $profile = $anakPPA->user->profile_picture;
+        }
+
+        $anakPPA->user()->update([
+            'name'              => $request->name,
+            'email'             => $request->email,
+            'profile_picture'   => $profile
+        ]);
+
+        $anakPPA->anak()->update([
+            'sponsor_anak_id'         => $request->sponsor_anak_id,
+            'kelompok_umur_id'        => $request->kelompok_umur_id,
+            'gender'                  => $request->gender,
+            'phone'                   => $request->phone,
+            'dateob'                  => $request->dateob,
+            'current_addr'            => $request->current_addr,
+            'perm_addr'               => $request->perm_addr
+        ]);
+
         return redirect()->route('anak.index');
     }
 

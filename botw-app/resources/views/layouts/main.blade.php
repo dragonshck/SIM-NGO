@@ -149,6 +149,12 @@
           @yield('detaildataanak')
           @yield('anakupdate-header')
           @yield('anakupdate-main')
+          {{-- Kelompok Umur Masters --}}
+          @yield('listkelompokumur')
+          @yield('formeditdata')
+          @yield('formtambahdata')
+          {{-- Index Kelompok Umur --}}
+          @yield('indexlistku')
 
 
           

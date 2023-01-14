@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth', 'role:mentor']], function () {
     Route::resource('kelompokumur', KelompokUmurController::class);
     Route::resource('kodeabsensi', KodeabsensiController::class);
     Route::resource('anak', AnakPPAController::class);
+    Route::resource('kelompokumur', KelompokUmurController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {

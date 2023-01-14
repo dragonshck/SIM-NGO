@@ -120,25 +120,12 @@
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-wolf-pack-battalion"></span></span><span class="nav-link-text ps-1">Tutor</span>
               </div>
             </a>
+
             <!-- parent pages-->
-            <a class="nav-link dropdown-indicator" href="#user" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="user">
+            <a class="nav-link" href="{{ route('kelompokumur.index') }}" role="button" aria-expanded="false">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">Kelompok Umur</span>
               </div>
             </a>
-            <ul class="nav false collapse" id="user" style="">
-              <li class="nav-item"><a class="nav-link" href="{{ route('kelompokumur.index') }}" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Master Kelompok Umur</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../../../pages/user/settings.html" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Info Kelompok Umur</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-            </ul>
         </li>
         @endcan
 
