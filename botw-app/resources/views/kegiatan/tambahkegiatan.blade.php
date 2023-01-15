@@ -1,6 +1,6 @@
-@extends('main')
+@extends('layouts.main')
 @section('formtambahkegiatan')
-<form method="POST" action="/insert-kegiatan">
+<form method="POST" action="{{ route('kegiatanppa.store') }}">
   @csrf
 <div class="card mb-3">
     <div class="card-body">
@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="card cover-image mb-3"><img class="card-img-top" src="{{ asset('falcon-style/public/assets/img/generic/13.jpg') }}" alt="">
+  <div class="card cover-image mb-3"><img class="card-img-top" src="{{ asset('falcon/public/assets/img/generic/13.jpg') }}" alt="">
     <input class="d-none" id="upload-cover-image" type="file" name="gambar_event">
     <label class="cover-image-file-input" for="upload-cover-image"><svg class="svg-inline--fa fa-camera fa-w-16 me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"></path></svg><!-- <span class="fas fa-camera me-2"></span> Font Awesome fontawesome.com --><span>Change cover photo</span></label>
   </div>
@@ -83,10 +83,10 @@
               </div>
               <div class="mb-3">
                 <label class="form-label" for="event-type">Kelompok Umur</label>
-                <select class="form-select" id="event-type" name="ku_id">
+                <select class="form-select" id="event-type" name="kelompk_umur_id">
                   <option>Pilih Kelompok Umur...</option>
                   @foreach ($data_ku as $item)
-                    <option value="{{ $item -> id }}">{{ $item -> nama_ku }}</option>
+                    <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
                   @endforeach
                 </select>
               </div>

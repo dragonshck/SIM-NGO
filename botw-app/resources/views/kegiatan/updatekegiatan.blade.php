@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('updatekegiatan')
 <form method="POST" action="/update-kegiatan/{id}">
     <div class="card mb-3">

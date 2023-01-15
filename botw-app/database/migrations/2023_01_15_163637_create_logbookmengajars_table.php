@@ -15,6 +15,9 @@ class CreateLogbookmengajarsTable extends Migration
     {
         Schema::create('logbookmengajars', function (Blueprint $table) {
             $table->id();
+            $table->string('judul_logbook');
+            $table->string('isi_logbook');
+            $table->bigInteger('staff_id');
             $table->timestamps();
         });
     }

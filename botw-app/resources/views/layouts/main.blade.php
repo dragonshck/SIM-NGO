@@ -135,6 +135,8 @@
           @yield('detailreward')
           @yield('formpenerimaanrewards')
           {{-- Laporan Keuangan --}}
+          @yield('lappengeluaran')
+          @yield('sponsorshipview')
 
 
           {{-- Sekretaris --}}
@@ -148,6 +150,11 @@
           @yield('listabsenstaff')
           @yield('formtambahabsenstaff')
           @yield('detailabsenstaff')
+          {{-- Kegiatan PPA --}}
+          @yield('listjadwalkegiatan')
+          @yield('formtambahkegiatan')
+          @yield('updatekegiatan')
+          @yield('detailkegiatan')
 
 
           {{-- Mentor --}}
@@ -175,11 +182,6 @@
           @yield('dataabsenanak')
           @yield('inputabsenanak')
           @yield('detailabsenanak')
-
-          {{-- Kunjungan Anak --}}
-          @yield('daftarkunjunganlist')
-          @yield('formhomevisit')
-
 
           {{-- Index Kelompok Umur --}}
           @yield('indexlistku')
@@ -238,6 +240,8 @@
     @yield('js')
     @yield('jsx')
     @yield('charts-dashboard')
+    @yield('chartpie')
+    @yield('charts')
   </body>
 
 </html>

@@ -15,6 +15,10 @@ class CreateLessonplansTable extends Migration
     {
         Schema::create('lessonplans', function (Blueprint $table) {
             $table->id();
+            $table->string('judul_lp');
+            $table->string('isi_lp');
+            $table->string('lampiran_lp');
+            $table->boolean('status_lp');
             $table->timestamps();
         });
     }
