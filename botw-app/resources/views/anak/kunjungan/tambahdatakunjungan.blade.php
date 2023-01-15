@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('formhomevisit')
     <div class="card">

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\bantuananak;
+use App\Models\KelompokUmur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BantuananakController extends Controller
 {
@@ -14,7 +17,9 @@ class BantuananakController extends Controller
      */
     public function index()
     {
-        //
+        $collection = bantuananak::all();
+        $collection_ank = KelompokUmur::all();
+        return view('bantuan.listbantuan', compact('collection', 'collection_ank'));
     }
 
     /**
@@ -24,7 +29,8 @@ class BantuananakController extends Controller
      */
     public function create()
     {
-        //
+        $collection_ank = KelompokUmur::all();
+        return view('bantuan._add', compact('collection_ank'));
     }
 
     /**
@@ -35,7 +41,19 @@ class BantuananakController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataz = $request->all();
+        $data = BantuanAnak::create($dataz);
+        if ($request->hasFile('lampiran_bantuan')) {
+            $profile = Str::slug($data->lampiran_bantuan) . '-' . $data->id . '.' . $request->lampiran_bantuan->getClientOriginalExtension();
+            $request->lampiran_bantuan->move(public_path('images/transaction'), $profile);
+        } else {
+            $profile = 'avatar.png';
+        }
+        $data->update([
+            'lampiran_bantuan' => $profile
+        ]);
+
+        return redirect()->route('bantuan.index');
     }
 
     /**
@@ -44,9 +62,11 @@ class BantuananakController extends Controller
      * @param  \App\Models\bantuananak  $bantuananak
      * @return \Illuminate\Http\Response
      */
-    public function show(bantuananak $bantuananak)
+    public function show($id)
     {
-        //
+        $collection = BantuanAnak::find($id);
+
+        return view('bantuan._detail', compact('collection'));
     }
 
     /**
@@ -57,7 +77,7 @@ class BantuananakController extends Controller
      */
     public function edit(bantuananak $bantuananak)
     {
-        //
+        return view('bantuan._update');
     }
 
     /**
@@ -81,5 +101,25 @@ class BantuananakController extends Controller
     public function destroy(bantuananak $bantuananak)
     {
         //
+    }
+
+    public function status_update($id)
+    {
+
+        $data = bantuananak::where('id', $id)->first();
+
+        $status_skrg = $data->status_trxbantuan;
+
+        if ($status_skrg == 1) {
+            DB::table('bantuananaks')->where('id', $id)->update([
+                'status_trxbantuan' => 0
+            ]);
+        } else {
+            DB::table('bantuananaks')->where('id', $id)->update([
+                'status_trxbantuan' => 1
+            ]);
+        }
+
+        return redirect()->route('bantuan.index');
     }
 }

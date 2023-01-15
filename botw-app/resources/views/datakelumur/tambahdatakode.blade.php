@@ -6,7 +6,7 @@
             <div class="card-header border-bottom">
                 <div class="row flex-between-end">
                   <div class="col-auto align-self-center">
-                    <h5 class="mb-0" data-anchor="data-anchor" id="hoverable-rows">Tambah Data Kode Umur<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#hoverable-rows" style="padding-left: 0.375em;"></a></h5>
+                    <h5 class="mb-0" data-anchor="data-anchor" id="hoverable-rows">Tambah Data Kelompok Umur<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#hoverable-rows" style="padding-left: 0.375em;"></a></h5>
                   </div>
                 </div>
               </div>
@@ -22,10 +22,10 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label" for="inputEmail4">Assign Tutor</label>
-                  <select class="form-select" aria-label="Default select example">
+                  <select class="form-select" aria-label="Default select example" name="tutor_anak_id">
                     <option selected="">Open this select menu</option>
                     @foreach ($tutor as $item)
-                      <option value="{{ $item -> user -> id }}">{{ $item -> user -> name }}</option>
+                      <option value="{{ $item -> id }}">{{ $item -> user -> name }}</option>
                     @endforeach
                   </select>
                 </div>

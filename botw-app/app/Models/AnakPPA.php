@@ -40,4 +40,14 @@ class AnakPPA extends Model
     {
         return $this->hasMany(AbsensiAnak::class);
     }
+
+    public function hadiahsponsors()
+    {
+        return $this->hasMany(hadiahsponsor::class, 'anak_id');
+    }
+
+    public function rewards()
+    {
+        return $this->hasMany(rewardsanak::class, 'anak_id');
+    }
 }

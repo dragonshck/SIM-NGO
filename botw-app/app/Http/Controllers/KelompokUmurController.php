@@ -38,17 +38,12 @@ class KelompokUmurController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ku_name'        => 'required|string|max:255',
-            'ku_description'     => 'required|numeric',
-            'tutor_anak_id'        => 'required|numeric',
-        ]);
-
-        KelompokUmur::create([
-            'ku_name'        => $request->ku_name,
-            'ku_description'     => $request->ku_description,
-            'tutor_anak_id'        => $request->tutor_anak_id,
-        ]);
+        // $request->validate([
+        //     'ku_name'        => 'required|string|max:255',
+        //     'ku_description'     => 'required|string',
+        //     'tutor_anak_id'        => 'required|numeric',
+        // ]);
+        KelompokUmur::create($request->all());
 
         return redirect()->route('kelompokumur.index');
     }

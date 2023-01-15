@@ -12,7 +12,7 @@ class KelompokUmur extends Model
     protected $fillable = [
         'ku_name',
         'tutor_anak_id',
-        'class_description'
+        'ku_description'
     ];
 
     public function tutor()
@@ -23,5 +23,10 @@ class KelompokUmur extends Model
     public function anakku()
     {
         return $this->hasMany(AnakPPA::class);
+    }
+
+    public function bantuan()
+    {
+        return $this->hasMany(bantuananak::class);
     }
 }

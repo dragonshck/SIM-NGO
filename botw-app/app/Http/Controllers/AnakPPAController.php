@@ -128,7 +128,7 @@ class AnakPPAController extends Controller
      * @param  \App\Models\AnakPPA  $anakPPA
      * @return \Illuminate\Http\Response
      */
-    public function edit(AnakPPA $anakPPA, $id)
+    public function edit($id)
     {
         $data = DB::table('anakppa')
             ->select('anakppa.*', 'kelompok_umur.*', 'sponsor_anaks.*', 'tutor.*', 'users.*', 'users_anakppa.*')
@@ -140,8 +140,8 @@ class AnakPPAController extends Controller
             ->where('anakppa.id', $id)
             ->first();
 
-        $data_ku = KelompokUmur::latest()->get();
-        $data_sp = SponsorAnak::latest()->get();
+        $data_ku = KelompokUmur::with('tutor', 'anakku')->latest()->get();
+        $data_sp = SponsorAnak::with('sponsoranak')->latest()->get();
         return view('anak.editchild', compact('data', 'data_ku', 'data_sp', 'id'));
     }
 
@@ -152,11 +152,12 @@ class AnakPPAController extends Controller
      * @param  \App\Models\AnakPPA  $anakPPA
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AnakPPA $anakPPA)
+    public function update(Request $request, $id)
     {
+        $getAnakId = AnakPPA::with('user')->find($id);
         $request->validate([
             'name'              => 'required|string|max:255',
-            'email'             => 'required|string|email|max:255|unique:users, email' . $anakPPA->user_id,
+            'email'             => 'required|string|email|max:255|unique:users,email,' . $getAnakId->user_id,
             'password'          => 'required|string|min:8',
             'sponsor_anak_id'         => 'required|numeric',
             'kelompok_umur_id'          => 'required|numeric',
@@ -167,20 +168,22 @@ class AnakPPAController extends Controller
             'perm_addr' => 'required|string|max:255'
         ]);
 
+
+
         if ($request->hasFile('profile_picture')) {
-            $profile = Str::slug($anakPPA->user->name) . '-' . $anakPPA->user->id . '.' . $request->profile_picture->getClientOriginalExtension();
+            $profile = Str::slug($getAnakId->user->name) . '-' . $getAnakId->user->id . '.' . $request->profile_picture->getClientOriginalExtension();
             $request->profile_picture->move(public_path('images/profile'), $profile);
         } else {
-            $profile = $anakPPA->user->profile_picture;
+            $profile = $getAnakId->user->profile_picture;
         }
 
-        $anakPPA->user()->update([
+        $getAnakId->user()->update([
             'name'              => $request->name,
             'email'             => $request->email,
             'profile_picture'   => $profile
         ]);
 
-        $anakPPA->anak()->update([
+        $getAnakId->update([
             'sponsor_anak_id'         => $request->sponsor_anak_id,
             'kelompok_umur_id'        => $request->kelompok_umur_id,
             'gender'                  => $request->gender,

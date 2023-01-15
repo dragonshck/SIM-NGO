@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('daftarkunjunganlist')
 <div class="card mb-3 mb-lg-0">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiAnakController;
 use App\Http\Controllers\AbsensiStaffController;
 use App\Http\Controllers\AnakPPAController;
 use App\Http\Controllers\BantuananakController;
@@ -8,11 +9,13 @@ use App\Http\Controllers\HadiahsponsorController;
 use App\Http\Controllers\JabatanStaffController;
 use App\Http\Controllers\KelompokUmurController;
 use App\Http\Controllers\KodeabsensiController;
+use App\Http\Controllers\KunjungananakController;
 use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\RewardsanakController;
 use App\Http\Controllers\SponsorAnakController;
 use App\Http\Controllers\StaffPPAController;
 use App\Http\Controllers\TutorAnakController;
+use App\Models\AbsensiAnak;
 use App\Models\Penggajian;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +37,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\dashboard::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
@@ -56,9 +59,12 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
-    Route::resource('bantuananak', BantuananakController::class);
+    Route::resource('bantuan', BantuananakController::class);
+    Route::get('/ubah-status-bantuan/{id}', [BantuananakController::class, 'status_update']);
     Route::resource('hadiahsponsor', HadiahsponsorController::class);
-    Route::resource('rewardsanak', RewardsanakController::class);
+    Route::get('/ubah-status-hadiah/{id}', [HadiahsponsorController::class, 'status_update']);
+    Route::resource('rewards', RewardsanakController::class);
+    Route::get('/ubah-status-rewards/{id}', [RewardsanakController::class, 'status_update']);
 });
 
 Route::group(['middleware' => ['auth', 'role:sekretaris']], function () {
@@ -71,7 +77,11 @@ Route::group(['middleware' => ['auth', 'role:mentor']], function () {
     Route::resource('kelompokumur', KelompokUmurController::class);
     Route::resource('kodeabsensi', KodeabsensiController::class);
     Route::resource('anak', AnakPPAController::class);
-    Route::resource('kelompokumur', KelompokUmurController::class);
+});
+
+Route::group(['middleware' => ['auth', 'role:tutor']], function () {
+    Route::resource('absenanak', AbsensiAnakController::class);
+    Route::resource('kunjungan', KunjungananakController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {

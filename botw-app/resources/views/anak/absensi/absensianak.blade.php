@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 @section('dataabsenanak')
     <div class="card">
         <div class="card-body">

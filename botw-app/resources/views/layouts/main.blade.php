@@ -95,9 +95,11 @@
         </nav>
         <div class="content">
 
-            @include('layouts.navbar')
+          @include('layouts.navbar')
 
           {{-- Taruh Yield Disini --}}
+          @yield('dashboardstaff')
+          @yield('dashboardanak')
 
           {{-- Koordinator --}}
           {{-- Staff Masters --}}
@@ -124,6 +126,16 @@
           @yield('listbantuan')
           @yield('detailbantuan')
           @yield('formplusbantuan')
+          {{-- TRX Sponsor --}}
+          @yield('listpenerimaansponsor')
+          @yield('detailpenerimaansponsor')
+          @yield('tambahdatapenerimaansponsor')
+          {{-- TRX Rewards --}}
+          @yield('rewardslist')
+          @yield('detailreward')
+          @yield('formpenerimaanrewards')
+          {{-- Laporan Keuangan --}}
+
 
           {{-- Sekretaris --}}
           {{-- Sponsor Masters --}}
@@ -136,6 +148,7 @@
           @yield('listabsenstaff')
           @yield('formtambahabsenstaff')
           @yield('detailabsenstaff')
+
 
           {{-- Mentor --}}
           {{-- Kode Absensi Masters --}}
@@ -153,11 +166,23 @@
           @yield('listkelompokumur')
           @yield('formeditdata')
           @yield('formtambahdata')
+          {{-- Master Tutor --}}
+          @yield('listtutor')
+          @yield('tutortambah')
+
+          {{-- Tutor --}}
+          {{-- Absensi Anak / Kelompok Umur --}}
+          @yield('dataabsenanak')
+          @yield('inputabsenanak')
+          @yield('detailabsenanak')
+
+          {{-- Kunjungan Anak --}}
+          @yield('daftarkunjunganlist')
+          @yield('formhomevisit')
+
+
           {{-- Index Kelompok Umur --}}
           @yield('indexlistku')
-
-
-          
 
 
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
@@ -207,6 +232,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="vendors/chart/chart.min.js"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
   </body>

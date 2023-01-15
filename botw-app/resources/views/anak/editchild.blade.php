@@ -7,6 +7,7 @@
         <div class="card-header position-relative min-vh-25 mb-8">
           <div class="cover-image">
             <form action="{{ route('anak.update', $id) }}" method="POST" enctype="multipart/form-data">
+              @method('PUT')
               @csrf
             <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url();">
               <input class="d-none" id="upload-cover-image" type="file" name="coverprofil">
@@ -92,7 +93,7 @@
               <input class="form-control" id="confirm-password" type="password" name="password">
             </div>
           <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-primary" type="submit">Tambah</button>
+            <button class="btn btn-primary" type="submit">Update</button>
           </div>
         </form>
       </div>

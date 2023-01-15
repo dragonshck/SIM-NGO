@@ -14,7 +14,9 @@ class AbsensiAnakController extends Controller
      */
     public function index()
     {
-        //
+        $data = AbsensiAnak::groupBy('periode')->orderBy('periode', 'desc')
+            ->get();
+        return view('anak.absensi.absensianak', compact('data'));
     }
 
     /**
@@ -24,7 +26,7 @@ class AbsensiAnakController extends Controller
      */
     public function create()
     {
-        //
+        return view('anak.absensi._inputabsen');
     }
 
     /**
@@ -46,7 +48,7 @@ class AbsensiAnakController extends Controller
      */
     public function show(AbsensiAnak $absensiAnak)
     {
-        //
+        return view('anak.absensi._detailabsen');
     }
 
     /**
