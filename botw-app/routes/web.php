@@ -5,6 +5,7 @@ use App\Http\Controllers\AbsensiStaffController;
 use App\Http\Controllers\AnakPPAController;
 use App\Http\Controllers\BantuananakController;
 use App\Http\Controllers\CutistaffController;
+use App\Http\Controllers\dashboard;
 use App\Http\Controllers\HadiahsponsorController;
 use App\Http\Controllers\JabatanStaffController;
 use App\Http\Controllers\KelompokUmurController;
@@ -40,6 +41,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\dashboard::class, 'index'])->name('home');
+Route::get('/fetch-dashboard/{id}', [dashboard::class, 'fetch_dashboard']);
 
 
 Route::group(['middleware' => ['auth']], function () {

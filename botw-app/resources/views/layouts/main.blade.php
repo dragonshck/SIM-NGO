@@ -236,6 +236,8 @@
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
     @yield('js')
+    @yield('jsx')
+    @yield('charts-dashboard')
   </body>
 
 </html>
