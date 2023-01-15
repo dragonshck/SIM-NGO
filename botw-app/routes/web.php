@@ -10,6 +10,8 @@ use App\Http\Controllers\JabatanStaffController;
 use App\Http\Controllers\KelompokUmurController;
 use App\Http\Controllers\KodeabsensiController;
 use App\Http\Controllers\KunjungananakController;
+use App\Http\Controllers\LessonplanController;
+use App\Http\Controllers\LogbookmengajarController;
 use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\RewardsanakController;
 use App\Http\Controllers\SponsorAnakController;
@@ -39,10 +41,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\dashboard::class, 'index'])->name('home');
 
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
     Route::resource('staff', StaffPPAController::class);
     Route::resource('cutiizin', CutistaffController::class);
+    Route::resource('lessonplan', LessonplanController::class);
+    Route::resource('logbook', LogbookmengajarController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
@@ -81,7 +86,8 @@ Route::group(['middleware' => ['auth', 'role:mentor']], function () {
 
 Route::group(['middleware' => ['auth', 'role:tutor']], function () {
     Route::resource('absenanak', AbsensiAnakController::class);
-    Route::resource('kunjungan', KunjungananakController::class);
+    Route::get('/fetch-anak/{id}', [AbsensiAnakController::class, 'getAnakbyKelompokUmur']);
+    Route::get('/fetch-tgl-anak/{id}/{tgl}', [AbsensiAnakController::class, 'getAnakByDate']);
 });
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {

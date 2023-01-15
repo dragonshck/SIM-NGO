@@ -9,12 +9,12 @@ class AbsensiAnak extends Model
 {
     use HasFactory;
 
+    protected $table = 'absensi_anak';
     protected $fillable = [
-        'kelompok_umur_id',
-        'tutor_anak_id',
         'anak_p_p_a_id',
-        'attendence_date',
-        'attendence_status'
+        'tanggal_absen',
+        'status_absen',
+        'periode'
     ];
 
     public function anakabsen()
@@ -22,13 +22,13 @@ class AbsensiAnak extends Model
         return $this->belongsTo(AnakPPA::class, 'anak_p_p_a_id', 'id');
     }
 
-    public function tutorngabsen()
+    public function kodeabsen()
     {
-        return $this->belongsTo(TutorAnak::class, 'tutor_anak_id', 'id');
+        return $this->belongsTo(kodeabsensi::class, 'status_absen', 'id');
     }
 
-    public function kelompokumurabsen()
+    public function _anak()
     {
-        return $this->belongsTo(KelompokUmur::class, 'kelompok_umur_id', 'id');
+        return $this->hasOne('App\Models\AnakPPA', 'id', 'anak_p_p_a_id');
     }
 }

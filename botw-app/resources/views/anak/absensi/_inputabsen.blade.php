@@ -6,41 +6,38 @@
     <p class="mb-0">Pastikan data yang diinputkan sudah benar :)</p>
   </div>
 </div>
-<form method="POST" action="/add-absenanak">
+<form method="POST" action="{{ route('absenanak.store') }}">
 @csrf
 <div class="card">
   <div class="card-body">
       <div class="form-group">
-            <div class="mb-3">
-              <label class="form-label" for="bootstrap-wizard-wizard-name">Periode</label>
-              <select class="form-select" aria-label="Default select example" name="periode">
-                <option selected="">Pilih Periode</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="3">April</option>
-                <option value="3">May</option>
-                <option value="3">June</option>
-                <option value="3">July</option>
-                <option value="3">August</option>
-                <option value="3">September</option>
-                <option value="3">October</option>
-                <option value="3">November</option>
-                <option value="3">December</option>
-              </select>
-          </div>
+        {{-- {{ dd(auth()->user()->tutor->kelompokumur->ku_name) }} --}}
+        {{-- @foreach ($kabsen as $item)
+            {{ dd($item->kode_absen) }}
+        @endforeach --}}
+        {{-- {{ dd($kode_absen->toArray()) }} --}}
           <div class="mb-3">
             <label class="form-label" for="form-wizard-progress-wizard-email">Kelompok Umur</label>
+            <?php $ex = auth()->user()->tutor->kelompokumur ?>
             <select class="form-select" aria-label="Default select example" id="kelompokumur_id" required>
-              <option selected="">Pilih Kelompok Umur</option>
+              @if($ex != "")
+              <option value="">Pilih KU</option>
+              <option value="{{ $ex -> id }}">{{ $ex -> ku_name }}</option>
+              @else
               @foreach ($data_ku as $item)
-                <option value="{{ $item -> id }}">{{ $item -> nama_ku }}</option>
+                <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
               @endforeach 
+              @endif
             </select>
           </div>
           <div class="mb-3">
             <label class="form-label" for="datepicker">Pilih Tanggal Absensi</label>
             <input class="form-control datetimepicker" name="tanggal_absen" id="datepicker" type="text" placeholder="d/m/y" data-options='{"disableMobile":true}' />
+            <label class="col-sm-2 col-form-label" for="staticEmail">Periode</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="periodz" name="periode" type="text" value="" />
+            <div class="mb-3 row"></div>
+          </div>
           </div>
       </div>
       <div class="form-group">
@@ -50,7 +47,7 @@
               <thead>
                 <tr class="btn-reveal-trigger">
                   <th scope="col">Nama Anak</th>
-                  <th scope="col">Kelompok Umur</th>
+                  <th scope="col"></th>
                   <th class="text-end" scope="col">Kehadiran</th>
                 </tr>
               </thead>
@@ -68,9 +65,20 @@
   </div>
 </div>
 </form>
+<?php
+    $data_ku_item_options = '';
+    foreach ($kabsen as $item) {
+        $data_ku_item_options .= "<option value='" . $item->id . "'>" . $item->nama_absen . "</option>";
+    }
+?>
+
 @endsection
 
+
+
 @section('js')
+
+
 <script>
   $('#kelompokumur_id').change(function() {
   var id = $(this).val();
@@ -83,17 +91,24 @@
           let dataArray = response.data
           $('#data_anak').empty()
           let res = dataArray.map((person, index) => {
+          var optionz = "{{ $data_ku_item_options }}";
           let list = `
               <tr class="btn-reveal-trigger">
-                <td>${person.fullname}</td>
-                <td>${index}</td>
+                <td>${person.user.name}</td>
+                <td></td>
                 <td class="text-end">
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="absensi[${person.id}]">
-                    <option value="">Pilih Absensi</option>
-                    <option value="1">PRESENT</option>
-                    <option value="2">PERMIT</option>
-                    <option value="3">SICK</option>
-                    <option value="4">ALPHA</option>
+                        <option value="1">H</option>
+                        <option value="1">AM</option>
+                        <option value="2">AS</option>
+                        <option value="3">DK</option>
+                        <option value="4">JB</option>
+                        <option value="5">KM</option>
+                        <option value="6">KC</option>
+                        <option value="7">KD</option>
+                        <option value="8">KK</option>
+                        <option value="9">SM</option>
+                        <option value="10">LL</option>
                   </select>
                 </td>
               </tr>
@@ -106,4 +121,25 @@
   });
 });
 </script>
+@endsection
+
+@section('getPeriodeAbsensi')
+    <script>
+      $(function() {
+        const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+         
+        var flatpickr;
+        $("#datepicker").datepicker({
+          dateFormat: "yy-m-d",
+          changeMonth: true,
+          changeYear: true,
+          onSelect: function(dateText, inst) {
+            var dt = $.datepicker.parseDate("yy-m-d", dateText);
+            flatpickr = month[dt.getMonth()];
+            console.log("Birth Month: " + flatpickr);
+            $('#periodz').val(flatpickr);
+          }
+        });
+      });
+    </script>
 @endsection

@@ -27,7 +27,7 @@ class TutorAnak extends Model
 
     public function kelompokumur()
     {
-        return $this->hasMany(KelompokUmur::class);
+        return $this->hasOne(KelompokUmur::class);
     }
 
     public function anaks()

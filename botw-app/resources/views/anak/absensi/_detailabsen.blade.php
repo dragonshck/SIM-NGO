@@ -9,15 +9,6 @@
   <div class="card">
     <div class="card-body">
         <div class="d-flex justify-content-end">
-            <form>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                  <option selected="selected">Pilih Kelompok Umur</option>
-                  <option>Seminar</option>
-                  <option>Fellowship</option>
-                  <option>Pemeriksaan Kesehatan</option>
-                  <option>Study Tour</option>
-                </select>
-              </form>
               <div class="mx-3">
                 {{-- <a class="btn btn-falcon-default btn-sm" type="button" href="">Export to Excel</a> --}}
               </div>
@@ -45,10 +36,10 @@
                 @foreach ($data as $item) 
                 @php
                 $year = date('Y', strtotime($item->tanggal_absen));
-                $absensi = App\Http\Controllers\AbsensiAnakController::getAnakByDate($item->anak_id, $year, $item->periode);
+                $absensi = App\Http\Controllers\AbsensiAnakController::getAnakByDate($item->anak_p_p_a_id, $year, $item->periode);
                 @endphp
                 <tr class="btn-reveal-trigger">
-                  <td>{{ $item -> absen2anak -> fullname }}</td>
+                  <td>{{ $item -> anakabsen -> user -> name }}</td>
 
                   @foreach($absensi as $index2 => $item_absen)
                   @if (!empty($item_absen['status_absen']))

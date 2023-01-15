@@ -17,7 +17,7 @@ class TutorAnakController extends Controller
      */
     public function index()
     {
-        //
+        return view('tutor.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class TutorAnakController extends Controller
      */
     public function create()
     {
-        //
+        return view('tutor.create');
     }
 
     /**
@@ -75,7 +75,7 @@ class TutorAnakController extends Controller
 
         $user->assignRole('tutor');
 
-        return redirect()->route('teacher.index');
+        return redirect()->route('tutor.index');
     }
 
     /**

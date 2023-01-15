@@ -235,6 +235,7 @@
     <script src="vendors/chart/chart.min.js"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
+    @yield('js')
   </body>
 
 </html>

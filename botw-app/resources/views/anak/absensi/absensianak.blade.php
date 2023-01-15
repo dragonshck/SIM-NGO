@@ -9,7 +9,7 @@
                   </div>
                   <div class="col-8 col-sm-auto text-end ps-2">
                     <div id="table-customers-replace-element">
-                      <a class="btn btn-falcon-default btn-sm" type="button" href="/absenanak-tambah"><svg class="svg-inline--fa fa-plus fa-w-14" data-fa-transform="shrink-3 down-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.625em;"><g transform="translate(224 256)"><g transform="translate(0, 64)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path></g></g></svg><span class="d-none d-sm-inline-block ms-1">Mulai Absen</span></a>
+                      <a class="btn btn-falcon-default btn-sm" type="button" href="{{ route('absenanak.create') }}"><svg class="svg-inline--fa fa-plus fa-w-14" data-fa-transform="shrink-3 down-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.625em;"><g transform="translate(224 256)"><g transform="translate(0, 64)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path></g></g></svg><span class="d-none d-sm-inline-block ms-1">Mulai Absen</span></a>
                     </div>
                   </div>
                 </div>
@@ -27,7 +27,7 @@
                     @foreach ($data as $item)
                     <tr class="btn-reveal-trigger">
                       <td>
-                        <a class="btn btn-outline-success btn-sm" type="button" href="{{ route('detailabsen-anak', $item->periode) }}">View Absen
+                        <a class="btn btn-outline-success btn-sm" type="button" href="{{ route('absenanak.show', $item->periode) }}">View Absen
                         </a>
                       </td>
                       <td>{{ $item -> periode }}</td>
@@ -36,7 +36,7 @@
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-0">
                             <div class="bg-white py-2">
-                              <a class="dropdown-item" href="#!">Print to PDF</a></div>
+                              
                           </div>
                         </div>
                       </td>

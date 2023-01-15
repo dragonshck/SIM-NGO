@@ -14,4 +14,9 @@ class kodeabsensi extends Model
         'nama_absen',
         'keterangan'
     ];
+
+    public function buatabsen()
+    {
+        return $this->hasMany(AbsensiAnak::class, 'status_absen');
+    }
 }
