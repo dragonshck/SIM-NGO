@@ -21,7 +21,7 @@
                     <tr>
                       <th scope="col">Nama Tutor</th>
                       <th scope="col">Lampiran LP</th>
-                      <th scope="col">KU</th>
+                      <th scope="col"></th>
                       <th scope="col">Date Uploaded</th>
                       <th scope="col">Status</th>
                       <th class="text-end" scope="col">Actions</th>
@@ -34,12 +34,14 @@
                           <div class="avatar avatar-xl">
                             <img class="rounded-circle" src="../../assets/img/team/4.jpg" alt="" />
                           </div>
-                          <div class="ms-2">Ricky Antony</div>
+                          <div class="ms-2">Ultra Magnus</div>
                         </div>
                       </td>
-                      <td class="text-nowrap">ricky@example.com</td>
-                      <td class="text-nowrap">(201) 200-1851</td>
-                      <td class="text-nowrap">2392 Main Avenue, Penasauka</td>
+                      <td class="text-nowrap">
+                        <a class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-2 mt-2 inbox-link" href=""><svg class="svg-inline--fa fa-file-pdf fa-w-12 text-danger" data-fa-transform="grow-4" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="" style="transform-origin: 0.375em 0.5em;"><g transform="translate(192 256)"><g transform="translate(0, 0)  scale(1.25, 1.25)  rotate(0 0 0)"><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z" transform="translate(-192 -256)"></path></g></g></svg><!-- <span class="fas fa-file-pdf text-danger" data-fa-transform="grow-4"></span> Font Awesome fontawesome.com --><span class="ms-2">lampiran_lp.pdf</span></a>
+                      </td>
+                      <td class="text-nowrap"></td>
+                      <td class="text-nowrap">10 January 2023</td>
                       <td><span class="badge badge rounded-pill d-block p-2 badge-soft-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                       </td>
                       <td class="text-end">

@@ -6,6 +6,8 @@ use App\Models\JabatanStaff;
 use App\Models\Penggajian;
 use App\Models\StaffPPA;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PenggajianController extends Controller
 {
@@ -59,8 +61,37 @@ class PenggajianController extends Controller
         $uang_lembur = $gaji->uang_overtime;
         $waktu_lembur = $gaji->jumlah_overtime;
         $total_lembur = $uang_lembur * $waktu_lembur;
-        return view('penggajian._detailgaji', compact('gaji', 'total_lembur'));
+        return view('penggajian._detailgaji', compact('gaji', 'total_lembur', 'penggajian'));
     }
+
+    public function cetakSlip()
+    {
+        // $dompdf = new Dompdf();
+        // $url = explode('/', url()->current()); // something like [..., '127.0.0.1:8000', 'pengajuan', '3']
+        // $id = end($url);
+
+
+        // $gaji = Penggajian::where('id', $id)->first();
+        // $uang_lembur = $gaji->uang_overtime;
+        // $waktu_lembur = $gaji->jumlah_overtime;
+        // $total_lembur = $uang_lembur * $waktu_lembur;
+
+        // $string = implode(',', compact('gaji', 'total_lembur'));
+
+        // $dompdf->loadHtml('penggajian._slipgaji', $string);
+        // $dompdf->stream();
+        $url = explode('/', url()->current());
+        $id = end($url);
+
+        $gaji = Penggajian::where('id', $id)->first();
+        $uang_lembur = $gaji->uang_overtime;
+        $waktu_lembur = $gaji->jumlah_overtime;
+        $total_lembur = $uang_lembur * $waktu_lembur;
+
+        $dompdf = Pdf::loadview('penggajian._slipgaji', compact('gaji', 'total_lembur'));
+        return $dompdf->download('slipgaji.pdf');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

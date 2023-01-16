@@ -12,17 +12,7 @@
             <form action="{{ route('lessonplan.store') }}" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-name">Judul Lesson Plan</label>
-                  <input name="keterangan_lp" class="form-control" id="basic-form-name" type="text" placeholder="Masukkan Judul" />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="basic-form-gender">Kelompok Umur</label>
-                  <select class="form-select" id="basic-form-gender" aria-label="Default select example">
-                    <option selected="selected">Pilih Kelompok Umur</option>
-                    <option value="male">TK</option>
-                    <option value="female">SD</option>
-                    <option value="other">SMP</option>
-                    <option value="other">SMA-K / Kuliah</option>
-                  </select>
+                  <input name="keterangan_lp" class="form-control" id="basic-form-name" type="text" placeholder="Masukkan Judul" name="judul_lp" />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Upload File</label>
@@ -30,7 +20,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-textarea">Description</label>
-                  <textarea name="desc" class="form-control" id="basic-form-textarea" rows="3" placeholder="Description"></textarea>
+                  <textarea name="desc" class="form-control" id="basic-form-textarea" rows="3" placeholder="Description" name="isi_lp"></textarea>
                 </div>
                 
                 <button class="btn btn-primary" type="submit">Submit</button>

@@ -1,19 +1,49 @@
-@extends('layouts.main')
-@section('detailgaji')
-<div class="card mb-3">
-    <div class="card-body">
-      <div class="row justify-content-between align-items-center">
-        <div class="col-md">
-          <h5 class="mb-2 mb-md-0">Detail Penggajian Staff</h5>
-        </div>
-        <div class="col-auto">
-          <a href="/cetak-slip/{{ $penggajian->id }}" class="btn btn-falcon-default btn-sm me-1 mb-2 mb-sm-0" type="button"><svg class="svg-inline--fa fa-print fa-w-16 me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"></path></svg><!-- <span class="fas fa-print me-1"> </span> Font Awesome fontawesome.com -->Print</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<style>
+	.demo {
+		border:1px solid #C0C0C0;
+		border-collapse:collapse;
+		padding:5px;
+	}
+	.demo th {
+		border:1px solid #C0C0C0;
+		padding:5px;
+		background:#F0F0F0;
+	}
+	.demo td {
+		border:1px solid #C0C0C0;
+		padding:5px;
+	}
+</style>
+<table class="demo">
+	<caption>Slip Gaji untuk : {{ $gaji -> staff -> user -> name }}</caption>
+	<thead>
+	<tr>
+		<th>Gaji Pokok</th>
+		<th>Transportasi</th>
+		<th>Uang Makan</th>
+		<th>Lembur</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>@currency($gaji -> staff -> jabatan -> gaji_pokok)</td>
+		<td>@currency($gaji -> staff -> jabatan -> tunjangan_kendaraan)</td>
+		<td>@currency($gaji -> staff -> jabatan -> tunjangan_makanan)</td>
+		<td>@currency($total_lembur)</td>
+	</tr>
+	</tbody>
+</table>
 
-  <div class="card mb-3">
+<table>
+  <tbody>
+  <tr >
+    <th>Total:</th>
+    <td>@currency($gaji -> total)</td>
+  </tr>
+</tbody></table>
+  
+  
+  {{-- <div class="card mb-3">
     <div class="card-body">
       <div class="row align-items-center text-center mb-3">
         <div class="col-sm-6 text-sm-start"><img src="{{ asset('assets/dawn.png') }}" alt="invoice" width="150"></div>
@@ -89,5 +119,4 @@
     <div class="card-footer bg-light">
       <p class="fs--1 mb-0"><strong>Notes: </strong>Jika ada kesalahan data, mohon beritahu Koordinator segera!</p>
     </div>
-  </div>
-@endsection
+  </div> --}}

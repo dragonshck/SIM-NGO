@@ -17,7 +17,8 @@ class TutorAnakController extends Controller
      */
     public function index()
     {
-        return view('tutor.index');
+        $staff = TutorAnak::with('user')->get();
+        return view('tutor.index', compact('staff'));
     }
 
     /**

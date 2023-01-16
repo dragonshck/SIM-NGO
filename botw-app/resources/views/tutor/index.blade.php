@@ -32,7 +32,7 @@
                       <td class="align-middle text-nowrap">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-xl">
-                            <img class="rounded-circle" src="{{ asset('images/profile/' . $item->user->profile_picture) }}" alt="" />
+                            {{-- <img class="rounded-circle" src="{{ asset('images/profile/' . $item->user->profile_picture) }}" alt="" /> --}}
                           </div>
                           <div class="ms-2">{{ $item->user->name }}</div>
                         </div>

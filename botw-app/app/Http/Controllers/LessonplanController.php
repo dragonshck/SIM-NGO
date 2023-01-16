@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\lessonplan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LessonplanController extends Controller
 {
@@ -14,7 +16,8 @@ class LessonplanController extends Controller
      */
     public function index()
     {
-        return view('lessonplan.lessonplan');
+        $lp = lessonplan::with('lptutor')->get();
+        return view('lessonplan.lessonplan', compact('lp'));
     }
 
     /**
@@ -35,7 +38,24 @@ class LessonplanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'tutor_id' => Auth::user()->tutor->id,
+            'isi_lp' => $request->isi_lp,
+            'judul_lp' => $request->judul_lp,
+            'created_at' => now('6.0') . date(''),
+        ];
+
+        if ($request->file('lampiran_lp')) {
+            $file = $request->file('lampiran_lp');
+            $input['lampiran_lp'] = time() . '_post_lampiran_lp.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('lptutor/');
+            $file->move($destinationPath, $input['lampiran_lp']);
+            $data['lampiran_lp'] = $input['lampiran_lp'];
+        }
+
+        DB::table('lessonplans')->insert($data);
+
+        return redirect()->route('rapor-anak');
     }
 
     /**

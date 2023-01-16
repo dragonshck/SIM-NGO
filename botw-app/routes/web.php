@@ -47,6 +47,7 @@ Route::get('/fetch-dashboard/{id}', [dashboard::class, 'fetch_dashboard']);
 
 
 
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
     Route::resource('staff', StaffPPAController::class);
@@ -67,7 +68,7 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::resource('penggajian', PenggajianController::class);
     Route::get('/fetch-gaji/{id}', [PenggajianController::class, 'getGajiByStaff']);
     Route::get('/ubah-status-cuti/{id}', [CutiStaffController::class, 'status_update']);
-
+    Route::get('/cetak-slip/{id}', [PenggajianController::class, 'cetakSlip']);
     Route::resource('jabatanstaff', JabatanStaffController::class);
 });
 

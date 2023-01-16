@@ -12,8 +12,6 @@ class TutorAnak extends Model
     protected $table = 'tutor';
     protected $fillable = [
         'name',
-        'fotoprofil',
-        'fotocover',
         'phone',
         'dateofbirth',
         'current_address',
@@ -22,7 +20,7 @@ class TutorAnak extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'tutor_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function kelompokumur()
@@ -33,5 +31,10 @@ class TutorAnak extends Model
     public function anaks()
     {
         return $this->classes()->withCount('anaks');
+    }
+
+    public function lessonplan()
+    {
+        return $this->hasMany(lessonplan::class);
     }
 }
