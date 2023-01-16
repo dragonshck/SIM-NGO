@@ -125,6 +125,7 @@
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">Absensi Karyawan</span>
               </div>
             </a>
+            
             <ul class="nav false collapse" id="user1" style="">
               <li class="nav-item"><a class="nav-link" href="{{ route('absensistaff.index') }}" aria-expanded="false">
                   <div class="d-flex align-items-center"><span class="nav-link-text ps-1">+ Absensi Karyawan</span>

@@ -11,23 +11,13 @@
 <div class="card">
   <div class="card-body">
       <div class="form-group">
-        {{-- {{ dd(auth()->user()->tutor->kelompokumur->ku_name) }} --}}
-        {{-- @foreach ($kabsen as $item)
-            {{ dd($item->kode_absen) }}
-        @endforeach --}}
-        {{-- {{ dd($kode_absen->toArray()) }} --}}
           <div class="mb-3">
             <label class="form-label" for="form-wizard-progress-wizard-email">Kelompok Umur</label>
-            <?php $ex = auth()->user()->tutor->kelompokumur ?>
             <select class="form-select" aria-label="Default select example" id="kelompokumur_id" required>
-              @if($ex != "")
-              <option value="">Pilih KU</option>
-              <option value="{{ $ex -> id }}">{{ $ex -> ku_name }}</option>
-              @else
-              @foreach ($data_ku as $item)
-                <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
-              @endforeach 
-              @endif
+
+              @foreach($data_ku as $index => $item)
+              <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
@@ -92,7 +82,7 @@
                 <td class="text-end">
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="absensi[${person.id}]">`;
                     $.each(ambasing, function(index, value) {
-                      list += `<option value="${value.id}">${value.kode_absen}</option>`;
+                      list += `<option value="${value.id}">${value.nama_absen}</option>`;
                     });
                     list += 
                     `</select>

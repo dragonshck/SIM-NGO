@@ -115,7 +115,7 @@ class AnakPPAController extends Controller
             ->leftJoin('kelompok_umur', 'anakppa.kelompok_umur_id', '=', 'kelompok_umur.id')
             ->leftJoin('sponsor_anaks', 'anakppa.sponsor_anak_id', '=', 'sponsor_anaks.id')
             ->leftJoin('tutor', 'kelompok_umur.tutor_anak_id', '=', 'tutor.id')
-            ->leftJoin('users', 'tutor.tutor_id', '=', 'users.id')
+            ->leftJoin('users', 'tutor.user_id', '=', 'users.id')
             ->leftJoin('users as users_anakppa', 'anakppa.user_id', '=', 'users_anakppa.id')
             ->where('anakppa.id', $id)
             ->first();

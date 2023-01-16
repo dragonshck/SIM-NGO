@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\KelompokUmur;
+use App\Models\StaffPPA;
 use App\Models\TutorAnak;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class KelompokUmurController extends Controller
@@ -15,8 +17,16 @@ class KelompokUmurController extends Controller
      */
     public function index()
     {
-        $dataku = KelompokUmur::withCount('anakku')->get();
+        $dataku = KelompokUmur::with('tutor')->withCount('anakku')->get();
+        // dd($dataku->toArray());
         return view('datakelumur.kelompokumur', compact('dataku'));
+    }
+
+    public static function getTutor($id)
+    {
+        $tutor = StaffPPA::with('user')->where('kelompok_umur_id', $id)->first();
+        return $tutor;
+
     }
 
     /**
@@ -26,7 +36,7 @@ class KelompokUmurController extends Controller
      */
     public function create()
     {
-        $tutor = TutorAnak::latest()->get();
+        $tutor = StaffPPA::with('jabatan')->where('jabatan_staff_id', 2)->get();
         return view('datakelumur.tambahdatakode', compact('tutor'));
     }
 
@@ -38,12 +48,20 @@ class KelompokUmurController extends Controller
      */
     public function store(Request $request)
     {
+
+        $staff = StaffPPA::where('id', $request->tutor_anak_id)->with('user')->first();
         // $request->validate([
         //     'ku_name'        => 'required|string|max:255',
         //     'ku_description'     => 'required|string',
         //     'tutor_anak_id'        => 'required|numeric',
         // ]);
-        KelompokUmur::create($request->all());
+        $create = KelompokUmur::create($request->all());
+
+        if($create){
+            $staff->update([
+                'kelompok_umur_id' => $create->id
+            ]);
+        }
 
         return redirect()->route('kelompokumur.index');
     }
@@ -69,7 +87,9 @@ class KelompokUmurController extends Controller
     {
         $tutor = TutorAnak::latest()->get();
         $ku = KelompokUmur::findOrFail($id);
-        return view('datakelumur.editdatakode', compact('tutor', 'ku'));
+        $staff_tutor = StaffPPA::with('jabatan')->where('jabatan_staff_id', 2)->whereNull('kelompok_umur_id')->get();
+        $staff_assigne = StaffPPA::with('user')->where('kelompok_umur_id', $id)->first();
+        return view('datakelumur.editdatakode', compact('tutor', 'ku', 'staff_tutor', 'staff_assigne', 'id'));
     }
 
     /**
@@ -84,16 +104,28 @@ class KelompokUmurController extends Controller
         $request->validate([
             'ku_name'        => 'required|string|max:255',
             'ku_description'     => 'required|numeric',
-            'tutor_anak_id'        => 'required|numeric',
         ]);
+
+        dd($id);
+        $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        $deleting_last_staff->update([
+            'kelompok_umur_id' => NULL
+        ]);
+
+        $staff = StaffPPA::where('id', $request->tutor_anak_id)->with('user')->first();
 
         $class = KelompokUmur::findOrFail($id);
 
         $class->update([
             'ku_name'        => $request->ku_name,
             'ku_description'     => $request->ku_description,
-            'tutor_anak_id'        => $request->tutor_anak_id,
         ]);
+
+        if($class){
+            $staff->update([
+                'kelompok_umur_id' => $class->id
+            ]);
+        }
 
         return redirect()->route('kelompokumur.index');
     }

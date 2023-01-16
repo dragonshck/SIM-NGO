@@ -17,7 +17,8 @@ class CutistaffController extends Controller
      */
     public function index()
     {
-        $collection = cutistaff::with('cuti2staff')->get();
+        $id = \Auth::user()->id;
+        $collection = cutistaff::with('cuti2staff')->where('staff_id', $id)->get();
         $daysdiff = [];
 
         foreach ($collection as $index => $item) {

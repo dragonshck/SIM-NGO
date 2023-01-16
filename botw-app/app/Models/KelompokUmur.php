@@ -11,13 +11,12 @@ class KelompokUmur extends Model
     protected $table = 'kelompok_umur';
     protected $fillable = [
         'ku_name',
-        'tutor_anak_id',
         'ku_description'
     ];
 
     public function tutor()
     {
-        return $this->belongsTo(TutorAnak::class, 'tutor_anak_id', 'id');
+        return $this->belongsTo(StaffPPA::class, 'tutor_anak_id', 'id');
     }
 
     public function anakku()

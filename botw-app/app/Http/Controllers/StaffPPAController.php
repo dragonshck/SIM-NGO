@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KelompokUmur;
 use App\Models\StaffPPA;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 
 class StaffPPAController extends Controller
 {
@@ -17,7 +19,7 @@ class StaffPPAController extends Controller
      */
     public function index()
     {
-        $staff = StaffPPA::with('user')->get();
+        $staff = StaffPPA::with('user', 'jabatan')->get();
         return view('staff.list', compact('staff'));
     }
 
@@ -28,7 +30,9 @@ class StaffPPAController extends Controller
      */
     public function create()
     {
-        return view('staff.create');
+        $jabatan = \DB::table('roles')->whereNotIn('name', ['anak'])->get();
+        $kelompok_umur = KelompokUmur::get();
+        return view('staff.create', compact('jabatan', 'kelompok_umur'));
     }
 
     /**
@@ -43,22 +47,40 @@ class StaffPPAController extends Controller
             'name'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:users',
             'password'          => 'required|string|min:8',
-            'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
             'dateofbirth'       => 'required|date',
-            'current_address'   => 'required|string|max:255',
-            'permanent_address' => 'required|string|max:255'
+            'current_addr'   => 'required|string|max:255',
+            'perm_addr' => 'required|string|max:255'
         ]);
 
-        $user = User::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password)
-        ]);
+        $register = [
+            'name' => $request ->name,
+            'email' => $request ->email,
+            'password' => Hash::make($request->password),
+            'phone' => $request ->phone,
+            'dateofbirth' => $request ->dateofbirth,
+            'current_addr' => $request ->current_addr,
+            'perm_addr' => $request ->perm_addr,
+            'jabatan_staff_id' => $request->jabatan_staff_id,
+            'kelompok_umur_id' => $request->kelompok_umur_id
+        ];
+        // dd($register, $request->all());
+        // dd(Auth::user()->id);
+        // $userIdAssign = auth()->user()->id;
+        // dd($register);
+
+        // dd($userIdAssign);
+        // DB::table('model_has_roles')
+        // ->where('model_id', $request->userid)
+        // ->update(['role_id' =>  $request->editusertype]);
+        
+
+        $user = User::create($register);
+
 
         if ($request->hasFile('profile_picture')) {
             $profile = Str::slug($user->name) . '-' . $user->id . '.' . $request->profile_picture->getClientOriginalExtension();
-            $request->profile_picture->move(public_path('images/staffprofile'), $profile);
+            $request->profile_picture->move(public_path('images/profile'), $profile);
         } else {
             $profile = 'avatar.png';
         }
@@ -66,13 +88,22 @@ class StaffPPAController extends Controller
             'profile_picture' => $profile
         ]);
 
-        $user->teacher()->create([
-            'gender'            => $request->gender,
-            'phone'             => $request->phone,
-            'dateofbirth'       => $request->dateofbirth,
-            'current_address'   => $request->current_address,
-            'permanent_address' => $request->permanent_address
-        ]);
+        if($user){
+            $register['user_id'] = $user->id;
+            StaffPPA::create($register);
+            $assignPermission = \DB::table('model_has_roles')->insert(['role_id' => $request->jabatan_staff_id, 'model_type' => 'App\Models\User' ,'model_id' => $user->id]);
+
+            // $get_staff = \DB::
+        }
+        
+
+        // $user->teacher()->create([
+        //     'gender'            => $request->gender,
+        //     'phone'             => $request->phone,
+        //     'dateofbirth'       => $request->dateofbirth,
+        //     'current_addr'   => $request->current_address,
+        //     'perm_addr' => $request->permanent_address
+        // ]);
 
         return redirect()->route('staff.index');
     }

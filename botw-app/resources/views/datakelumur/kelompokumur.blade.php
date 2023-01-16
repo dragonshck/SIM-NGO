@@ -27,6 +27,9 @@
               </thead>
               <tbody>
                 @foreach ($dataku as $item)
+                @php
+                  $staff = \App\Http\Controllers\KelompokUmurController::getTutor($item->id);
+                @endphp
                 <tr class="hover-actions-trigger">
                   <td class="align-middle text-nowrap">
                     <div class="d-flex align-items-center">
@@ -36,7 +39,7 @@
                       <div class="ms-2">{{ $item -> ku_description }}</div>
                     </div>
                   </td>
-                  <td class="align-middle text-nowrap">{{ $item -> tutor -> user -> name }}</td>
+                  <td class="align-middle text-nowrap">{{$staff ? $staff->user->name : '-' }}</td>
                   <td class="w-auto">
                     <div class="btn-group btn-group hover-actions end-0 me-4">
                       <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="{{ route('kelompokumur.edit', $item -> id) }}"><span class="fas fa-edit"></span></a>

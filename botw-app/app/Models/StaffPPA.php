@@ -12,11 +12,12 @@ class StaffPPA extends Model
     protected $table = 'staff_p_p_a_s';
     protected $fillable = [
         'user_id',
-        'gender',
         'phone',
         'dateofbirth',
-        'current_address',
-        'permanent_address',
+        'current_addr',
+        'perm_addr',
+        'jabatan_staff_id',
+        'kelompok_umur_id'
     ];
 
     public function user()

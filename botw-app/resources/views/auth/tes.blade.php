@@ -1,7 +1,33 @@
 @extends('layouts.app')
 
-@section('content')
-<section class="vh-100">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
+  <link rel='stylesheet' id='roboto-subset.css-css'  href='https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5' type='text/css' media='all' />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PPA Kalvari 868 | Login</title>
+  <style>
+    .bg-image-vertical {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+  }
+  
+  @media (min-width: 1025px) {
+  .h-custom-2 {
+  height: 100%;
+  }
+  }
+  </style>
+</head>
+<body>
+  <section class="vh-100">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 text-black">
@@ -19,23 +45,21 @@
               <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
   
               <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example18">Email address</label>
                 <input class="form-control form-control-lg" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus/>
-                
+                <label class="form-label" for="form2Example18">Email address</label>
               </div>
   
               <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example28">Password</label>
                 <input class="form-control form-control-lg" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"/>
-                
+                <label class="form-label" for="form2Example28">Password</label>
               </div>
   
               <div class="pt-1 mb-4">
                 <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
               </div>
   
-              {{-- <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-              <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p> --}}
+              <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
+              <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
   
             </form>
   
@@ -43,10 +67,14 @@
   
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
-          <img src="https://cdnb.artstation.com/p/assets/images/images/027/048/505/large/zhengyi-wang-.jpg"
+          <img src="https://cdna.artstation.com/p/assets/images/images/014/049/440/large/alberto-petronio-19.jpg"
             alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
         </div>
       </div>
     </div>
   </section>
-@endsection
+  
+  
+</body>
+</html>
+

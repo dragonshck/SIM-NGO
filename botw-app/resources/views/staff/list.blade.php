@@ -27,7 +27,6 @@
                   </thead>
                   <tbody>
                     @foreach ($staff as $item)
-
                     <tr class="hover-actions-trigger">
                       <td class="align-middle text-nowrap">
                         <div class="d-flex align-items-center">
@@ -44,7 +43,8 @@
                           <button class="btn btn-light ps-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="fas fa-trash-alt"></span></button>
                         </div>
                       </td>
-                      <td class="align-middle text-nowrap">{{ $item-> jabatan -> nama_jabatan }}</td>
+                      <td class="align-middle text-nowrap">{{ $item-> jabatan -> nama_jabatan ?? '' }}</td>
+                      <!-- <td class="align-middle text-nowrap">{{ $item-> jabatan['nama_jabatan'] ?? '' }}</td> -->
                     </tr>
                                             
                     @endforeach
