@@ -98,6 +98,12 @@
     </div>
   </div>
   @endcannot
+  
+  @can('read access anak')
+  
+  @endcan
+
+
 @endsection
 
 @section('jsx')

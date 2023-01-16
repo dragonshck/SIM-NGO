@@ -182,6 +182,9 @@
           @yield('dataabsenanak')
           @yield('inputabsenanak')
           @yield('detailabsenanak')
+          {{-- Lesson Plan --}}
+          @yield('formtambahlp')
+          @yield('daftarlessonplan')
 
           {{-- Index Kelompok Umur --}}
           @yield('indexlistku')

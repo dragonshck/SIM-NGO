@@ -14,7 +14,7 @@ class LessonplanController extends Controller
      */
     public function index()
     {
-        //
+        return view('lessonplan.lessonplan');
     }
 
     /**
@@ -24,7 +24,7 @@ class LessonplanController extends Controller
      */
     public function create()
     {
-        //
+        return view('lessonplan.tambahlp');
     }
 
     /**

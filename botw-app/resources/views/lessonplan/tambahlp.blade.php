@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('formtambahlp')
 <div class="card-header bg-light">
@@ -9,7 +9,7 @@
     </div>
   </div>
         <div class="card-body bg-light">
-            <form>
+            <form action="{{ route('lessonplan.store') }}" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-name">Judul Lesson Plan</label>
                   <input name="keterangan_lp" class="form-control" id="basic-form-name" type="text" placeholder="Masukkan Judul" />

@@ -19,6 +19,7 @@ class dashboard extends Controller
     use HasRoles;
     public function index()
     {
+        $user = Auth::user();
         $data_anak  = AnakPPA::get()->count();
         $data_staff = StaffPPA::get()->count();
         $data_sp = SponsorAnak::get()->count();
@@ -70,6 +71,16 @@ class dashboard extends Controller
         $total_data = $data_check;
 
         $jumlahabsen = [];
+
+        if ($user->hasRole('anak')) {
+
+            $student = AnakPPA::with(['user', 'sponsor', 'kelompokumur', 'attendances'])->findOrFail($user->anak->id);
+
+            return view('dashboardanak', compact('student'));
+        }
+
+
+        // dd($student->toArray());
 
 
         return view('dashboard', compact('data_anak', 'data_staff', 'labelsku', 'datachart', 'all_month', 'jumlahabsen', 'total_data', 'data_anak', 'data_staff', 'data_sp'));

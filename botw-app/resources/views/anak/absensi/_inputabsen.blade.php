@@ -65,20 +65,12 @@
   </div>
 </div>
 </form>
-<?php
-    $data_ku_item_options = '';
-    foreach ($kabsen as $item) {
-        $data_ku_item_options .= "<option value='" . $item->id . "'>" . $item->nama_absen . "</option>";
-    }
-?>
 
 @endsection
 
 
 
 @section('js')
-
-
 <script>
   $('#kelompokumur_id').change(function() {
   var id = $(this).val();
@@ -91,25 +83,19 @@
           let dataArray = response.data
           $('#data_anak').empty()
           let res = dataArray.map((person, index) => {
-          var optionz = "{{ $data_ku_item_options }}";
+          var ambasing = {!! json_encode($kabsen->toArray()) !!}
+          console.log(ambasing);
           let list = `
               <tr class="btn-reveal-trigger">
                 <td>${person.user.name}</td>
                 <td></td>
                 <td class="text-end">
-                  <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="absensi[${person.id}]">
-                        <option value="1">H</option>
-                        <option value="1">AM</option>
-                        <option value="2">AS</option>
-                        <option value="3">DK</option>
-                        <option value="4">JB</option>
-                        <option value="5">KM</option>
-                        <option value="6">KC</option>
-                        <option value="7">KD</option>
-                        <option value="8">KK</option>
-                        <option value="9">SM</option>
-                        <option value="10">LL</option>
-                  </select>
+                  <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="absensi[${person.id}]">`;
+                    $.each(ambasing, function(index, value) {
+                      list += `<option value="${value.id}">${value.kode_absen}</option>`;
+                    });
+                    list += 
+                    `</select>
                 </td>
               </tr>
             `;
