@@ -44,4 +44,14 @@ class StaffPPA extends Model
     {
         return $this->hasMany(cutistaff::class);
     }
+
+    public function kelompokumur()
+    {
+        return $this->hasOne(KelompokUmur::class, 'id', 'kelompok_umur_id');
+    }
+
+    public function lpstaff()
+    {
+        return $this->hasMany(lessonplan::class);
+    }
 }

@@ -16,7 +16,10 @@ class LessonplanController extends Controller
      */
     public function index()
     {
-        $lp = lessonplan::with('lptutor')->get();
+        $id = \Auth::user()->id;
+        $lp = lessonplan::with('lptutor')->where('tutor_id', $id)->get();
+        dd($lp);
+        // $lp = lessonplan::with('lptutor')->get();
         return view('lessonplan.lessonplan', compact('lp'));
     }
 
@@ -39,7 +42,7 @@ class LessonplanController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'tutor_id' => Auth::user()->tutor->id,
+            'tutor_id' => Auth::user()->staff->id,
             'isi_lp' => $request->isi_lp,
             'judul_lp' => $request->judul_lp,
             'created_at' => now('6.0') . date(''),

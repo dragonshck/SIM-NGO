@@ -19,6 +19,6 @@ class lessonplan extends Model
 
     public function lptutor()
     {
-        return  $this->belongsTo(TutorAnak::class, 'tutor_id', 'id');
+        return  $this->belongsTo(StaffPPA::class, 'tutor_id', 'id');
     }
 }

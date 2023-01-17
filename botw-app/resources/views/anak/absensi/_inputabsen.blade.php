@@ -14,7 +14,7 @@
           <div class="mb-3">
             <label class="form-label" for="form-wizard-progress-wizard-email">Kelompok Umur</label>
             <select class="form-select" aria-label="Default select example" id="kelompokumur_id" required>
-
+              <option value="0">Pilih Kelompok Umur</option>
               @foreach($data_ku as $index => $item)
               <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
               @endforeach

@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label" for="inputEmail4">Assign Tutor</label>
-                  <select class="form-select" aria-label="Default select example">
+                  <select class="form-select" aria-label="Default select example" name="kelompok_umur_id">
                     <option value="{{ $ku->id }}" selected>{{ $staff_assigne->user->name }}</option>
                     @foreach ($staff_tutor as $item)
                       <option value="{{ $item->user->id }}">{{ $item -> user -> name }}</option>

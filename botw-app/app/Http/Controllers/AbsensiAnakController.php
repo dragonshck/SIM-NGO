@@ -6,13 +6,16 @@ use App\Models\AbsensiAnak;
 use App\Models\AnakPPA;
 use App\Models\KelompokUmur;
 use App\Models\kodeabsensi;
+use App\Models\StaffPPA;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class AbsensiAnakController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -35,18 +38,7 @@ class AbsensiAnakController extends Controller
     {
         $ex = auth()->user()->staff;
         
-        $data_ku = KelompokUmur::where('tutor_anak_id', $ex->jabatan_staff_id)->get();
-        // dd($ex->jabatan_staff_id);
-        // $kabsen = [];
-        // foreach($kabsen as $item) {
-        //     $kabsen[] = [
-        //         "id" => $kabsen->id,
-        //         "kode_absen" => $kabsen->kode_absen,
-        //         "nama_absen" => $kabsen->nama_absen,
-        //         "keterangan" => $kabsen->keterangan
-        //     ];
-        // }
-        // dd($kabsen[]->kode_absen->toArray());
+        $data_ku = KelompokUmur::where('id', $ex->kelompok_umur_id)->get();
         $kabsen = kodeabsensi::with('buatabsen')->get();
         // foreach ($kabsen as $item) {
         //     $item;
@@ -94,30 +86,55 @@ class AbsensiAnakController extends Controller
 
     public function show(Request $request, $id)
     {
-        $kelompok_umur = auth()->user()->tutor->kelompokumur;
+        $usr = auth()->user()->hasRole('tutor');
+        if($usr) {
+            $kelompok_umur = auth()->user()->staff->kelompokumur;
 
-        $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
-        $data = AbsensiAnak::where('periode', $id)
-            ->groupBy('anak_p_p_a_id')
-            ->with('_anak')
-            ->whereIn('anak_p_p_a_id', $anak)
-            ->get();
+            $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
+            $data = AbsensiAnak::where('periode', $id)
+                ->groupBy('anak_p_p_a_id')
+                ->with('_anak')
+                ->whereIn('anak_p_p_a_id', $anak)
+                ->get();
 
-        $x = Carbon::now()->daysInMonth;
-        $y = date_parse($id);
-        $z = date('Y');
-        $begin_date = $z . '-' . $y['month'] . '-01';
-        $end_date = $z . '-' . $y['month'] . '-' . $x;
+            $x = Carbon::now()->daysInMonth;
+            $y = date_parse($id);
+            $z = date('Y');
+            $begin_date = $z . '-' . $y['month'] . '-01';
+            $end_date = $z . '-' . $y['month'] . '-' . $x;
 
-        $period = CarbonPeriod::create($begin_date, $end_date);
+            $period = CarbonPeriod::create($begin_date, $end_date);
 
-        foreach ($period as $index => $item) {
+            foreach ($period as $index => $item) {
 
-            $all_periode[] = $item->format('Y-m-d');
+                $all_periode[] = $item->format('Y-m-d');
+            }
+
+            $tahun = $id;
+            return view('anak.absensi._detailabsen', compact('data', 'all_periode', 'tahun'));
+        } else {
+                $data = AbsensiAnak::where('periode', $id)
+                ->groupBy('anak_p_p_a_id')
+                ->with('_anak')
+                ->get();
+
+            $x = Carbon::now()->daysInMonth;
+            $y = date_parse($id);
+            $z = date('Y');
+            $begin_date = $z . '-' . $y['month'] . '-01';
+            $end_date = $z . '-' . $y['month'] . '-' . $x;
+
+            $period = CarbonPeriod::create($begin_date, $end_date);
+
+            foreach ($period as $index => $item) {
+
+                $all_periode[] = $item->format('Y-m-d');
+            }
+
+            $tahun = $id;
+            return view('anak.absensi._rekapabsen', compact('data', 'all_periode', 'tahun'));
         }
-
-        $tahun = $id;
-        return view('anak.absensi._detailabsen', compact('data', 'all_periode', 'tahun'));
+        
     }
 
     public static function getAnakByDate($id, $year, $date)

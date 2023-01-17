@@ -111,11 +111,11 @@ class AnakPPAController extends Controller
         //     ->where('anakppa.id', $id)
         //     ->first();
         $data = DB::table('anakppa')
-            ->select('anakppa.*', 'kelompok_umur.*', 'sponsor_anaks.*', 'tutor.*', 'users.*', 'users_anakppa.*')
+            ->select('anakppa.*', 'kelompok_umur.*', 'sponsor_anaks.*', 'staff_p_p_a_s.*', 'users.*', 'users_anakppa.*')
             ->leftJoin('kelompok_umur', 'anakppa.kelompok_umur_id', '=', 'kelompok_umur.id')
             ->leftJoin('sponsor_anaks', 'anakppa.sponsor_anak_id', '=', 'sponsor_anaks.id')
-            ->leftJoin('tutor', 'kelompok_umur.tutor_anak_id', '=', 'tutor.id')
-            ->leftJoin('users', 'tutor.user_id', '=', 'users.id')
+            ->leftJoin('staff_p_p_a_s', 'kelompok_umur.id', '=', 'staff_p_p_a_s.kelompok_umur_id')
+            ->leftJoin('users', 'staff_p_p_a_s.user_id', '=', 'users.id')
             ->leftJoin('users as users_anakppa', 'anakppa.user_id', '=', 'users_anakppa.id')
             ->where('anakppa.id', $id)
             ->first();
