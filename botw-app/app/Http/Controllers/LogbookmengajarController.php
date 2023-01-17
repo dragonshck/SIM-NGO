@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\logbookmengajar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LogbookmengajarController extends Controller
 {
@@ -14,7 +15,11 @@ class LogbookmengajarController extends Controller
      */
     public function index()
     {
-        //
+        $id = \Auth::user()->id;
+        $logbook = logbookmengajar::with('logbooktutor')->where('staff_id', $id)->get();
+        // dd($logbook);
+        // $logbook = logbookmengajar::with('logbooktutor')->get();
+        return view('logbooktutor.logbookmengajar', compact('logbook'));
     }
 
     /**
@@ -24,7 +29,7 @@ class LogbookmengajarController extends Controller
      */
     public function create()
     {
-        //
+        return view('logbooktutor.tambahlogbook');
     }
 
     /**
@@ -35,7 +40,24 @@ class LogbookmengajarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $logbook = [
+            'staff_id' => auth()->user()->staff->user->id,
+            'judul_logbook' => $request->judul_logbook,
+            'isi_logbook' => $request->isi_logbook,
+            'created_at' => now('6.0') . date(''),
+        ];
+
+        if ($request->file('lampiran_kegiatan')) {
+            $file = $request->file('lampiran_kegiatan');
+            $input['lampiran_kegiatan'] = time() . '_post_lampiran_kegiatan.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('images/lampiran_logbook');
+            $file->move($destinationPath, $input['lampiran_kegiatan']);
+            $logbook['lampiran_kegiatan'] = $input['lampiran_kegiatan'];
+        }
+        
+        DB::table('logbookmengajars')->insert($logbook);
+
+        return redirect()->route('logbook.index');
     }
 
     /**

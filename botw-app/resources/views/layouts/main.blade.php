@@ -39,6 +39,7 @@
     <link href="{{ asset('falcon/public/assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('falcon/public/assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
     <link href="{{ asset('falcon/public/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('falcon/public/vendors/dropzone/dropzone.min.css') }}" rel="stylesheet" />
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -186,6 +187,9 @@
           {{-- Lesson Plan --}}
           @yield('formtambahlp')
           @yield('daftarlessonplan')
+          {{-- Logbook Mengajar --}}
+          @yield('daftarlogbook')
+          @yield('tambahlogbookbaru')
 
           {{-- Index Kelompok Umur --}}
           @yield('indexlistku')
@@ -239,6 +243,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="vendors/chart/chart.min.js"></script>
+    <script src="{{ asset('falcon/public/vendors/dropzone/dropzone.min.js')}}"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
     @yield('js')

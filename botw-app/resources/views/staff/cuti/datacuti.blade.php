@@ -62,8 +62,8 @@
                   {{-- <a class="dropdown-item" onclick="setComplete(event, '{{ $item -> id }}', 'completed')">Accepted</a>
                   <a class="dropdown-item" onclick="setComplete(event, '{{ $item -> id }}', 'pending')">Pending</a> --}}
 
-                  <a class="dropdown-item" href="{{ url('/ubah-status-cuti/' . $item ->id)  }}">Accepted</a>
-                  <a class="dropdown-item" href="{{ url('/ubah-status-cuti/' . $item ->id)  }}">Pending</a>
+                  <a class="dropdown-item" href="{{ url('/ubah-status-lp/' . $item ->id)  }}">Accepted</a>
+                  <a class="dropdown-item" href="{{ url('/ubah-status-lp/' . $item ->id)  }}">Pending</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('cutiizin.show', $item -> id) }}">View</a>
                   {{-- <a class="dropdown-item text-danger" href="/hapus-penerimaan-sponsor/{{ $item -> id }}">Delete</a> --}}

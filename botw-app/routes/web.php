@@ -50,7 +50,6 @@ Route::get('/fetch-dashboard/{id}', [dashboard::class, 'fetch_dashboard']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
-    Route::resource('staff', StaffPPAController::class);
     Route::resource('cutiizin', CutistaffController::class);
     Route::resource('lessonplan', LessonplanController::class);
     Route::resource('logbook', LogbookmengajarController::class);
@@ -63,14 +62,14 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::get('/portal', function () {
         return view('layouts.main');
     });
-
     Route::resource('staffppa', StaffPPAController::class);
     Route::resource('penggajian', PenggajianController::class);
     Route::get('/fetch-gaji/{id}', [PenggajianController::class, 'getGajiByStaff']);
     Route::get('/ubah-status-cuti/{id}', [CutiStaffController::class, 'status_update']);
     Route::get('/cetak-slip/{id}', [PenggajianController::class, 'cetakSlip']);
     Route::resource('jabatanstaff', JabatanStaffController::class);
-});
+    });
+
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
     Route::resource('bantuan', BantuananakController::class);
@@ -100,3 +99,4 @@ Route::group(['middleware' => ['auth', 'role:tutor']], function () {
 
 Route::group(['middleware' => ['auth', 'role:anak']], function () {
 });
+

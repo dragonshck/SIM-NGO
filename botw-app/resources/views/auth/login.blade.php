@@ -43,7 +43,7 @@
   
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
-          <img src="https://cdnb.artstation.com/p/assets/images/images/027/048/505/large/zhengyi-wang-.jpg"
+          <img src="https://tetelestaiministries.com/wp-content/uploads/2020/09/IMG_6983.png"
             alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
         </div>
       </div>

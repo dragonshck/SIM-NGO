@@ -18,7 +18,6 @@ class LessonplanController extends Controller
     {
         $id = \Auth::user()->id;
         $lp = lessonplan::with('lptutor')->where('tutor_id', $id)->get();
-        dd($lp);
         // $lp = lessonplan::with('lptutor')->get();
         return view('lessonplan.lessonplan', compact('lp'));
     }

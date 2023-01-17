@@ -7,9 +7,11 @@ use App\Models\StaffPPA;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class CutistaffController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +19,22 @@ class CutistaffController extends Controller
      */
     public function index()
     {
+        $usr = auth()->user()->hasRole('koordinator');
+        if($usr) {
+            $collection = cutistaff::with('cuti2staff')->get();
+            $daysdiff = [];
+
+            foreach ($collection as $index => $item) {
+                $to = Carbon::createFromFormat('Y-m-d', $item->tgl_mulai);
+                $from = Carbon::createFromFormat('Y-m-d', $item->tgl_selesai);
+
+                $daysdiff[] = $to->diffInDays($from);
+            }
+
+            $hari_cuti = $daysdiff;
+
+            return view('staff.cuti.datacuti', compact('collection', 'hari_cuti'));
+        } else {
         $id = \Auth::user()->id;
         $collection = cutistaff::with('cuti2staff')->where('staff_id', $id)->get();
         $daysdiff = [];
@@ -31,6 +49,7 @@ class CutistaffController extends Controller
         $hari_cuti = $daysdiff;
 
         return view('staff.cuti.datacuti', compact('collection', 'hari_cuti'));
+        }
     }
 
     /**
