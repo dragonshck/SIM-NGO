@@ -96,9 +96,15 @@ class AbsensiStaffController extends Controller
             $all_periode[] = $item->format('Y-m-d');
         }
 
+        foreach ($data as $item) {
+            $year = date('Y', strtotime($item->tanggal_absen));
+            $absensi = AbsensiStaffController::getStaffByDate($item->staff_p_p_a_id, $year, $item->periode);
+        }
+        
+
         $tahun = $id;
 
-        return view('staff.absensi._detailabsen', compact('data', 'all_periode', 'tahun'));
+        return view('staff.absensi._detailabsen', compact('data', 'all_periode', 'tahun', 'absensi'));
     }
 
     public function getStaffByDate($id, $year, $date)

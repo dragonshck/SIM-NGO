@@ -34,11 +34,11 @@
                   @endforeach
                 </tr>
                 @foreach ($data as $item) 
-                @php
+                {{-- @php
                 // $absensi = App\Http\Controllers\AbsensiStaffController::getStaffByDate($item->staff_id, $item->periode);
                 $year = date('Y', strtotime($item->tanggal_absen));
                 $absensi = App\Http\Controllers\AbsensiStaffController::getStaffByDate($item->staff_p_p_a_id, $year, $item->periode);
-                @endphp
+                @endphp --}}
                 <tr class="btn-reveal-trigger">
                   <td>{{ $item -> absen2staff -> user -> name }}</td>
 

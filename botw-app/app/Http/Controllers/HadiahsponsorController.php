@@ -41,17 +41,17 @@ class HadiahsponsorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_hadiah'        => 'required|string|max:255|unique:hadiahsponsors',
-            'keterangan_hadiah'     => 'required|string|max:255',
-            'anak_id'        => 'required|numeric',
-            'amount_hadiah' => 'required|string|max:255'
+            'nama_hadiah'       => 'required|string|max:255|unique:hadiahsponsors',
+            'keterangan_hadiah' => 'required|string|max:255',
+            'anak_id'           => 'required|numeric',
+            'amount_hadiah'     => 'required|string|max:255'
         ]);
 
         $hadiah = hadiahsponsor::create([
-            'nama_hadiah'        => $request->nama_hadiah,
+            'nama_hadiah'           => $request->nama_hadiah,
             'keterangan_hadiah'     => $request->keterangan_hadiah,
-            'anak_id'        => $request->anak_id,
-            'amount_hadiah' => $request->amount_hadiah
+            'anak_id'               => $request->anak_id,
+            'amount_hadiah'         => $request->amount_hadiah
         ]);
 
         if ($request->hasFile('lampiran_hadiah')) {
@@ -76,6 +76,7 @@ class HadiahsponsorController extends Controller
     public function show($id)
     {
         $data_sponsor = hadiahsponsor::with('hadiahanak')->find($id);
+        // dd($data_sponsor->hadiahanak->sponsor->toArray());
         return view('sponsor.penerimaan.detailstrx', compact('data_sponsor'));
     }
 

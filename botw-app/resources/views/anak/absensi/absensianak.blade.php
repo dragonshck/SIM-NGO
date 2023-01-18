@@ -32,7 +32,7 @@
                         <a class="btn btn-outline-success btn-sm" type="button" href="{{ route('absenanak.show', $item->periode) }}">View Absen
                         </a>
                       </td>
-                      <td>{{ $item -> periode }}</td>
+                      <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->format('F Y') }}</td>
                       <td class="text-end">
                         <div class="dropdown font-sans-serif position-static">
                           

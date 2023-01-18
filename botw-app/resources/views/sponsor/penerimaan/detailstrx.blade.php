@@ -26,9 +26,9 @@
           <p class="mb-1 fs--1">{{ $data_sponsor -> nama_hadiah }}</p>
         </div>
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <h5 class="mb-3 fs-0">Detail Barang</h5>
-          <h6 class="mb-2">{{ $data_sponsor -> keterangan_hadiah }}</h6>
-          <p class="mb-0 fs--1">{{ $data_sponsor -> current_addr }}</p>
+          <h5 class="mb-3 fs-0">Sponsor Pemberi</h5>
+          <h6 class="mb-2">{{ $data_sponsor -> hadiahanak -> sponsor -> nama_sponsor }}</h6>
+          <p class="mb-0 fs--1">{{ $data_sponsor -> hadiahanak -> sponsor -> origin_country }}</p>
           <div class="text-500 fs--1"></div>
         </div>
         <div class="col-md-6 col-lg-4">
