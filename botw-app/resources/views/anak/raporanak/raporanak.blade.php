@@ -11,6 +11,7 @@
   <div class="col-lg-8">
 
     <div class="card mb-3">
+      @can('read access anak')
       <div class="card-header bg-light overflow-hidden">
         <div class="d-flex align-items-center">
           <div class="flex-1 ms-2">
@@ -18,6 +19,7 @@
           </div>
         </div>
       </div>
+      
       <div class="card-body p-0">
         <form method="POST" action="{{ route('rapor.store')}}" enctype="multipart/form-data">
           @csrf
@@ -39,6 +41,7 @@
           </div>
         </form>
       </div>
+      @endcan
     </div>
   @foreach ($datarapor as $item)
       
@@ -58,11 +61,13 @@
               </div>
             </div>
             <div class="col-auto">
+              @can('read access anak')
               <div class="dropdown font-sans-serif">
                 <button class="btn btn-sm dropdown-toggle p-1 dropdown-caret-none" type="button" id="post-article-action" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--1"></span> Font Awesome fontawesome.com --></button>
                 <div class="dropdown-menu dropdown-menu-end py-3" aria-labelledby="post-article-action" style=""><a class="dropdown-item" href="{{ route('rapor.edit', $item -> id)}}" data-bs-toggle="modal" data-bs-target="#error-modal">Edit</a>
                 </div>
               </div>
+              @endcan
             </div>
           </div>
         </div>
@@ -113,7 +118,9 @@
               </div>
             </div>
               <div class="modal-footer">
+                
                 <button class="btn btn-primary" type="submit">Update</button>
+                
               </div>
           </form>
           </div>

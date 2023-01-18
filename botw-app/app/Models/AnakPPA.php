@@ -50,4 +50,9 @@ class AnakPPA extends Model
     {
         return $this->hasMany(rewardsanak::class, 'anak_id');
     }
+
+    public function rapor()
+    {
+        return $this->hasMany(RaporAnak::class, 'anak_id');
+    }
 }

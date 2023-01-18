@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnakPPA;
 use App\Models\RaporAnak;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class RaporAnakController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +20,23 @@ class RaporAnakController extends Controller
      */
     public function index()
     {
-        $id = \Auth::user()->anak->id;
-        $now = Carbon::now();
-        // dd($id);
-        $datarapor = RaporAnak::with('anak2rapor')->where('anak_id', $id)->get();
-        return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
+        $usr = auth()->user()->hasRole('tutor');
+        if ($usr) {
+            $kelompok_umur = auth()->user()->staff->kelompokumur;
+            $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
+            // dd($anak);
+            // dd($kelompok_umur);
+            $datarapor = RaporAnak::with('anak2rapor')->where('anak_id', $anak)->get();
+
+            $now = Carbon::now();
+            return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
+        } else {
+            $id = \Auth::user()->anak->id;
+            $now = Carbon::now();
+            // dd($id);
+            $datarapor = RaporAnak::with('anak2rapor')->where('anak_id', $id)->get();
+            return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
+        }
     }
 
     /**
