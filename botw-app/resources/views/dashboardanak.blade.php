@@ -29,7 +29,7 @@
   <div class="col-xxl-6">
     <div class="card overflow-hidden">
       <div class="card-header">
-        <h6 class="mb-0">Daftar Absensikuh</h6>
+        <h6 class="mb-0">Daftar Absensiku</h6>
       </div>
       <div class="card-body p-0">
         <div class="table-responsive scrollbar">

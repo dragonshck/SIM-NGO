@@ -10,7 +10,9 @@
         <div class="d-none" id="table-purchases-actions">
         </div>
         <div id="table-purchases-replace-element">
+          @can('read access bendahara')
           <a href="{{ route('hadiahsponsor.create') }}" class="btn btn-falcon-default btn-sm" type="button"><svg class="svg-inline--fa fa-plus fa-w-14" data-fa-transform="shrink-3 down-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.625em;"><g transform="translate(224 256)"><g transform="translate(0, 64)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path></g></g></svg><!-- <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span> Font Awesome fontawesome.com --><span class="d-none d-sm-inline-block ms-1">New</span></a>
+          @endcan
         </div>
       </div>
     </div>
@@ -44,15 +46,19 @@
                 @endif
               </td>
               <td class="align-middle white-space-nowrap text-end">
+                
                 <div class="dropstart font-sans-serif position-static d-inline-block">
                   <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal float-end" type="button" id="dropdown5" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--1"></span> Font Awesome fontawesome.com --></button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown5">
+                    @can('read access bendahara')
                     <a class="dropdown-item" href="{{ url('/ubah-status-hadiah/' . $item -> id)  }}">Completed</a>
                     <a class="dropdown-item" href="{{ url('/ubah-status-hadiah/' . $item -> id)  }}">Process</a>
                     <div class="dropdown-divider"></div>
+                    @endcan
                     <a class="dropdown-item" href="{{ route('hadiahsponsor.show', $item -> id) }}">View</a>
                   </div>
                 </div>
+                
               </td>
           </tr>
           @endforeach

@@ -10,9 +10,10 @@
   </div>
         <div class="card-body bg-light">
             <form action="{{ route('lessonplan.store') }}" method="POST" enctype="multipart/form-data">
+              @csrf
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-name">Judul Lesson Plan</label>
-                  <input name="keterangan_lp" class="form-control" id="basic-form-name" type="text" placeholder="Masukkan Judul" name="judul_lp" />
+                  <input class="form-control" id="basic-form-name" type="text" placeholder="Masukkan Judul" name="judul_lp" />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Upload File</label>
@@ -20,7 +21,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-textarea">Description</label>
-                  <textarea name="desc" class="form-control" id="basic-form-textarea" rows="3" placeholder="Description" name="isi_lp"></textarea>
+                  <textarea class="form-control" id="basic-form-textarea" rows="3" placeholder="Description" name="isi_lp"></textarea>
                 </div>
                 
                 <button class="btn btn-primary" type="submit">Submit</button>

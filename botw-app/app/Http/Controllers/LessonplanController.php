@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\lessonplan;
+use App\Models\revisilp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +17,11 @@ class LessonplanController extends Controller
      */
     public function index()
     {
-        $id = \Auth::user()->id;
+        $id = \Auth::user()->staff->id;
         $lp = lessonplan::with('lptutor')->where('tutor_id', $id)->get();
+        $revlp = revisilp::wtih('revisi')->where('lp_id', $lp->id)->get();
         // $lp = lessonplan::with('lptutor')->get();
-        return view('lessonplan.lessonplan', compact('lp'));
+        return view('lessonplan.lessonplan', compact('lp', 'revlp'));
     }
 
     /**
@@ -40,6 +42,7 @@ class LessonplanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->toArray());
         $data = [
             'tutor_id' => Auth::user()->staff->id,
             'isi_lp' => $request->isi_lp,
@@ -57,7 +60,7 @@ class LessonplanController extends Controller
 
         DB::table('lessonplans')->insert($data);
 
-        return redirect()->route('rapor-anak');
+        return redirect()->route('lessonplan.index');
     }
 
     /**

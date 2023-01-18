@@ -53,6 +53,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kegiatanppa', KegiatanppaController::class);
     Route::get('/lap-pengeluaran', [LapPengeluaranController::class, 'GetPengeluaran'])->name('laporan-pengeluaran');
     Route::resource('rapor', RaporAnakController::class);
+
+    Route::resource('bantuan', BantuananakController::class);
+    Route::resource('hadiahsponsor', HadiahsponsorController::class);
+    Route::resource('rewards', RewardsanakController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
@@ -69,12 +73,10 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
 
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
-    Route::resource('bantuan', BantuananakController::class);
-    Route::get('/ubah-status-bantuan/{id}', [BantuananakController::class, 'status_update']);
-    Route::resource('hadiahsponsor', HadiahsponsorController::class);
+    
     Route::get('/ubah-status-hadiah/{id}', [HadiahsponsorController::class, 'status_update']);
-    Route::resource('rewards', RewardsanakController::class);
     Route::get('/ubah-status-rewards/{id}', [RewardsanakController::class, 'status_update']);
+    Route::get('/ubah-status-bantuan/{id}', [BantuananakController::class, 'status_update']);
 });
 
 Route::group(['middleware' => ['auth', 'role:sekretaris']], function () {

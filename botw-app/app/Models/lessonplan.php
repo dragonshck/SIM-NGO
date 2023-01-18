@@ -21,4 +21,8 @@ class lessonplan extends Model
     {
         return  $this->belongsTo(StaffPPA::class, 'tutor_id', 'id');
     }
+
+    public function revisilp() {
+        return $this->hasOne(revisilp::class);
+    }
 }
