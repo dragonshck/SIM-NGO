@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AbsensiAnak;
 use App\Models\AnakPPA;
 use App\Models\KelompokUmur;
+use App\Models\RaporAnak;
 use App\Models\SponsorAnak;
 use App\Models\StaffPPA;
 use Carbon\Carbon;
@@ -76,9 +77,10 @@ class dashboard extends Controller
 
             $student = AnakPPA::with(['user', 'sponsor', 'kelompokumur', 'attendances'])->findOrFail($user->anak->id);
             $totalabsen = AbsensiAnak::with('anakabsen')->where('anak_p_p_a_id', $user->anak->id)->count('status_absen');
+            $totalrapor = RaporAnak::with('anak2rapor')->where('anak_id', $user->anak->id)->count('lampiran_rapor');
             // dd($totalabsen);
 
-            return view('dashboardanak', compact('student', 'totalabsen'));
+            return view('dashboardanak', compact('student', 'totalabsen', 'totalrapor'));
         }
 
 
