@@ -21,7 +21,7 @@
   
         <div class="card-body position-relative">
           <h6>Total Absen Saya</h6>
-          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-info" data-countup='{"endValue":1}'>0</div>
+          <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-info" data-countup='{"endValue":{{$totalabsen}}}'>0</div>
         </div>
       </div>
     </div>

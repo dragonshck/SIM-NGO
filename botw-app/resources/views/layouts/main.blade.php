@@ -86,7 +86,7 @@
 
               <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
 
-            </div><a class="navbar-brand" href="/portal">
+            </div><a class="navbar-brand" href="/home">
               <div class="d-flex align-items-center py-3"><img class="me-2" src="{{ asset('assets/dawn.png') }}" alt="" width="40" /><span class="font-sans-serif">Kalvari</span>
               </div>
             </a>
@@ -120,8 +120,6 @@
           @yield('cutialter')
           @yield('tambahcutibang')
           @yield('detailcutibang')
-
-
 
           {{-- Bendahara --}}
           {{-- TRX Bantuan --}}
@@ -193,6 +191,8 @@
 
           {{-- Index Kelompok Umur --}}
           @yield('indexlistku')
+          {{-- Rapor Anak --}}
+          @yield('listrapor')
 
 
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>

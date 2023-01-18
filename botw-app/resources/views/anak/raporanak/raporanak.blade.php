@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layouts.main')
 
 @section('listrapor')
 <div class="d-flex mb-4 mt-3"><span class="fa-stack me-2 ms-n1"><svg class="svg-inline--fa fa-circle fa-w-16 fa-stack-2x text-300" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg><!-- <i class="fas fa-circle fa-stack-2x text-300"></i> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-spinner fa-w-16 fa-inverse fa-stack-1x text-primary" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg><!-- <i class="fa-inverse fa-stack-1x text-primary fas fa-spinner"></i> Font Awesome fontawesome.com --></span>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="card-body p-0">
-        <form method="POST" action="/add-prestasi-anak" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('rapor.store')}}" enctype="multipart/form-data">
           @csrf
           <textarea name="keterangan_rapor" class="shadow-none form-control rounded-0 resize-none px-card border-y-0 border-200" placeholder="Keterangan Rapor.." rows="4"></textarea>
           <div class="d-flex align-items-center ps-card border border-200">
@@ -43,7 +43,30 @@
   @foreach ($datarapor as $item)
       
       <div class="card mb-3">
-        <img class="card-img-top" src="{{ asset('falcon-style/public/assets/img/generic/placeholder.jpg') }}" alt="" width="350px">
+        <div class="card-header bg-light">
+          <div class="row justify-content-between">
+            <div class="col">
+              <div class="d-flex">
+                <div class="avatar avatar-2xl">
+                  <img class="rounded-circle" src="{{ asset('images/profile/' . $item -> anak2rapor -> user -> profile_picture )}}" alt="">
+
+                </div>
+                <div class="flex-1 align-self-center ms-2">
+                  <p class="mb-1 lh-1">{{ $item -> anak2rapor -> user -> name }}</p>
+                  <p class="mb-0 fs--1">Uploaded | {{ $item -> created_at->toDayDateTimeString(); }} <!-- <span class="fas fa-users"></span> Font Awesome fontawesome.com --></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="dropdown font-sans-serif">
+                <button class="btn btn-sm dropdown-toggle p-1 dropdown-caret-none" type="button" id="post-article-action" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--1"></span> Font Awesome fontawesome.com --></button>
+                <div class="dropdown-menu dropdown-menu-end py-3" aria-labelledby="post-article-action" style=""><a class="dropdown-item" href="{{ route('rapor.edit', $item -> id)}}" data-bs-toggle="modal" data-bs-target="#error-modal">Edit</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img class="card-img-top" src="{{ asset('falcon/public/assets/img/generic/placeholder.jpg') }}" alt="" width="350px">
           <div class="card-body overflow-hidden">
             <div class="row justify-content-between align-items-center">
               <div class="col">
@@ -51,7 +74,6 @@
                   <div class="calendar me-2"><span class="calendar-month">AVG</span><span class="calendar-day">{{ $item -> avg_nilai }}</span></div>
                   <div class="flex-1 fs--1">
                     <h5 class="fs-0">{{ $item -> keterangan_rapor }}</h5>
-                    <p class="mb-0">Uploaded {{ $item -> created_at }}</p><span class="fs-0 text-warning fw-semi-bold">{{ $item -> anak2rapor -> fullname }}</span>
                   </div>
                 </div>
               </div>
@@ -61,19 +83,49 @@
             </div>
           </div>
       </div>
+      <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+          <div class="modal-content position-relative">
+            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+              <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                <h4 class="mb-1" id="modalExampleDemoLabel">Edit Data Rapor</h4>
+              </div>
+              <div class="p-4 pb-0">
+                <form method="POST" action="{{ route('rapor.update', $item -> id)}}" enctype="multipart/form-data">
+                  @csrf
+                  @method('PUT')
+                  <div class="mb-3">
+                    <label class="col-form-label" for="recipient-name">Keterangan Rapor:</label>
+                    <input class="form-control" id="recipient-name" type="text" name="keterangan_rapor" value="{{ $item -> keterangan_rapor }}"/>
+                  </div>
+                  <div class="mb-3">
+                    <label class="col-form-label" for="message-text">Rata-rata Nilai:</label>
+                    <input class="form-control" id="message-text" name="avg_nilai" value="{{ $item -> avg_nilai }}"></input>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="customFile">Lampiran</label>
+                    <input class="form-control" id="customFile" type="file" name="lampiran_rapor"/>
+                  </div>
+                
+              </div>
+            </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Update</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
 
   @endforeach
 
   </div>
 
   <div class="col lg-4">
-    <div class="card mb-3">
-      <div class="card-body fs--1">
-        <div class="d-flex"><svg class="svg-inline--fa fa-gift fa-w-16 fs-0 text-warning" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="gift" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z"></path></svg><!-- <span class="fas fa-gift fs-0 text-warning"></span> Font Awesome fontawesome.com -->
-          <div class="flex-1 ms-2"><a class="fw-semi-bold" href="../../pages/user/profile.html">Emma Watson</a>'s Birthday is today</div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 
   

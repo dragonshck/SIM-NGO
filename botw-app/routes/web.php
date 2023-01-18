@@ -16,12 +16,11 @@ use App\Http\Controllers\LapPengeluaranController;
 use App\Http\Controllers\LessonplanController;
 use App\Http\Controllers\LogbookmengajarController;
 use App\Http\Controllers\PenggajianController;
+use App\Http\Controllers\RaporAnakController;
 use App\Http\Controllers\RewardsanakController;
 use App\Http\Controllers\SponsorAnakController;
 use App\Http\Controllers\StaffPPAController;
 use App\Http\Controllers\TutorAnakController;
-use App\Models\AbsensiAnak;
-use App\Models\Penggajian;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,9 +44,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\dashboard::class, 'index'])->name('home');
 Route::get('/fetch-dashboard/{id}', [dashboard::class, 'fetch_dashboard']);
 
-
-
-
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('anak', AnakPPAController::class);
     Route::resource('cutiizin', CutistaffController::class);
@@ -56,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('absenanak', AbsensiAnakController::class);
     Route::resource('kegiatanppa', KegiatanppaController::class);
     Route::get('/lap-pengeluaran', [LapPengeluaranController::class, 'GetPengeluaran'])->name('laporan-pengeluaran');
+    Route::resource('rapor', RaporAnakController::class);
 });
 
 Route::group(['middleware' => ['auth', 'role:koordinator']], function () {

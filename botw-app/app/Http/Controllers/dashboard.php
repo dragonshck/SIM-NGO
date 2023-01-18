@@ -75,8 +75,10 @@ class dashboard extends Controller
         if ($user->hasRole('anak')) {
 
             $student = AnakPPA::with(['user', 'sponsor', 'kelompokumur', 'attendances'])->findOrFail($user->anak->id);
+            $totalabsen = AbsensiAnak::with('anakabsen')->where('anak_p_p_a_id', $user->anak->id)->count('status_absen');
+            // dd($totalabsen);
 
-            return view('dashboardanak', compact('student'));
+            return view('dashboardanak', compact('student', 'totalabsen'));
         }
 
 
