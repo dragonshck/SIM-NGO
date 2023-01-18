@@ -7,9 +7,11 @@ use App\Models\revisilp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class LessonplanController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +19,20 @@ class LessonplanController extends Controller
      */
     public function index()
     {
-        $id = \Auth::user()->staff->id;
-        $lp = lessonplan::with('lptutor')->where('tutor_id', $id)->get();
-        $revlp = revisilp::wtih('revisi')->where('lp_id', $lp->id)->get();
-        // $lp = lessonplan::with('lptutor')->get();
-        return view('lessonplan.lessonplan', compact('lp', 'revlp'));
+        if (auth()->user()->hasRole('tutor')) {
+            $tutorid = \Auth::user()->staff->id;
+            $lp = lessonplan::with('lptutor')->where('tutor_id', $tutorid)->get();
+            foreach ($lp as $rev) {
+                $revlp = revisilp::with('revisi')->where('lp_id', $rev->id)->get();
+            }
+            // $lp = lessonplan::with('lptutor')->get();
+            return view('lessonplan.lessonplan', compact('lp', 'revlp'));
+        } else {
+            $lp = lessonplan::with('lptutor')->get();
+            $revlp = revisilp::with('revisi')->get();
+            // $lp = lessonplan::with('lptutor')->get();
+            return view('lessonplan.lessonplan', compact('lp', 'revlp'));
+        }
     }
 
     /**

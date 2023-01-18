@@ -4,7 +4,9 @@
 <div class="card-header bg-light">
     <div class="row flex-between-end">
       <div class="col-auto align-self-center">
+        @can('read access tutor')
         <h5 class="mb-0" data-anchor="data-anchor" id="basic-form">Tambah Lesson Plan Baru<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#basic-form" style="padding-left: 0.375em;"></a></h5>
+        @endcan
       </div>
     </div>
   </div>

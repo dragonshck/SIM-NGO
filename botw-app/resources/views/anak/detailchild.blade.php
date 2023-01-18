@@ -18,8 +18,10 @@
             <h5 class="fs-0 fw-normal">{{ $data -> ku_description }}</h5>
           
           <p class="text-500">{{ $data -> current_addr }}</p>
+          @can('read access mentor')
           <a class="btn btn-falcon-info btn-sm px-3" type="button" href="{{ route('anak.edit', $id) }}">Edit</a>
           <a class="btn btn-falcon-danger btn-sm px-3 ms-2" type="button" href="{{ route('anak.destroy', $id) }}">Delete</a>
+          @endcan
           <div class="border-dashed-bottom my-4 d-lg-none"></div>
         </div>
       </div>

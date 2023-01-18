@@ -57,6 +57,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('bantuan', BantuananakController::class);
     Route::resource('hadiahsponsor', HadiahsponsorController::class);
     Route::resource('rewards', RewardsanakController::class);
+
+    Route::resource('absensistaff', AbsensiStaffController::class);
+    Route::resource('sponsormaster', SponsorAnakController::class);
+
+    Route::resource('tutor', TutorAnakController::class);
+    Route::resource('kelompokumur', KelompokUmurController::class);
+    Route::resource('kodeabsensi', KodeabsensiController::class);
+    Route::resource('anak', AnakPPAController::class);
+
+    Route::get('/fetch-anak/{id}', [AbsensiAnakController::class, 'getAnakbyKelompokUmur']);
+    Route::get('/fetch-tgl-anak/{id}/{tgl}', [AbsensiAnakController::class, 'getAnakByDate']);
 });
 
 Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
@@ -69,33 +80,12 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::get('/ubah-status-cuti/{id}', [CutiStaffController::class, 'status_update']);
     Route::get('/cetak-slip/{id}', [PenggajianController::class, 'cetakSlip']);
     Route::resource('jabatanstaff', JabatanStaffController::class);
-    });
+});
 
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
-    
+
     Route::get('/ubah-status-hadiah/{id}', [HadiahsponsorController::class, 'status_update']);
     Route::get('/ubah-status-rewards/{id}', [RewardsanakController::class, 'status_update']);
     Route::get('/ubah-status-bantuan/{id}', [BantuananakController::class, 'status_update']);
 });
-
-Route::group(['middleware' => ['auth', 'role:sekretaris']], function () {
-    Route::resource('absensistaff', AbsensiStaffController::class);
-    Route::resource('sponsormaster', SponsorAnakController::class);
-});
-
-Route::group(['middleware' => ['auth', 'role:mentor']], function () {
-    Route::resource('tutor', TutorAnakController::class);
-    Route::resource('kelompokumur', KelompokUmurController::class);
-    Route::resource('kodeabsensi', KodeabsensiController::class);
-    Route::resource('anak', AnakPPAController::class);
-});
-
-Route::group(['middleware' => ['auth', 'role:tutor']], function () {
-    Route::get('/fetch-anak/{id}', [AbsensiAnakController::class, 'getAnakbyKelompokUmur']);
-    Route::get('/fetch-tgl-anak/{id}/{tgl}', [AbsensiAnakController::class, 'getAnakByDate']);
-});
-
-Route::group(['middleware' => ['auth', 'role:anak']], function () {
-});
-
