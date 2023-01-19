@@ -35,7 +35,8 @@ class StaffPPAController extends Controller
      */
     public function create()
     {
-        $jabatan = \DB::table('roles')->whereNotIn('name', ['anak'])->get();
+        // $jabatan = \DB::table('roles')->whereNotIn('name', ['anak'])->get();
+        $jabatan = JabatanStaff::with('staff')->get();
         $kelompok_umur = KelompokUmur::get();
         return view('staff.create', compact('jabatan', 'kelompok_umur'));
     }
@@ -67,7 +68,7 @@ class StaffPPAController extends Controller
             'current_addr' => $request ->current_addr,
             'perm_addr' => $request ->perm_addr,
             'jabatan_staff_id' => $request->jabatan_staff_id,
-            'kelompok_umur_id' => $request->kelompok_umur_id
+            // 'kelompok_umur_id' => $request->kelompok_umur_id
         ];
         // dd($register, $request->all());
         // dd(Auth::user()->id);
@@ -82,7 +83,6 @@ class StaffPPAController extends Controller
 
         $user = User::create($register);
 
-
         if ($request->hasFile('profile_picture')) {
             $profile = Str::slug($user->name) . '-' . $user->id . '.' . $request->profile_picture->getClientOriginalExtension();
             $request->profile_picture->move(public_path('images/profile'), $profile);
@@ -91,6 +91,14 @@ class StaffPPAController extends Controller
         }
         $user->update([
             'profile_picture' => $profile
+        ]);
+
+        $user->staff()->create([
+            'phone' => $request ->phone,
+            'dateofbirth' => $request ->dateofbirth,
+            'current_addr' => $request ->current_addr,
+            'perm_addr' => $request ->perm_addr,
+            'jabatan_staff_id' => $request->jabatan_staff_id,
         ]);
 
         // if($user){
@@ -110,7 +118,7 @@ class StaffPPAController extends Controller
         //     'perm_addr' => $request->permanent_address
         // ]);
 
-        return redirect()->route('staff.index');
+        return redirect()->route('staffppa.index');
     }
 
     public function assignRole(Request $request , $id)

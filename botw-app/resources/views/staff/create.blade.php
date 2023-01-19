@@ -75,12 +75,12 @@
               <label class="form-label" for="email3">Jabatan</label>
               <select class="form-select" aria-label="Default select example" name="jabatan_staff_id" id="jabatan_staff_id">
                 <option selected="">Pilih Jabatan</option>
-                @foreach($jabatan as $index => $item)
-                <option value="{{$item->id}}">{{$item->name}}</option>
+                @foreach($jabatan as $item)
+                <option value="{{$item->id}}" > {{$item->nama_jabatan}} </option>
                 @endforeach
               </select>
             </div>
-            <div class="col-lg-12" id="kelompok_umur_id">
+            {{-- <div class="col-lg-12" id="kelompok_umur_id">
               <label class="form-label" for="email3">Kelompok Umur</label>
               <select class="form-select" aria-label="Default select example" name="kelompok_umur_id" >
                 <option selected="">Pilih Kelompok Umur</option>
@@ -88,7 +88,7 @@
                 <option value="{{$item->id}}">{{$item->ku_name}}</option>
                 @endforeach
               </select>
-            </div>
+            </div> --}}
             <div class="col-12 d-flex justify-content-end">
               <button class="btn btn-primary" type="submit">Submit</button>
             </div>
@@ -105,7 +105,7 @@
   </div>
 @endsection
 
-@section ('js')
+{{-- @section ('js')
 <script type="text/javascript">
     $('#kelompok_umur_id').hide();
 
@@ -120,4 +120,4 @@
       }
     })
 </script>
-@endsection
+@endsection --}}
