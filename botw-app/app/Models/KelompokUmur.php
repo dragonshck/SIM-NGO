@@ -16,7 +16,7 @@ class KelompokUmur extends Model
 
     public function tutor()
     {
-        return $this->belongsTo(StaffPPA::class, 'tutor_anak_id', 'id');
+        return $this->belongsTo(StaffPPA::class, 'kelompok_umur_id', 'id');
     }
 
     public function anakku()

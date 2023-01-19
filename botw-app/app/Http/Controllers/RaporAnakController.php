@@ -30,6 +30,11 @@ class RaporAnakController extends Controller
 
             $now = Carbon::now();
             return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
+        } elseif (auth()->user()->hasRole('mentor')) {
+            $now = Carbon::now();
+            // dd($id);
+            $datarapor = RaporAnak::with('anak2rapor')->get();
+            return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
         } else {
             $id = \Auth::user()->anak->id;
             $now = Carbon::now();

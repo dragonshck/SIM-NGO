@@ -104,11 +104,6 @@ class KelompokUmurController extends Controller
         //     'ku_name'        => 'required|string|max:255',
         //     'ku_description'     => 'required|numeric',
         // ]);
-        
-        $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
-        $deleting_last_staff->update([
-            'kelompok_umur_id' => 0
-        ]);
 
         // $staff = StaffPPA::where('id', $request->tutor_anak_id)->with('user')->first();
         // $class = KelompokUmur::find($id);
@@ -129,31 +124,30 @@ class KelompokUmurController extends Controller
         //     'ku_name'        => 'required|string|max:255',
         //     'ku_description' => 'required|numeric',
         // ]);
+
+        $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        $deleting_last_staff->update([
+            'kelompok_umur_id' => 0
+        ]);
+
         $request->all();
 
-        $validatedData =KelompokUmur::find($id);
+        $validatedData = KelompokUmur::find($id);
 
         $validatedData->update([
             'ku_name'        => $request->ku_name,
             'ku_description' => $request->ku_description,
         ]);
 
-        $staff = StaffPPA::where('kelompok_umur_id', 0)->first();
-        if($staff){
+        // dd($validatedData->id);
+        
+
+        $staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        if($validatedData){
             $staff->update([
-                'kelompok_umur_id' => $id
-            ]);
-        } elseif ($staff->where('kelompok_umur_id', '!=', $staff->id->first())) {
-            $staff->update([
-                'kelompok_umur_id' => 0
-            ]);
-        } else {
-            $staff->update([
-                'kelompok_umur_id' => 0
+                'kelompok_umur_id' => $validatedData->id
             ]);
         }
-
-
         // $class = KelompokUmur::find($id);
         // if($class){
         //     $class->update($validatedData);

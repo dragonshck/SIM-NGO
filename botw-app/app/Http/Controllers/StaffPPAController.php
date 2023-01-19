@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JabatanStaff;
 use App\Models\KelompokUmur;
 use App\Models\StaffPPA;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class StaffPPAController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -88,13 +93,13 @@ class StaffPPAController extends Controller
             'profile_picture' => $profile
         ]);
 
-        if($user){
-            $register['user_id'] = $user->id;
-            StaffPPA::create($register);
-            $assignPermission = \DB::table('model_has_roles')->insert(['role_id' => $request->jabatan_staff_id, 'model_type' => 'App\Models\User' ,'model_id' => $user->id]);
+        // if($user){
+        //     $register['user_id'] = $user->id;
+        //     StaffPPA::create($register);
+        //     $assignPermission = \DB::table('model_has_roles')->insert(['role_id' => $request->jabatan_staff_id, 'model_type' => 'App\Models\User' ,'model_id' => $user->id]);
 
-            // $get_staff = \DB::
-        }
+        //     // $get_staff = \DB::
+        // }
         
 
         // $user->teacher()->create([
@@ -108,15 +113,42 @@ class StaffPPAController extends Controller
         return redirect()->route('staff.index');
     }
 
+    public function assignRole(Request $request , $id)
+    {
+        $staffPPA = StaffPPA::with('user')->find($id);
+        if($staffPPA->user->hasRole($request->role)) {
+            return back()->with('message', 'Role sudah ada!');
+        }
+
+        $staffPPA->user->assignRole($request->role);
+        return back()->with('message', 'Role telah diberikan.');
+    }
+
+    public function revokeRole(Request $request , $id)
+    {
+        $staffPPA = StaffPPA::with('user')->find($id);
+        if($staffPPA->user->hasRole($request->role)) {
+            return back()->with('message', 'Role dihapus!');
+        }
+
+        $staffPPA->user->removeRole($request->role);
+        return back()->with('message', 'Role belum ada!');
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\StaffPPA  $staffPPA
      * @return \Illuminate\Http\Response
      */
-    public function show(StaffPPA $staffPPA)
+    public function show($id)
     {
-        //
+        $role = Role::all();
+        // $permission = Permission::all();
+        $staff = StaffPPA::with('user')->findOrFail($id);
+        // dd($staff);
+
+        return view('staff.detailstaff', compact('role', 'staff'));
     }
 
     /**
@@ -125,10 +157,18 @@ class StaffPPAController extends Controller
      * @param  \App\Models\StaffPPA  $staffPPA
      * @return \Illuminate\Http\Response
      */
-    public function edit(StaffPPA $staffPPA)
+    public function edit($id)
     {
-        $staff = StaffPPA::with('user')->findOrFail($staffPPA->id);
-        return view('staff.update', compact('staff'));
+        $staff = StaffPPA::with('user')->findOrFail($id);
+        $jabatan = JabatanStaff::with('staff')->find($id);
+        $jabatan_index = JabatanStaff::with('staff')->get();
+        // $jabatan = \DB::table('roles')->whereNotIn('name', ['anak'])->get();
+        // $getRelationJabatan = DB::table('model_has_roles')->get();
+        // foreach ($jabatan as $item => $uhsheup) {
+        //     $uhsheup;
+        // }
+        $kelompok_umur = KelompokUmur::get();
+        return view('staff.updatestaff', compact('staff', 'jabatan', 'kelompok_umur', 'role', 'permission', 'jabatan_index'));
     }
 
     /**

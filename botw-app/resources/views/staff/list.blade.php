@@ -33,14 +33,14 @@
                           <div class="avatar avatar-xl">
                             <img class="rounded-circle" src="{{ asset('images/profile/' . $item->user->profile_picture) }}" alt="" />
                           </div>
-                          <div class="ms-2">{{ $item->user->name }}</div>
+                          <div class="ms-2"><a href="{{ route('staffppa.show', $item -> id)}}">{{ $item->user->name }}</a></div>
                         </div>
                       </td>
                       <td class="align-middle text-nowrap">{{ $item->user->email }}</td>
                       <td class="w-auto">
                         <div class="btn-group btn-group hover-actions end-0 me-4">
-                          <button class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></button>
-                          <button class="btn btn-light ps-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="fas fa-trash-alt"></span></button>
+                          {{-- <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" href="{{ route('staffppa.edit', $item -> id)}}" title="Edit"><span class="fas fa-edit"></span></a> --}}
+                          <a class="btn btn-light ps-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" href="{{ route('staffppa.destroy', $item -> id)}}" title="Delete"><span class="fas fa-trash-alt"></span></a>
                         </div>
                       </td>
                       <td class="align-middle text-nowrap">{{ $item-> jabatan -> nama_jabatan ?? '' }}</td>

@@ -219,6 +219,16 @@
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-heart"></span></span><span class="nav-link-text ps-1">Absensi Staff</span>
               </div>
             </a>
+
+            {{-- <a class="nav-link" href="{{ route('role.index') }}" role="button" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dragon"></span></span><span class="nav-link-text ps-1">Roles</span>
+              </div>
+            </a>
+
+            <a class="nav-link" href="{{ route('permission.index') }}" role="button" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dungeon"></span></span><span class="nav-link-text ps-1">Permission</span>
+              </div>
+            </a> --}}
             
 
             <div class="row navbar-vertical-label-wrapper mt-3 mb-2">

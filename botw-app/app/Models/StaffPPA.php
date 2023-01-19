@@ -47,7 +47,7 @@ class StaffPPA extends Model
 
     public function kelompokumur()
     {
-        return $this->hasOne(KelompokUmur::class, 'id', 'kelompok_umur_id');
+        return $this->hasOne(KelompokUmur::class, 'tutor_id');
     }
 
     public function lpstaff()

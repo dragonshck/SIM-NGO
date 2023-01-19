@@ -107,7 +107,7 @@
           @yield('liststaff')
           @yield('detailstaff')
           @yield('createstaff')
-          @yield('update')
+          @yield('updatestaff')
           {{-- Jabatan --}}
           @yield('listjabatan')
           @yield('inputjabatan')
@@ -120,6 +120,9 @@
           @yield('cutialter')
           @yield('tambahcutibang')
           @yield('detailcutibang')
+          {{-- Dangerzone --}}
+          @yield('roleindex')
+          @yield('permissionidx')
 
           {{-- Bendahara --}}
           {{-- TRX Bantuan --}}

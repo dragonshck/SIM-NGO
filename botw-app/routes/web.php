@@ -16,8 +16,10 @@ use App\Http\Controllers\LapPengeluaranController;
 use App\Http\Controllers\LessonplanController;
 use App\Http\Controllers\LogbookmengajarController;
 use App\Http\Controllers\PenggajianController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RaporAnakController;
 use App\Http\Controllers\RewardsanakController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SponsorAnakController;
 use App\Http\Controllers\StaffPPAController;
 use App\Http\Controllers\TutorAnakController;
@@ -80,6 +82,11 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::get('/ubah-status-cuti/{id}', [CutiStaffController::class, 'status_update']);
     Route::get('/cetak-slip/{id}', [PenggajianController::class, 'cetakSlip']);
     Route::resource('jabatanstaff', JabatanStaffController::class);
+
+    Route::resource('role', RoleController::class);
+    Route::resource('permission', PermissionController::class);
+    Route::post('/staffppa/{id}/roles', [StaffPPAController::class, 'assignRole'])->name('staffz.role.add');
+    Route::delete('/staffppa/{id}/roles/{role}', [StaffPPAController::class, 'revokeRole'])->name('staffz.role.remove');
 });
 
 
