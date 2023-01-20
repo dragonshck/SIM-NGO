@@ -19,11 +19,11 @@ class AbsensiStaff extends Model
 
     public function absen2staff()
     {
-        return $this->belongsTo(StaffPPA::class, 'staff_p_p_a_id', 'id');
+        return $this->belongsTo(StaffPPA::class, 'staff_p_p_a_id', 'user_id');
     }
 
     public function _staff()
     {
-        return $this->hasOne(StaffPPA::class, 'id', 'staff_p_p_a_id');
+        return $this->hasOne(StaffPPA::class, 'user_id', 'staff_p_p_a_id');
     }
 }

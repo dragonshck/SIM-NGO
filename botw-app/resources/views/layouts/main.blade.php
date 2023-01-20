@@ -140,6 +140,7 @@
           {{-- Laporan Keuangan --}}
           @yield('lappengeluaran')
           @yield('sponsorshipview')
+          @yield('datatablez')
 
 
           {{-- Sekretaris --}}
@@ -247,6 +248,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="vendors/chart/chart.min.js"></script>
     <script src="{{ asset('falcon/public/vendors/dropzone/dropzone.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <script src="https:maps.googleapis.com/maps/api/js?key=AIzaSyCWQCfQ2umNqVoSCKQPQJdeM4QDHJl0JZE&callback=initMap" async="async"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
     @yield('js')

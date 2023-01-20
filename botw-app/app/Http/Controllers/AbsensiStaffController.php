@@ -81,7 +81,7 @@ class AbsensiStaffController extends Controller
     {
         $data = AbsensiStaff::where('periode', $id)
             ->groupBy('staff_p_p_a_id')
-            ->with('_staff')
+            ->with('absen2staff')
             ->get();
 
         $x = Carbon::now()->daysInMonth;
@@ -103,6 +103,7 @@ class AbsensiStaffController extends Controller
         
 
         $tahun = $id;
+        // dd($data->toArray());
 
         return view('staff.absensi._detailabsen', compact('data', 'all_periode', 'tahun', 'absensi'));
     }

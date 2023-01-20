@@ -86,9 +86,11 @@ class AbsensiAnakController extends Controller
 
     public function show(Request $request, $id)
     {
+    
         $usr = auth()->user()->hasRole('tutor');
         if($usr) {
             $kelompok_umur = auth()->user()->staff->kelompokumur;
+            // dd(auth()->user()->staff->kelompokumur);
 
             $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
             $data = AbsensiAnak::where('periode', $id)

@@ -36,7 +36,7 @@ class KelompokUmurController extends Controller
      */
     public function create()
     {
-        $tutor = StaffPPA::with('jabatan')->where('jabatan_staff_id', 2)->get();
+        $tutor = StaffPPA::with('jabatan')->where('jabatan_staff_id', 2)->where('kelompok_umur_id', 0)->get();
         return view('datakelumur.tambahdatakode', compact('tutor'));
     }
 
@@ -126,6 +126,7 @@ class KelompokUmurController extends Controller
         // ]);
 
         $request->all();
+        // dd($request->all());
 
         $validatedData = KelompokUmur::find($id);
 
@@ -135,16 +136,19 @@ class KelompokUmurController extends Controller
         ]);
 
         $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        
         $deleting_last_staff->update([
             'kelompok_umur_id' => 0
         ]);
+        
 
         // dd($validatedData->id);
         
-        $staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        $staff = StaffPPA::where('id', $request->kelompok_umur_id)->first();
+        
         if($validatedData){
             $staff->update([
-                'kelompok_umur_id' => $validatedData->id
+                'kelompok_umur_id' => $id
             ]);
         }
         // $class = KelompokUmur::find($id);
