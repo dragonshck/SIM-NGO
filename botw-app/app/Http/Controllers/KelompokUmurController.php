@@ -85,7 +85,7 @@ class KelompokUmurController extends Controller
      */
     public function edit($id)
     {
-        $ku = KelompokUmur::findOrFail($id);
+        $ku = KelompokUmur::with('tutor')->findOrFail($id);
         $staff_tutor = StaffPPA::with('jabatan')->where('jabatan_staff_id', 2)->where('kelompok_umur_id', 0)->get();
         $staff_assigne = StaffPPA::with('user')->where('kelompok_umur_id', $id)->first();
         return view('datakelumur.editdatakode', compact('ku', 'staff_tutor', 'staff_assigne', 'id'));
@@ -125,11 +125,6 @@ class KelompokUmurController extends Controller
         //     'ku_description' => 'required|numeric',
         // ]);
 
-        $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
-        $deleting_last_staff->update([
-            'kelompok_umur_id' => 0
-        ]);
-
         $request->all();
 
         $validatedData = KelompokUmur::find($id);
@@ -139,9 +134,13 @@ class KelompokUmurController extends Controller
             'ku_description' => $request->ku_description,
         ]);
 
+        $deleting_last_staff = StaffPPA::where('kelompok_umur_id', $id)->first();
+        $deleting_last_staff->update([
+            'kelompok_umur_id' => 0
+        ]);
+
         // dd($validatedData->id);
         
-
         $staff = StaffPPA::where('kelompok_umur_id', $id)->first();
         if($validatedData){
             $staff->update([

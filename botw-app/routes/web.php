@@ -89,6 +89,9 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::delete('/staffppa/{id}/roles/{role}', [StaffPPAController::class, 'revokeRole'])->name('staffz.role.remove');
 });
 
+Route::group(['middleware' => ['auth', 'role:mentor']], function() {
+    Route::get('/ubah-status-lp/{id}', [LessonplanController::class, 'status_update']);
+});
 
 Route::group(['middleware' => ['auth', 'role:bendahara']], function () {
 

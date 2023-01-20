@@ -118,4 +118,23 @@ class LessonplanController extends Controller
     {
         //
     }
+
+    public function status_update($id)
+    {
+
+        $data = lessonplan::where('id', $id)->first();
+        $status_skrg = $data->status_lp;
+
+        if ($status_skrg == 1) {
+            DB::table('lessonplans')->where('id', $id)->update([
+                'status_lp' => 0
+            ]);
+        } else {
+            DB::table('lessonplans')->where('id', $id)->update([
+                'status_lp' => 1
+            ]);
+        }
+
+        return redirect()->route('lessonplan.index');
+    }
 }
