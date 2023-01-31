@@ -28,7 +28,7 @@
               <p class="text-1000 mb-0">Duration: {{ $startdate[$index] }} - {{ $enddate[$index] }}</p>Place : {{ $item -> location }}
               <div style="float: right;">
                 <a class="btn p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="/kegiatanppa/{{ $item -> id }}/edit"><span class="text-500 fas fa-edit"></span></a>
-                <a class="btn p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" href="{{ route('kegiatanppa.destroy', $item -> id) }}"><span class="text-500 fas fa-trash-alt"></span></a>
+                <a class="btn p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" href="/kegiatanppa/{{ $item -> id }}/delete"><span class="text-500 fas fa-trash-alt"></span></a>
               </div>
               <div class="border-dashed-bottom my-3"></div>
             </div>

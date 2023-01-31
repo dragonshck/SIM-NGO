@@ -231,6 +231,9 @@ class KegiatanppaController extends Controller
     {
         $event = Event::find($id);
         $event->delete();
+
+        $kegiatandb = kegiatanppa::find($id)->where('calendar_id', $id);
+        $kegiatandb->delete($kegiatandb);
         
         return redirect()->route('daftar-kegiatan');
     }

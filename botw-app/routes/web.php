@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kegiatanppa', KegiatanppaController::class);
     Route::get('/kegiatanppa/{id}/edit', [KegiatanppaController::class, 'edit'])->name('kegiatan.edit');
     Route::get('/kegiatanppa/{id}/update', [KegiatanppaController::class, 'update'])->name('kegiatan.update');
+    Route::get('/kegiatanppa/{id}/delete', [KegiatanppaController::class, 'destroy'])->name('kegiatan.delete');
 
     Route::get('/lap-pengeluaran', [LapPengeluaranController::class, 'GetPengeluaran'])->name('laporan-pengeluaran');
     Route::resource('rapor', RaporAnakController::class);
