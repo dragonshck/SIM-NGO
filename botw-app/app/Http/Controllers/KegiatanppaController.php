@@ -6,6 +6,8 @@ use App\Models\kegiatanppa;
 use App\Models\KelompokUmur;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\GoogleCalendar\Event;
 
 class KegiatanppaController extends Controller
 {
@@ -14,29 +16,63 @@ class KegiatanppaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        $collection = kegiatanppa::all();
-        $data_ku = KelompokUmur::all();
+        // $kegiatanz = kegiatanppa::all();
+        $events = Event::get();
         $tanggalbang = [];
         $bulanbang = [];
-        $schedule = [];
+        $tanggalmulai = [];
+        $tanggalselesai = [];
+        $jammulai = [];
 
-        foreach ($collection as $key => $item) {
-            $to = Carbon::createFromFormat('Y-m-d', $item->tgl_mulai);
+        foreach ($events as $key => $item) {
+            $to = Carbon::createFromFormat('c', $item->start->dateTime);
             $tanggalbang[] = $to->format('d');
             $bulanbang[] = $to->format('M');
+            $tanggalmulai[] = $to->toFormattedDateString();
+            $jammulai[] = $to->toTimeString();
 
-            $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
-            $schedule[] = $created->diffInDays();
+            $xx = Carbon::createFromFormat('c', $item->end->dateTime);
+            $tanggalselesai[] = $xx->toFormattedDateString();
+
         }
 
         $tanggal = $tanggalbang;
         $bulan = $bulanbang;
-        $countday = $schedule;
+        $startdate = $tanggalmulai;
+        $enddate = $tanggalselesai;
+        $starthour = $jammulai;
+
+        // $tanggalbang = [];
+        // $bulanbang = [];
+        // $tanggalmulai = [];
+        // $tanggalselesai = [];
+        // $jammulai = [];
 
 
-        return view('kegiatan.listkegiatan', compact('collection', 'data_ku', 'tanggal', 'bulan', 'countday'));
+        // foreach ($kegiatanz as $key => $item) {
+            
+        //     $to = $item->tgl_mulai;
+        //     $tanggalbang[] = $to->format('d');
+        //     $bulanbang[] = $to->format('M');
+        //     $tanggalmulai[] = $to->toFormattedDateString();
+
+        //     $xkito = $item->jam_mulai;
+        //     $jammulai[] = $xkito;
+
+        //     $created = $item->tgl_selesai;
+        //     $tanggalselesai[] = $created->toFormattedDateString();
+        // }
+
+        // $tanggal = $tanggalbang;
+        // $bulan = $bulanbang;
+        // $startdate = $tanggalmulai;
+        // $enddate = $tanggalselesai;
+        // $starthour = $jammulai;
+
+        return view('kegiatan.listkegiatan', compact('tanggal', 'bulan', 'startdate', 'enddate', 'starthour', 'events'));
     }
 
     /**
@@ -58,12 +94,56 @@ class KegiatanppaController extends Controller
      */
     public function store(Request $request)
     {
-        $data = KegiatanPPA::create($request->all());
-        if ($request->hasFile('gambar_event')) {
-            $request->file('gambar_event')->move('posterevent/', $request->file('gambar_event')->getClientOriginalName());
-            $data->gambar_event = $request->file('gambar_event')->getClientOriginalName();
-            $data->save();
+        
+
+        // dd($request->input('tgl_mulai'));
+        $a = Carbon::createFromFormat('d-m-Y', $request->tgl_mulai);
+        $b = Carbon::createFromFormat('H:i', $request->jam_mulai);
+
+        $c = Carbon::createFromFormat('d-m-Y', $request->tgl_selesai);
+        $d = Carbon::createFromFormat('H:i', $request->jam_selesai);
+
+        $dateValue = explode(' ', $a)[0];
+        $dateValue1 = explode(' ', $b)[1];
+
+        $dares = explode(' ', $c)[0];
+        $eternity = explode(' ', $d)[1];
+
+        $x = Carbon::parse($dateValue.' ' . $dateValue1);
+        $y = Carbon::parse($dares.' ' . $eternity);
+
+        $newEvent = Event::create([
+            'name' => $request->judul_kegiatan,
+            'startDateTime' => $x,
+            'endDateTime' => $y,
+            'location' => $request->tempat_pelaksanaan,
+            'description' => $request->keterangan_event
+        ]);
+
+        $getEventId = $newEvent->id;
+
+        $data = [
+            'judul_kegiatan' => $request->judul_kegiatan,
+            'tempat_pelaksanaan' => $request->tempat_pelaksanaan,
+            'keterangan_event' => $request->keterangan_event,
+            'tgl_mulai' => Carbon::parse($request->tgl_mulai)->format('Y-m-d'),
+            'tgl_selesai' => Carbon::parse($request->tgl_selesai)->format('Y-m-d'),
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+            'calendar_id' => $getEventId,
+            'created_at' => now('6.0') . date(''),
+        ];
+
+        if ($request->file('gambar_event')) {
+            $file = $request->file('gambar_event');
+            $input['gambar_event'] = time() . '_post_gambar_event.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('images/gambar_event');
+            $file->move($destinationPath, $input['gambar_event']);
+            $data['gambar_event'] = $input['gambar_event'];
         }
+
+        DB::table('kegiatanppas')->insert($data);
+
         return redirect()->route('kegiatanppa.index');
     }
 
@@ -75,29 +155,26 @@ class KegiatanppaController extends Controller
      */
     public function show($id)
     {
-        $collection = KegiatanPPA::find($id);
-        $data_ku = $collection->kegiatan2ku;
-
+        $eventId = Event::get()->first()->id;
+        $event = Event::find($eventId);
+        
         // dd($collection->tgl_mulai);
 
-        $from = Carbon::createFromFormat('Y-m-d', $collection->tgl_mulai);
-        $to = Carbon::createFromFormat('Y-m-d', $collection->tgl_selesai);
+        $from = Carbon::createFromFormat('c', $event->start->dateTime);
+        $to = Carbon::createFromFormat('c', $event->end->dateTime);
         $tanggalbang = $from->format('d');
         $bulanbang = $from->format('M');
 
-        $datefrom = Carbon::createFromFormat('Y-m-d', $collection->tgl_mulai);
-        $dateto = Carbon::createFromFormat('Y-m-d', $collection->tgl_selesai);
+        $startdate = $from->toFormattedDateString();
+        $enddate = $to->toFormattedDateString();
 
-        $startdate = $datefrom->toFormattedDateString();
-        $enddate = $dateto->toFormattedDateString();
+        $jamfrom = $from->toTimeString();
+        $jamto = $to->toFormattedDateString();
 
-        $jamfrom = Carbon::createFromFormat('H:i:s', $collection->jam_mulai);
-        $jamto = Carbon::createFromFormat('H:i:s', $collection->jam_selesai);
+        $starthour = $jamfrom;
+        $endhour = $jamto;
 
-        $starthour = $jamfrom->format('H:i');
-        $endhour = $jamto->format('H:i');
-
-        return view('kegiatan.detailkegiatan', compact('collection', 'data_ku', 'tanggalbang', 'bulanbang', 'startdate', 'enddate', 'starthour', 'endhour'));
+        return view('kegiatan.detailkegiatan', compact('event', 'tanggalbang', 'bulanbang', 'startdate', 'enddate', 'starthour', 'endhour'));
     }
 
     /**
@@ -108,10 +185,11 @@ class KegiatanppaController extends Controller
      */
     public function edit($id)
     {
-        $collection = KegiatanPPA::find($id);
-        $data_ku = $collection->kegiatan2ku::where('id', $id);
-
-        return view('kegiatan.detailkegiatan', compact('collection', 'data_ku'));
+        $getId = DB::table('kegiatanppas')->where('calendar_id', $id)->first();
+        $event = Event::find($id);
+        // $event = DB::table('kegiatanppas')->where('calendar_id', $getId)->first();
+       
+        return view('kegiatan.updatekegiatan', compact('event', 'getId'));
     }
 
     /**
@@ -123,13 +201,24 @@ class KegiatanppaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = KegiatanPPA::find($id);
-        if ($request->hasFile('gambar_event')) {
-            $request->file('gambar_event')->move('posterevent/', $request->file('gambar_event')->getClientOriginalName());
-            $data->fotoprofil = $request->file('gambar_event')->getClientOriginalName();
-            $data->save();
-        }
-        return redirect()->route('daftar-kegiatan');
+        $event = Event::find($id);
+        $event->update($request->validated());
+        $event->save();
+
+        $data = [
+            'judul_kegiatan' => $request->judul_kegiatan,
+            'tempat_pelaksanaan' => $request->tempat_pelaksanaan,
+            'keterangan_event' => $request->keterangan_event,
+            'tgl_mulai' => Carbon::parse($request->tgl_mulai)->format('Y-m-d'),
+            'tgl_selesai' => Carbon::parse($request->tgl_selesai)->format('Y-m-d'),
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+        ];
+
+        $kegiatandb = kegiatanppa::find($id)->where('calendar_id', $id);
+        $kegiatandb->update($data);
+
+        return redirect()->route('kegiatanppa.index');
     }
 
     /**
@@ -140,7 +229,9 @@ class KegiatanppaController extends Controller
      */
     public function destroy($id)
     {
-        KegiatanPPA::find($id);
+        $event = Event::find($id);
+        $event->delete();
+        
         return redirect()->route('daftar-kegiatan');
     }
 }

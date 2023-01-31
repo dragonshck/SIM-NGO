@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ class kegiatanppa extends Model
     use HasFactory;
     protected $table = 'kegiatanppas';
     protected $fillable = [
+        'id',
         'judul_kegiatan',
         'tempat_pelaksanaan',
         'gambar_event',
@@ -17,13 +19,17 @@ class kegiatanppa extends Model
         'tgl_mulai',
         'tgl_selesai',
         'jam_mulai',
-        'jam_selesai',
-        'tipe_kegiatan',
-        'ku_id'
+        'jam_selesai'
     ];
+    protected $dates = ['tgl_mulai', 'tgl_selesai'];
 
-    public function kegiatan2ku()
+    public function kegiatanabsen() {
+        return $this->hasOne(absensikegiatan::class, 'id', 'kegiatan_id');
+    }
+
+    public function getCreatedAtAttribute($dates)
     {
-        return $this->belongsTo(KelompokUmur::class, 'ku_id', 'id');
+        $date = Carbon::parse($dates);
+        return $date->format('d-m-Y');
     }
 }

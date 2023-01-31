@@ -15,15 +15,21 @@
     </div>
     <div class="card-body fs--1">
       <div class="row">
-        @foreach ($collection as $index => $item)
+        @foreach ($events as $index => $item)
         <div class="col-md-6 h-100">
           <div class="d-flex btn-reveal-trigger">
             <div class="calendar"><span class="calendar-month">{{ $bulan[$index] }}</span><span class="calendar-day">{{ $tanggal[$index] }}</span></div>
             <div class="flex-1 position-relative ps-3">
-              <h6 class="fs-0 mb-0"><a href="{{ route('kegiatanppa.show', $item -> id)}}">{{ $item -> judul_kegiatan }}<span class="badge badge-soft-success rounded-pill">{{ $countday[$index] }} days ago</span></a></h6>
-              <p class="mb-1">Organized by <a href="#!" class="text-700">PPA Kalvari</a></p>
-              <p class="text-1000 mb-0">Time: {{ $item -> jam_mulai }}</p>
-              <p class="text-1000 mb-0">Duration: {{ $item -> tgl_mulai }} - {{ $item -> tgl_selesai }}</p>{{ $item -> tempat_pelaksanaan }}
+              <h6 class="fs-0 mb-0">
+                <a href="{{ route('kegiatanppa.show', $item -> id)}}"> {{ $item -> summary }}</a>
+              </h6>
+              <p class="mb-1">Organized by PPA Kalvari</p>
+              <p class="text-1000 mb-0">Time: {{ $starthour[$index] }}</p>
+              <p class="text-1000 mb-0">Duration: {{ $startdate[$index] }} - {{ $enddate[$index] }}</p>Place : {{ $item -> location }}
+              <div style="float: right;">
+                <a class="btn p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="/kegiatanppa/{{ $item -> id }}/edit"><span class="text-500 fas fa-edit"></span></a>
+                <a class="btn p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" href="{{ route('kegiatanppa.destroy', $item -> id) }}"><span class="text-500 fas fa-trash-alt"></span></a>
+              </div>
               <div class="border-dashed-bottom my-3"></div>
             </div>
           </div>
