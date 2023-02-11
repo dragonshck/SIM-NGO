@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\kegiatanppa;
 use App\Models\KelompokUmur;
+use App\Models\StaffPPA;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,8 +84,8 @@ class KegiatanppaController extends Controller
      */
     public function create()
     {
-        $data_ku = KelompokUmur::all();
-        return view('kegiatan.tambahkegiatan', compact('data_ku'));
+        $user = StaffPPA::with('user')->get();
+        return view('kegiatan.tambahkegiatan', compact('user'));
     }
 
     /**
@@ -94,7 +96,6 @@ class KegiatanppaController extends Controller
      */
     public function store(Request $request)
     {
-        
 
         // dd($request->input('tgl_mulai'));
         $a = Carbon::createFromFormat('d-m-Y', $request->tgl_mulai);
@@ -117,7 +118,7 @@ class KegiatanppaController extends Controller
             'startDateTime' => $x,
             'endDateTime' => $y,
             'location' => $request->tempat_pelaksanaan,
-            'description' => $request->keterangan_event
+            'description' => $request->keterangan_event,
         ]);
 
         $getEventId = $newEvent->id;
@@ -155,8 +156,8 @@ class KegiatanppaController extends Controller
      */
     public function show($id)
     {
-        $eventId = Event::get()->first()->id;
-        $event = Event::find($eventId);
+        $getId = DB::table('kegiatanppas')->where('calendar_id', $id)->first();
+        $event = Event::find($id);
         
         // dd($collection->tgl_mulai);
 
@@ -189,7 +190,7 @@ class KegiatanppaController extends Controller
         $event = Event::find($id);
         // $event = DB::table('kegiatanppas')->where('calendar_id', $getId)->first();
        
-        return view('kegiatan.updatekegiatan', compact('event', 'getId'));
+        return view('kegiatan.updatekegiatan', compact('event', 'getId', 'id'));
     }
 
     /**
@@ -202,9 +203,6 @@ class KegiatanppaController extends Controller
     public function update(Request $request, $id)
     {
         $event = Event::find($id);
-        $event->update($request->validated());
-        $event->save();
-
         $data = [
             'judul_kegiatan' => $request->judul_kegiatan,
             'tempat_pelaksanaan' => $request->tempat_pelaksanaan,
@@ -215,8 +213,31 @@ class KegiatanppaController extends Controller
             'jam_selesai' => $request->jam_selesai,
         ];
 
-        $kegiatandb = kegiatanppa::find($id)->where('calendar_id', $id);
+        $kegiatandb = kegiatanppa::where('calendar_id', $id);
         $kegiatandb->update($data);
+        
+        $a = Carbon::createFromFormat('d-m-Y', $request->tgl_mulai);
+        $b = Carbon::createFromFormat('H:i', $request->jam_mulai);
+
+        $c = Carbon::createFromFormat('d-m-Y', $request->tgl_selesai);
+        $d = Carbon::createFromFormat('H:i', $request->jam_selesai);
+
+        $dateValue = explode(' ', $a)[0];
+        $dateValue1 = explode(' ', $b)[1];
+
+        $dares = explode(' ', $c)[0];
+        $eternity = explode(' ', $d)[1];
+
+        $x = Carbon::parse($dateValue.' ' . $dateValue1);
+        $y = Carbon::parse($dares.' ' . $eternity);
+
+        $event->update([
+            'name' => $request->judul_kegiatan,
+            'startDateTime' => $x,
+            'endDateTime' => $y,
+            'location' => $request->tempat_pelaksanaan,
+            'description' => $request->keterangan_event,
+        ]);
 
         return redirect()->route('kegiatanppa.index');
     }
@@ -229,11 +250,13 @@ class KegiatanppaController extends Controller
      */
     public function destroy($id)
     {
+        
+        $kegiatandb = kegiatanppa::find($id)->where('calendar_id', $id);
+        $kegiatandb->delete($kegiatandb);
+
         $event = Event::find($id);
         $event->delete();
 
-        $kegiatandb = kegiatanppa::find($id)->where('calendar_id', $id);
-        $kegiatandb->delete($kegiatandb);
         
         return redirect()->route('daftar-kegiatan');
     }

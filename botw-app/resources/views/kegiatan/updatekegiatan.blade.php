@@ -1,8 +1,9 @@
 @extends('layouts.main')
 @section('updatekegiatan')
-<form method="POST" action="/kegiatanppa/{{ $getId -> id }}/update">
+{{-- {{ dd($id); }} --}}
+<form method="POST" action="/kegiatanppa/{{ $id }}/update">
   @csrf
-  @method('PUT')
+  {{-- @method('PUT') --}}
 <div class="card mb-3">
     <div class="card-body">
       <div class="row flex-between-center">

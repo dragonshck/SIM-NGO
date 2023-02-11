@@ -21,7 +21,7 @@
             <div class="calendar"><span class="calendar-month">{{ $bulan[$index] }}</span><span class="calendar-day">{{ $tanggal[$index] }}</span></div>
             <div class="flex-1 position-relative ps-3">
               <h6 class="fs-0 mb-0">
-                <a href="{{ route('kegiatanppa.show', $item -> id)}}"> {{ $item -> summary }}</a>
+                <a href="/kegiatanppa/{{ $item -> id }}/show"> {{ $item -> summary }}</a>
               </h6>
               <p class="mb-1">Organized by PPA Kalvari</p>
               <p class="text-1000 mb-0">Time: {{ $starthour[$index] }}</p>

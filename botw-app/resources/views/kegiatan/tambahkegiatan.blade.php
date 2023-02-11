@@ -22,7 +22,7 @@
     <div class="col-lg-12 pe-lg-2">
       <div class="card mb-3">
         <div class="card-header">
-          <h5 class="mb-0">Event Details</h5>
+          <h5 class="mb-0">Detail Kegiatan</h5>
         </div>
         <div class="card-body bg-light">
             
@@ -55,6 +55,19 @@
                 <label class="form-label" for="event-venue">Venue</label>
                 <input class="form-control" id="event-venue" type="text" placeholder="Venue" name="tempat_pelaksanaan">
               </div>
+{{-- 
+              <label class="form-label" for="event-venue">Tamu / Guest</label>
+              <div id="entryz">
+                  <div class="form-floating col-md-12">
+                    <input class="form-control" id="floatingInput" name="email[]" type="email" placeholder="name@example.com" />
+                    <label for="floatingInput">Email</label>
+                    <a class="btn btn-success me-1" type="button" id="add_btn" href="javascript:void(0);">
+                      <span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>
+                    </a>
+                  </div>
+                  <br>
+                </div> --}}
+              
               <div class="col-12">
                 <label class="form-label" for="event-description">Description</label>
                 <textarea class="form-control" id="event-description" rows="6" name="keterangan_event"></textarea>
@@ -64,38 +77,38 @@
         </div>
       </div>
     </div>
-    {{-- <div class="col-lg-4 ps-lg-2">
-      <div class="sticky-sidebar">
-        <div class="card mb-lg-0">
-            <div class="card-header">
-              <h5 class="mb-0">Other Info</h5>
-            </div>
-            <div class="card-body bg-light">
-              <div class="mb-3">
-                <label class="form-label" for="event-type">Event Type</label>
-                <select class="form-select" id="event-type" name="tipe_kegiatan">
-                  <option>Select event type...</option>
-                  <option>Seminar</option>
-                  <option>Fellowship</option>
-                  <option>Pemeriksaan Kesehatan</option>
-                  <option>Study Tour</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="event-type">Kelompok Umur</label>
-                <select class="form-select" id="event-type" name="kelompk_umur_id">
-                  <option>Pilih Kelompok Umur...</option>
-                  @foreach ($data_ku as $item)
-                    <option value="{{ $item -> id }}">{{ $item -> ku_name }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="border-dashed-bottom my-3"></div>
-              <h6>Warning! Pastikan semua informasi yang dimasukkan sudah benar!</h6>
-            </div>
-          </div>
-      </div>
-    </div> --}}
   </div>
 </form>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var maxField = 5;
+      var addBtn = $('#add_btn');
+      var wrapper = $('#entryz');
+      var fieldHTML = `<div class="form-floating col-md-12">
+                    <input class="form-control" id="floatingInput" name="email[]" type="email" placeholder="name@example.com" />
+                    <label for="floatingInput">Email</label>
+                    <a class="btn btn-danger me-1" type="button" id="rmv_btn" href="javascript:void(0);">
+                      <span class="fas fa-minus me-1" data-fa-transform="shrink-3"></span>
+                    </a>
+                  </div>
+                  <br>`;
+      var x = 1;
+      $(addBtn).click(function(){
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+      });
+
+      $(wrapper).on('click', '#rmv_btn', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+      });
+      
+    });
+    </script>
 @endsection

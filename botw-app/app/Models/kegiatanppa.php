@@ -19,7 +19,8 @@ class kegiatanppa extends Model
         'tgl_mulai',
         'tgl_selesai',
         'jam_mulai',
-        'jam_selesai'
+        'jam_selesai',
+        'calendar_id'
     ];
     protected $dates = ['tgl_mulai', 'tgl_selesai'];
 

@@ -53,8 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('logbook', LogbookmengajarController::class);
     Route::resource('absenanak', AbsensiAnakController::class);
     Route::resource('kegiatanppa', KegiatanppaController::class);
+    Route::get('/kegiatanppa/{id}/show', [KegiatanppaController::class, 'show'])->name('kegiatan.show');
     Route::get('/kegiatanppa/{id}/edit', [KegiatanppaController::class, 'edit'])->name('kegiatan.edit');
-    Route::get('/kegiatanppa/{id}/update', [KegiatanppaController::class, 'update'])->name('kegiatan.update');
+    Route::post('/kegiatanppa/{id}/update', [KegiatanppaController::class, 'update'])->name('kegiatan.update');
     Route::get('/kegiatanppa/{id}/delete', [KegiatanppaController::class, 'destroy'])->name('kegiatan.delete');
 
     Route::get('/lap-pengeluaran', [LapPengeluaranController::class, 'GetPengeluaran'])->name('laporan-pengeluaran');

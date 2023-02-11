@@ -40,6 +40,7 @@
     <link href="{{ asset('falcon/public/assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
     <link href="{{ asset('falcon/public/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('falcon/public/vendors/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('falcon/public/vendors/choices/choices.min.css')}}" rel="stylesheet" />
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -251,6 +252,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="https:maps.googleapis.com/maps/api/js?key=AIzaSyCWQCfQ2umNqVoSCKQPQJdeM4QDHJl0JZE&callback=initMap" async="async"></script>
+    <script src="{{ asset('falcon/public/vendors/choices/choices.min.js')}}"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
     @yield('js')
