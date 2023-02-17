@@ -8,6 +8,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
+use App\Mail\CutiNotify;
+use App\Models\User;
+use Error;
+use Exception;
+use Illuminate\Support\Facades\Mail;
 
 class CutistaffController extends Controller
 {
@@ -35,7 +40,7 @@ class CutistaffController extends Controller
 
             return view('staff.cuti.datacuti', compact('collection', 'hari_cuti'));
         } else {
-        $id = \Auth::user()->id;
+        $id = \Auth::user()->staff->id;
         $collection = cutistaff::with('cuti2staff')->where('staff_id', $id)->get();
         $daysdiff = [];
 
@@ -71,6 +76,7 @@ class CutistaffController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::where('id', 1)->first();
         $data = CutiStaff::create($request->all());
         // if ($request->hasFile('gambar_bukti')) {
         //     foreach ($request->file('gambar_bukti') as $image) {
@@ -84,6 +90,13 @@ class CutistaffController extends Controller
             $request->file('gambar_bukti')->move('bukticuti_staff/', $request->file('gambar_bukti')->getClientOriginalName());
             $data->gambar_bukti = $request->file('gambar_bukti')->getClientOriginalName();
             $data->save();
+        }
+
+        try{
+            Mail::to($user)->send(new CutiNotify($data));
+            return redirect()->route('cutiizin.index');
+        } catch (Error $err) {
+            return response()->json($err);
         }
 
         return redirect()->route('cutiizin.index');

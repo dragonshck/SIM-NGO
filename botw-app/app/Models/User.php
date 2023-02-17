@@ -64,4 +64,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(StaffPPA::class);
     }
+
+    public function routeNotificationForMail($notification)
+    {
+        // Jika di table users ada kolom email untuk notifikasi
+        return $this->email;
+
+        // Jika di table users ada kolom email dan nama untuk notifikasi
+        return [$this->email => $this->name];
+    }
 }

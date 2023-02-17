@@ -19,14 +19,16 @@ class LessonplanController extends Controller
      */
     public function index()
     {
+        $revlp = [];
         if (auth()->user()->hasRole('tutor')) {
             $tutorid = \Auth::user()->staff->id;
             $lp = lessonplan::with('lptutor')->where('tutor_id', $tutorid)->get();
             foreach ($lp as $rev) {
                 $revlp = revisilp::with('revisi')->where('lp_id', $rev->id)->get();
             }
+            $revlpz = $revlp;
             // $lp = lessonplan::with('lptutor')->get();
-            return view('lessonplan.lessonplan', compact('lp', 'revlp'));
+            return view('lessonplan.lessonplan', compact('lp', 'revlpz'));
         } else {
             $lp = lessonplan::with('lptutor')->get();
             $revlp = revisilp::with('revisi')->get();

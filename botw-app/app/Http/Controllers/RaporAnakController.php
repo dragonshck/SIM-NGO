@@ -22,7 +22,7 @@ class RaporAnakController extends Controller
     {
         $usr = auth()->user()->hasRole('tutor');
         if ($usr) {
-            $kelompok_umur = auth()->user()->staff->kelompokumur;
+            $kelompok_umur = auth()->user()->staff;
             $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
             // dd($anak);
             // dd($kelompok_umur);
