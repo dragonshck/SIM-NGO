@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\cutistaff;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,11 +17,10 @@ class CutiNotify extends Mailable
      *
      * @return void
      */
-    private $data = [];
-    protected $cuti ,$user;
-    public function __construct($data)
+    protected $cuti;
+    public function __construct(cutistaff $cuti)
     {
-        $this->data = $data;
+        $this->cuti = $cuti;
     }
 
     /**
@@ -30,7 +30,14 @@ class CutiNotify extends Mailable
      */
     public function build()
     {
+        $datecuti = $this->cuti->created_at->toFormattedDateString();
+
         return $this->subject('Permohonan Pengajuan Cuti')
-            ->markdown('staff.cuti._emailbodycuti', ['data', $this->data]);
+            ->view('staff.cuti._emailbodycuti')
+            ->with([
+                'nama' => $this->cuti->cuti2staff->user->name,
+                'tanggal' => $datecuti,
+                'urlizin' => url('/cutistaff/' . $this->cuti->cuti2staff->id)
+            ]);
     }
 }

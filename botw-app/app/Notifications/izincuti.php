@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\cutistaff;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -45,14 +46,25 @@ class izincuti extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/cutistaff/' . $this->user->staff->id);
-        $staffnya = $this->user;
-        $posisi = $this->user->staff->jabatan->nama_jabatan;
-        $ket_cuti = $this->cuti->keterangan;
+        $urlizin = url('/cutistaff/' . $this->user->staff->id);
+        $nama = $this->user->name;
+        $tanggalcuti = Carbon::now();
+        $tanggal = $tanggalcuti->toDateTimeString();
+        // $data = [
+        //     'url' => url('/cutistaff/' . $this->user->staff->id),
+        //     'staffnya' => $this->user->name,
+        //     'pp' => $this->user->profile_picture,
+        //     'posisi' => $this->user->staff->jabatan->nama_jabatan,
+        //     'ket_cuti' => $this->cuti->keterangan,
+        // ];
         
         return (new MailMessage)
-            ->subject('Permohonan Pengajuan Cuti oleh' . $staffnya->name)
-            ->markdown('staff.cuti._emailbodycuti', compact('url', 'staffnya', 'ket_cuti', 'posisi'));
+            ->subject('Permohonan Pengajuan Cuti')
+            ->view('staff.cuti._emailbodycuti', compact('urlizin', 'nama', 'tanggal'));
+            // ->with([
+            //     'url' => $urlizin,
+            //     'nama' => $this->user->name,
+            //     'date' => $this->cuti->created_at]);
     }
 
     /**

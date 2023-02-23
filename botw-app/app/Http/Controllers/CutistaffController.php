@@ -76,7 +76,6 @@ class CutistaffController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::where('id', 1)->first();
         $data = CutiStaff::create($request->all());
         // if ($request->hasFile('gambar_bukti')) {
         //     foreach ($request->file('gambar_bukti') as $image) {
@@ -93,10 +92,10 @@ class CutistaffController extends Controller
         }
 
         try{
-            Mail::to($user)->send(new CutiNotify($data));
+            Mail::to('specterknight96@gmail.com')->send(new CutiNotify($data));
             return redirect()->route('cutiizin.index');
         } catch (Error $err) {
-            return response()->json($err);
+            return response()->json('Something went wrong!');
         }
 
         return redirect()->route('cutiizin.index');

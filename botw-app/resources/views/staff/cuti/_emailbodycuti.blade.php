@@ -1,372 +1,691 @@
-@component('mail::message')
-	
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
-    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
-    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
-
-    <!-- CSS Reset : BEGIN -->
-    <style>
-
-        /* What it does: Remove spaces around the email design added by some email clients. */
-        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-        html,
-body {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    height: 100% !important;
-    width: 100% !important;
-    background: #f1f1f1;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge" /><!--<![endif]-->
+    <meta name="viewport" content="width=device-width" /><style type="text/css">
+@media only screen and (min-width: 620px){.wrapper{min-width:600px !important}.wrapper h1{}.wrapper h1{font-size:26px !important;line-height:34px !important}.wrapper h2{}.wrapper h2{font-size:20px !important;line-height:28px !important}.wrapper h3{}.column{}.column{font-size:18px !important;line-height:26px !important}.wrapper .size-8{font-size:8px !important;line-height:14px !important}.wrapper .size-9{font-size:9px !important;line-height:16px !important}.wrapper .size-10{font-size:10px !important;line-height:18px !important}.wrapper .size-11{font-size:11px !important;line-height:19px !important}.wrapper .size-12{font-size:12px !important;line-height:19px !important}.wrapper .size-13{font-size:13px !important;line-height:21px !important}.wrapper .size-14{font-size:14px !important;line-height:21px !important}.wrapper .size-15{font-size:15px !important;line-height:23px !important}.wrapper 
+.size-16{font-size:16px !important;line-height:24px !important}.wrapper .size-17{font-size:17px !important;line-height:26px !important}.wrapper .size-18{font-size:18px !important;line-height:26px !important}.wrapper .size-20{font-size:20px !important;line-height:28px !important}.wrapper .size-22{font-size:22px !important;line-height:31px !important}.wrapper .size-24{font-size:24px !important;line-height:32px !important}.wrapper .size-26{font-size:26px !important;line-height:34px !important}.wrapper .size-28{font-size:28px !important;line-height:36px !important}.wrapper .size-30{font-size:30px !important;line-height:38px !important}.wrapper .size-32{font-size:32px !important;line-height:40px !important}.wrapper .size-34{font-size:34px !important;line-height:43px !important}.wrapper .size-36{font-size:36px !important;line-height:43px !important}.wrapper .size-40{font-size:40px 
+!important;line-height:47px !important}.wrapper .size-44{font-size:44px !important;line-height:50px !important}.wrapper .size-48{font-size:48px !important;line-height:54px !important}.wrapper .size-56{font-size:56px !important;line-height:60px !important}.wrapper .size-64{font-size:64px !important;line-height:68px !important}.wrapper .size-72{font-size:72px !important;line-height:76px !important}.wrapper .size-80{font-size:80px !important;line-height:84px !important}.wrapper .size-96{font-size:96px !important;line-height:100px !important}.wrapper .size-112{font-size:112px !important;line-height:116px !important}.wrapper .size-128{font-size:128px !important;line-height:132px !important}.wrapper .size-144{font-size:144px !important;line-height:148px !important}}
+</style>
+    <meta name="x-apple-disable-message-reformatting" />
+    <style type="text/css">
+.main, .mso {
+  margin: 0;
+  padding: 0;
 }
-
-/* What it does: Stops email clients resizing small text. */
-* {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-}
-
-/* What it does: Centers email on Android 4.4 */
-div[style*="margin: 16px 0"] {
-    margin: 0 !important;
-}
-
-/* What it does: Stops Outlook from adding extra spacing to tables. */
-table,
-td {
-    mso-table-lspace: 0pt !important;
-    mso-table-rspace: 0pt !important;
-}
-
-/* What it does: Fixes webkit padding issue. */
 table {
-    border-spacing: 0 !important;
-    border-collapse: collapse !important;
-    table-layout: fixed !important;
-    margin: 0 auto !important;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
-
-/* What it does: Uses a better rendering method when resizing images in IE. */
-img {
-    -ms-interpolation-mode:bicubic;
+* {
+  line-height: inherit;
 }
-
-/* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
-a {
-    text-decoration: none;
+[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
 }
-
-/* What it does: A work-around for email clients meddling in triggered links. */
-*[x-apple-data-detectors],  /* iOS */
-.unstyle-auto-detected-links *,
-.aBn {
-    border-bottom: 0 !important;
-    cursor: default !important;
-    color: inherit !important;
-    text-decoration: none !important;
-    font-size: inherit !important;
-    font-family: inherit !important;
-    font-weight: inherit !important;
-    line-height: inherit !important;
+.wrapper .footer__share-button a:hover,
+.wrapper .footer__share-button a:focus {
+  color: #ffffff !important;
 }
-
-/* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
-.a6S {
-    display: none !important;
-    opacity: 0.01 !important;
+.wrapper .footer__share-button a.icon-white:hover,
+.wrapper .footer__share-button a.icon-white:focus {
+  color: #ffffff !important;
 }
-
-/* What it does: Prevents Gmail from changing the text color in conversation threads. */
-.im {
-    color: inherit !important;
+.wrapper .footer__share-button a.icon-black:hover,
+.wrapper .footer__share-button a.icon-black:focus {
+  color: #000000 !important;
 }
-
-/* If the above doesn't work, add a .g-img class to any image in question. */
-img.g-img + div {
-    display: none !important;
+.btn a:hover,
+.btn a:focus,
+.footer__share-button a:hover,
+.footer__share-button a:focus,
+.email-footer__links a:hover,
+.email-footer__links a:focus {
+  opacity: 0.8;
 }
-
-/* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-/* Create one of these media queries for each additional viewport size you'd like to fix */
-
-/* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
-@media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
-    u ~ div .email-container {
-        min-width: 320px !important;
+.preheader,
+.header,
+.layout,
+.column {
+  transition: width 0.25s ease-in-out, max-width 0.25s ease-in-out;
+}
+.preheader td {
+  padding-bottom: 8px;
+}
+.layout,
+div.header {
+  max-width: 400px !important;
+  -fallback-width: 95% !important;
+  width: calc(100% - 20px) !important;
+}
+div.preheader {
+  max-width: 360px !important;
+  -fallback-width: 90% !important;
+  width: calc(100% - 60px) !important;
+}
+.snippet,
+.webversion {
+  Float: none !important;
+}
+.stack .column {
+  max-width: 400px !important;
+  width: 100% !important;
+}
+.fixed-width.has-border {
+  max-width: 402px !important;
+}
+.fixed-width.has-border .layout__inner {
+  box-sizing: border-box;
+}
+.snippet,
+.webversion {
+  width: 50% !important;
+}
+.ie .btn {
+  width: 100%;
+}
+.ie .stack .column,
+.ie .stack .gutter {
+  display: table-cell;
+  float: none !important;
+}
+.ie div.preheader,
+.ie .email-footer {
+  max-width: 560px !important;
+  width: 560px !important;
+}
+.ie .snippet,
+.ie .webversion {
+  width: 280px !important;
+}
+.ie div.header,
+.ie .layout {
+  max-width: 600px !important;
+  width: 600px !important;
+}
+.ie .two-col .column {
+  max-width: 300px !important;
+  width: 300px !important;
+}
+.ie .three-col .column,
+.ie .narrow {
+  max-width: 200px !important;
+  width: 200px !important;
+}
+.ie .wide {
+  width: 400px !important;
+}
+.ie .stack.fixed-width.has-border,
+.ie .stack.has-gutter.has-border {
+  max-width: 602px !important;
+  width: 602px !important;
+}
+.ie .stack.two-col.has-gutter .column {
+  max-width: 290px !important;
+  width: 290px !important;
+}
+.ie .stack.three-col.has-gutter .column,
+.ie .stack.has-gutter .narrow {
+  max-width: 188px !important;
+  width: 188px !important;
+}
+.ie .stack.has-gutter .wide {
+  max-width: 394px !important;
+  width: 394px !important;
+}
+.ie .stack.two-col.has-gutter.has-border .column {
+  max-width: 292px !important;
+  width: 292px !important;
+}
+.ie .stack.three-col.has-gutter.has-border .column,
+.ie .stack.has-gutter.has-border .narrow {
+  max-width: 190px !important;
+  width: 190px !important;
+}
+.ie .stack.has-gutter.has-border .wide {
+  max-width: 396px !important;
+  width: 396px !important;
+}
+.ie .fixed-width .layout__inner {
+  border-left: 0 none white !important;
+  border-right: 0 none white !important;
+}
+.ie .layout__edges {
+  display: none;
+}
+.mso .layout__edges {
+  font-size: 0;
+}
+.layout-fixed-width,
+.mso .layout-full-width {
+  background-color: #ffffff;
+}
+@media only screen and (min-width: 620px) {
+  .column,
+  .gutter {
+    display: table-cell;
+    Float: none !important;
+    vertical-align: top;
+  }
+  div.preheader,
+  .email-footer {
+    max-width: 560px !important;
+    width: 560px !important;
+  }
+  .snippet,
+  .webversion {
+    width: 280px !important;
+  }
+  div.header,
+  .layout,
+  .one-col .column {
+    max-width: 600px !important;
+    width: 600px !important;
+  }
+  .fixed-width.has-border,
+  .fixed-width.x_has-border,
+  .has-gutter.has-border,
+  .has-gutter.x_has-border {
+    max-width: 602px !important;
+    width: 602px !important;
+  }
+  .two-col .column {
+    max-width: 300px !important;
+    width: 300px !important;
+  }
+  .three-col .column,
+  .column.narrow,
+  .column.x_narrow {
+    max-width: 200px !important;
+    width: 200px !important;
+  }
+  .column.wide,
+  .column.x_wide {
+    width: 400px !important;
+  }
+  .two-col.has-gutter .column,
+  .two-col.x_has-gutter .column {
+    max-width: 290px !important;
+    width: 290px !important;
+  }
+  .three-col.has-gutter .column,
+  .three-col.x_has-gutter .column,
+  .has-gutter .narrow {
+    max-width: 188px !important;
+    width: 188px !important;
+  }
+  .has-gutter .wide {
+    max-width: 394px !important;
+    width: 394px !important;
+  }
+  .two-col.has-gutter.has-border .column,
+  .two-col.x_has-gutter.x_has-border .column {
+    max-width: 292px !important;
+    width: 292px !important;
+  }
+  .three-col.has-gutter.has-border .column,
+  .three-col.x_has-gutter.x_has-border .column,
+  .has-gutter.has-border .narrow,
+  .has-gutter.x_has-border .narrow {
+    max-width: 190px !important;
+    width: 190px !important;
+  }
+  .has-gutter.has-border .wide,
+  .has-gutter.x_has-border .wide {
+    max-width: 396px !important;
+    width: 396px !important;
+  }
+}
+@supports (display: flex) {
+  @media only screen and (min-width: 620px) {
+    .fixed-width.has-border .layout__inner {
+      display: flex !important;
     }
+  }
 }
-/* iPhone 6, 6S, 7, 8, and X */
-@media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
-    u ~ div .email-container {
-        min-width: 375px !important;
-    }
+/***
+* Mobile Styles
+*
+* 1. Overriding inline styles
+*/
+@media(max-width: 619px) {
+  .email-flexible-footer .left-aligned-footer .column,
+  .email-flexible-footer .center-aligned-footer,
+  .email-flexible-footer .right-aligned-footer .column {
+    max-width: 100% !important; /* [1] */
+    text-align: center !important; /* [1] */
+    width: 100% !important; /* [1] */
+  }
+  .flexible-footer-logo {
+    margin-left: 0px !important; /* [1] */
+    margin-right: 0px !important; /* [1] */
+  }
+  .email-flexible-footer .left-aligned-footer .flexible-footer__share-button__container,
+  .email-flexible-footer .center-aligned-footer .flexible-footer__share-button__container,
+  .email-flexible-footer .right-aligned-footer .flexible-footer__share-button__container {
+    display: inline-block;
+    margin-left: 5px !important; /* [1] */
+    margin-right: 5px !important; /* [1] */
+  }
+  .email-flexible-footer__additionalinfo--center {
+    text-align: center !important; /* [1] */
+  }
+  
+  .email-flexible-footer .left-aligned-footer table,
+  .email-flexible-footer .center-aligned-footer table,
+  .email-flexible-footer .right-aligned-footer table {
+    display: table !important; /* [1] */
+    width: 100% !important; /* [1] */
+  }
+  .email-flexible-footer .footer__share-button,
+  .email-flexible-footer .email-footer__additional-info {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
-/* iPhone 6+, 7+, and 8+ */
-@media only screen and (min-device-width: 414px) {
-    u ~ div .email-container {
-        min-width: 414px !important;
-    }
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .fblike {
+    background-image: url(https://i7.createsend1.com/static/eb/master/13-the-blueprint-3/images/fblike@2x.png) !important;
+  }
+  .tweet {
+    background-image: url(https://i8.createsend1.com/static/eb/master/13-the-blueprint-3/images/tweet@2x.png) !important;
+  }
+  .linkedinshare {
+    background-image: url(https://i9.createsend1.com/static/eb/master/13-the-blueprint-3/images/lishare@2x.png) !important;
+  }
+  .forwardtoafriend {
+    background-image: url(https://i10.createsend1.com/static/eb/master/13-the-blueprint-3/images/forward@2x.png) !important;
+  }
 }
-
-
-    </style>
-
-    <!-- CSS Reset : END -->
-
-    <!-- Progressive Enhancements : BEGIN -->
-    <style>
-
-	    .primary{
-	background: #17bebb;
+@media (max-width: 321px) {
+  .fixed-width.has-border .layout__inner {
+    border-width: 1px 0 !important;
+  }
+  .layout,
+  .stack .column {
+    min-width: 320px !important;
+    width: 320px !important;
+  }
+  .border {
+    display: none;
+  }
+  .has-gutter .border {
+    display: table-cell;
+  }
 }
-.bg_white{
-	background: #ffffff;
+.mso div {
+  border: 0 none white !important;
 }
-.bg_light{
-	background: #f7fafa;
+.mso .w560 .divider {
+  Margin-left: 260px !important;
+  Margin-right: 260px !important;
 }
-.bg_black{
-	background: #000000;
+.mso .w360 .divider {
+  Margin-left: 160px !important;
+  Margin-right: 160px !important;
 }
-.bg_dark{
-	background: rgba(0,0,0,.8);
+.mso .w260 .divider {
+  Margin-left: 110px !important;
+  Margin-right: 110px !important;
 }
-.email-section{
-	padding:2.5em;
+.mso .w160 .divider {
+  Margin-left: 60px !important;
+  Margin-right: 60px !important;
 }
-
-/*BUTTON*/
-.btn{
-	padding: 10px 15px;
-	display: inline-block;
+.mso .w354 .divider {
+  Margin-left: 157px !important;
+  Margin-right: 157px !important;
 }
-.btn.btn-primary{
-	border-radius: 5px;
-	background: #17bebb;
-	color: #ffffff;
+.mso .w250 .divider {
+  Margin-left: 105px !important;
+  Margin-right: 105px !important;
 }
-.btn.btn-white{
-	border-radius: 5px;
-	background: #ffffff;
-	color: #000000;
+.mso .w148 .divider {
+  Margin-left: 54px !important;
+  Margin-right: 54px !important;
 }
-.btn.btn-white-outline{
-	border-radius: 5px;
-	background: transparent;
-	border: 1px solid #fff;
-	color: #fff;
+.mso .size-8,
+.ie .size-8 {
+  font-size: 8px !important;
+  line-height: 14px !important;
 }
-.btn.btn-black-outline{
-	border-radius: 0px;
-	background: transparent;
-	border: 2px solid #000;
-	color: #000;
-	font-weight: 700;
+.mso .size-9,
+.ie .size-9 {
+  font-size: 9px !important;
+  line-height: 16px !important;
 }
-.btn-custom{
-	color: rgba(0,0,0,.3);
-	text-decoration: underline;
+.mso .size-10,
+.ie .size-10 {
+  font-size: 10px !important;
+  line-height: 18px !important;
 }
-
-h1,h2,h3,h4,h5,h6{
-	font-family: 'Poppins', sans-serif;
-	color: #000000;
-	margin-top: 0;
-	font-weight: 400;
+.mso .size-11,
+.ie .size-11 {
+  font-size: 11px !important;
+  line-height: 19px !important;
 }
-
-body{
-	font-family: 'Poppins', sans-serif;
-	font-weight: 400;
-	font-size: 15px;
-	line-height: 1.8;
-	color: rgba(0,0,0,.4);
+.mso .size-12,
+.ie .size-12 {
+  font-size: 12px !important;
+  line-height: 19px !important;
 }
-
-a{
-	color: #17bebb;
+.mso .size-13,
+.ie .size-13 {
+  font-size: 13px !important;
+  line-height: 21px !important;
 }
-
-table{
+.mso .size-14,
+.ie .size-14 {
+  font-size: 14px !important;
+  line-height: 21px !important;
 }
-/*LOGO*/
-
-.logo h1{
-	margin: 0;
+.mso .size-15,
+.ie .size-15 {
+  font-size: 15px !important;
+  line-height: 23px !important;
 }
-.logo h1 a{
-	color: #17bebb;
-	font-size: 24px;
-	font-weight: 700;
-	font-family: 'Poppins', sans-serif;
+.mso .size-16,
+.ie .size-16 {
+  font-size: 16px !important;
+  line-height: 24px !important;
 }
-
-/*HERO*/
-.hero{
-	position: relative;
-	z-index: 0;
+.mso .size-17,
+.ie .size-17 {
+  font-size: 17px !important;
+  line-height: 26px !important;
 }
-
-.hero .text{
-	color: rgba(0,0,0,.3);
+.mso .size-18,
+.ie .size-18 {
+  font-size: 18px !important;
+  line-height: 26px !important;
 }
-.hero .text h2{
-	color: #000;
-	font-size: 34px;
-	margin-bottom: 0;
-	font-weight: 200;
-	line-height: 1.4;
+.mso .size-20,
+.ie .size-20 {
+  font-size: 20px !important;
+  line-height: 28px !important;
 }
-.hero .text h3{
-	font-size: 24px;
-	font-weight: 300;
+.mso .size-22,
+.ie .size-22 {
+  font-size: 22px !important;
+  line-height: 31px !important;
 }
-.hero .text h2 span{
-	font-weight: 600;
-	color: #000;
+.mso .size-24,
+.ie .size-24 {
+  font-size: 24px !important;
+  line-height: 32px !important;
 }
-
-.text-author{
-	bordeR: 1px solid rgba(0,0,0,.05);
-	max-width: 50%;
-	margin: 0 auto;
-	padding: 2em;
+.mso .size-26,
+.ie .size-26 {
+  font-size: 26px !important;
+  line-height: 34px !important;
 }
-.text-author img{
-	border-radius: 50%;
-	padding-bottom: 20px;
+.mso .size-28,
+.ie .size-28 {
+  font-size: 28px !important;
+  line-height: 36px !important;
 }
-.text-author h3{
-	margin-bottom: 0;
+.mso .size-30,
+.ie .size-30 {
+  font-size: 30px !important;
+  line-height: 38px !important;
 }
-ul.social{
-	padding: 0;
+.mso .size-32,
+.ie .size-32 {
+  font-size: 32px !important;
+  line-height: 40px !important;
 }
-ul.social li{
-	display: inline-block;
-	margin-right: 10px;
+.mso .size-34,
+.ie .size-34 {
+  font-size: 34px !important;
+  line-height: 43px !important;
 }
-
-/*FOOTER*/
-
-.footer{
-	border-top: 1px solid rgba(0,0,0,.05);
-	color: rgba(0,0,0,.5);
+.mso .size-36,
+.ie .size-36 {
+  font-size: 36px !important;
+  line-height: 43px !important;
 }
-.footer .heading{
-	color: #000;
-	font-size: 20px;
+.mso .size-40,
+.ie .size-40 {
+  font-size: 40px !important;
+  line-height: 47px !important;
 }
-.footer ul{
-	margin: 0;
-	padding: 0;
+.mso .size-44,
+.ie .size-44 {
+  font-size: 44px !important;
+  line-height: 50px !important;
 }
-.footer ul li{
-	list-style: none;
-	margin-bottom: 10px;
+.mso .size-48,
+.ie .size-48 {
+  font-size: 48px !important;
+  line-height: 54px !important;
 }
-.footer ul li a{
-	color: rgba(0,0,0,1);
+.mso .size-56,
+.ie .size-56 {
+  font-size: 56px !important;
+  line-height: 60px !important;
 }
-
-
-@media screen and (max-width: 500px) {
-
-
+.mso .size-64,
+.ie .size-64 {
+  font-size: 64px !important;
+  line-height: 68px !important;
 }
-
-
-    </style>
-
-
+.mso .size-72,
+.ie .size-72 {
+  font-size: 72px !important;
+  line-height: 76px !important;
+}
+.mso .size-80,
+.ie .size-80 {
+  font-size: 80px !important;
+  line-height: 84px !important;
+}
+.mso .size-96,
+.ie .size-96 {
+  font-size: 96px !important;
+  line-height: 100px !important;
+}
+.mso .size-112,
+.ie .size-112 {
+  font-size: 112px !important;
+  line-height: 116px !important;
+}
+.mso .size-128,
+.ie .size-128 {
+  font-size: 128px !important;
+  line-height: 132px !important;
+}
+.mso .size-144,
+.ie .size-144 {
+  font-size: 144px !important;
+  line-height: 148px !important;
+}
+/***
+* Online store block styles
+*
+* 1. maintaining right and left margins in outlook
+* 2. respecting line-height for tds in outlook
+*/
+.mso .cmctbl table td, .mso .cmctbl table th {
+  Margin-left: 20px !important;  /* [1] */
+  Margin-right: 20px !important; /* [1] */
+}
+.cmctbl--inline table {
+  border-collapse: collapse;
+}
+.mso .cmctbl--inline table, .mso .cmctbl table {
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+    mso-line-height-rule: exactly; /* [2] */
+}
+</style>
+    
+  <!--[if !mso]><!--><style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,400italic,700italic);
+</style><link href="https://fonts.googleapis.com/css?family=Raleway:400,700,400italic,700italic" rel="stylesheet" type="text/css" /><!--<![endif]--><style type="text/css">
+.main,.mso{background-color:#151513}.logo a:hover,.logo a:focus{color:#7096b5 !important}.footer-logo a:hover,.footer-logo a:focus{color:#b59b69 !important}.mso .layout-has-border{border-top:1px solid #000;border-bottom:1px solid #000}.mso .layout-has-bottom-border{border-bottom:1px solid #000}.mso .border,.ie .border{background-color:#000}.mso h1,.ie h1{}.mso h1,.ie h1{font-size:26px !important;line-height:34px !important}.mso h2,.ie h2{}.mso h2,.ie h2{font-size:20px !important;line-height:28px !important}.mso h3,.ie h3{}.mso .layout__inner,.ie .layout__inner{}.mso .layout__inner,.ie .layout__inner{font-size:18px !important;line-height:26px !important}.mso .footer__share-button p{}.mso .footer__share-button p{font-family:Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif}
+</style><meta name="robots" content="noindex,nofollow" />
+<meta property="og:title" content="My First Campaign" />
 </head>
-@endcomponent
-	
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
-	<center style="width: 100%; background-color: #f1f1f1;">
-    <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
-      &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+<!--[if mso]>
+  <body class="mso">
+<![endif]-->
+<!--[if !mso]><!-->
+  <body class="main no-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
+<!--<![endif]-->
+    <table class="wrapper" style="border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;background-color: #151513;" cellpadding="0" cellspacing="0" role="presentation"><tbody><tr><td>
+      <div role="banner">
+        <div class="preheader" style="Margin: 0 auto;max-width: 560px;min-width: 280px; width: 280px;width: calc(28000% - 167440px);">
+          <div style="border-collapse: collapse;display: table;width: 100%;">
+          <!--[if (mso)|(IE)]><table align="center" class="preheader" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width: 280px" valign="top"><![endif]-->
+            <div class="snippet" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 140px; width: 140px;width: calc(14000% - 78120px);padding: 10px 0 5px 0;color: #ffea96;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+              
+            </div>
+          <!--[if (mso)|(IE)]></td><td style="width: 280px" valign="top"><![endif]-->
+            <div class="webversion" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 139px; width: 139px;width: calc(14100% - 78680px);padding: 10px 0 5px 0;text-align: right;color: #ffea96;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+              <p style="Margin-top: 0;Margin-bottom: 0;" emb-social="webversion">No images? <webversion style="text-decoration: underline;">Click here</webversion></p>
+            </div>
+          <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+          </div>
+        </div>
+        <div class="header" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);" id="emb-email-header-container">
+        <!--[if (mso)|(IE)]><table align="center" class="header" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width: 600px"><![endif]-->
+          <div class="logo emb-logo-margin-box" style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #41637e;font-family: Avenir,sans-serif;Margin-left: 20px;Margin-right: 20px;" align="center">
+            <div class="logo-center" align="center" id="emb-email-header"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 141px;" src="https://www.svgrepo.com/show/358845/dawn.svg" alt="" width="141" /></div>
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+      <div>
+      <div class="layout one-col fixed-width stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #151513;">
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #151513;"><td style="width: 600px" class="w560"><![endif]-->
+          <div class="column" style="text-align: left;color: #565656;font-size: 17px;line-height: 26px;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+        
+        <div style="font-size: 12px;font-style: normal;font-weight: normal;line-height: 19px;" align="center">
+          <img class="gnd-corner-image gnd-corner-image-center gnd-corner-image-top gnd-corner-image-bottom" style="border: 0;display: block;height: auto;width: 100%;max-width: 800px;" alt="" width="600" src="{{ asset('assets/top.png') }}" />
+        </div>
+      
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+  
+      <div class="layout one-col fixed-width stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #ffffff;">
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #ffffff;"><td style="width: 600px" class="w560"><![endif]-->
+          <div class="column" style="text-align: left;color: #565656;font-size: 17px;line-height: 26px;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;line-height: 40px;font-size: 1px;">&nbsp;</div>
     </div>
-    <div style="max-width: 600px; margin: 0 auto;" class="email-container">
-    	<!-- BEGIN BODY -->
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-      	<tr>
-          <td valign="top" class="bg_white" style="padding: 1em 2.5em 0 2.5em;">
-          	<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-          		<tr>
-          			<td class="logo" style="text-align: center;">
-			            <h1><a href="#">PPA Kalvari IO-868</a></h1>
-			          </td>
-          		</tr>
-          	</table>
-          </td>
-	      </tr><!-- end tr -->
-				<tr>
-          <td valign="middle" class="hero bg_white" style="padding: 2em 0 4em 0;">
-            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-            	<tr>
-            		<td style="padding: 0 2.5em; text-align: center; padding-bottom: 3em;">
-            			<div class="text">
-            				<h2>{{ $staffnya->name }} baru saja mengajukan cuti!</h2>
-            			</div>
-            		</td>
-            	</tr>
-            	<tr>
-			          <td style="text-align: center;">
-			          	<div class="text-author">
-				          	<img src="{{ asset('images/profile/' . $staffnya->profile_picture ) }}" alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
-				          	<h3 class="name">{{ $staffnya->name }}</h3>
-				          	<span class="position">{{ $posisi }}</span>
-							
-				           	<p><a href="{{ $url }}" class="btn btn-primary">View Request</a></p>
-			           	</div>
-			          </td>
-			        </tr>
-            </table>
-          </td>
-	      </tr><!-- end tr -->
-      <!-- 1 Column Text + Button : END -->
-      </table>
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-      	<tr>
-          <td valign="middle" class="bg_light footer email-section">
-            <table>
-            	<tr>
-                <td valign="top" width="33.333%" style="padding-top: 20px;">
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                      <td style="text-align: left; padding-right: 10px;">
-                      	<h3 class="heading">About</h3>
-                      	<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-                <td valign="top" width="33.333%" style="padding-top: 20px;">
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                      <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
-                      	<h3 class="heading">Contact Info</h3>
-                      	<ul>
-					                <li><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-					                <li><span class="text">+2 392 3929 210</span></a></li>
-					              </ul>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr><!-- end: tr -->
-      </table>
-
+        
+        <div style="font-size: 12px;font-style: normal;font-weight: normal;line-height: 19px;" align="center">
+          <img style="border: 0;display: block;height: auto;width: 100%;max-width: 480px;" alt="Happy Birthday!" width="480" src="https://i.pinimg.com/564x/a2/42/18/a24218cde7f334fd16102e2678e52466.jpg" />
+        </div>
+      
+            <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 20px;">
+      <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 1px;">&nbsp;</div>
     </div>
-  </center>
-</body>
-</html>
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p style="Margin-top: 0;Margin-bottom: 0;text-align: center;">Staff {{ $nama }} telah mengajukan cuti pada {{ $tanggal }}.</p>
+      </div>
+    </div>
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;line-height: 1px;font-size: 1px;">&nbsp;</div>
+    </div>
+        
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+  
+      <div class="layout one-col fixed-width stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #151513;background: 100% 36%/auto auto no-repeat url(https://i1.createsend1.com/ei/y/86/562/EA9/211751/csfinal/Birthday-Template_13_13.png) #151513;background-position: 100% 36%;background-image: url(https://i1.createsend1.com/ei/y/86/562/EA9/211751/csfinal/Birthday-Template_13_13.png);background-repeat: no-repeat;background-size: auto auto;">
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background: 100% 36%/auto auto no-repeat url(https://i1.createsend1.com/ei/y/86/562/EA9/211751/csfinal/Birthday-Template_13_13.png) #151513;background-position: 100% 36%;background-image: url(https://i1.createsend1.com/ei/y/86/562/EA9/211751/csfinal/Birthday-Template_13_13.png);background-repeat: no-repeat;background-size: auto auto;background-color: #151513;"><td style="width: 600px" class="w560"><![endif]-->
+          <div class="column" style="text-align: left;color: #565656;font-size: 17px;line-height: 26px;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 1px;">&nbsp;</div>
+    </div>
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div class="btn btn--flat btn--large" style="text-align:center;">
+        <!--[if !mso]><!--><a style="border-radius: 0;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #151513 !important;background-color: #ffea96;font-family: Raleway, Trebuchet MS, Avenir, Segoe UI, sans-serif;" href="{{ $urlizin }}">LIHAT DETAIL CUTI</a><!--<![endif]-->
+      <!--[if mso]><p style="line-height:0;margin:0;">&nbsp;</p><v:rect xmlns:v="urn:schemas-microsoft-com:vml" href="http://example.com" style="width:130.5pt" fillcolor="#FFEA96" stroke="f"><v:textbox style="mso-fit-shape-to-text:t" inset="0pt,9pt,0pt,9pt"><center style="font-size:14px;line-height:24px;color:#151513;font-family:Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:1.5px">LIHAT DETAIL CUTI</center></v:textbox></v:rect><![endif]--></div>
+    </div>
+        
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+  
+      <div class="layout one-col fixed-width stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #151513;">
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #151513;"><td style="width: 600px" class="w560"><![endif]-->
+          <div class="column" style="text-align: left;color: #565656;font-size: 17px;line-height: 26px;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;">
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 1px;">&nbsp;</div>
+    </div>
+        
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p style="Margin-top: 0;Margin-bottom: 0;text-align: center;"><font color="#ffffff">Silahkan melakukan review ulang terhadap detail pengajuan yang telah dikirimkan oleh staff tersebut.</font></p><p style="Margin-top: 20px;Margin-bottom: 0;text-align: center;"><span style="text-decoration: inherit;color: #ffffff;">Tuhan memberkati!</span></p>
+      </div>
+    </div>
+        
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+  
+      <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 20px;">&nbsp;</div>
+  
+      </div>
+      <div role="contentinfo"><div style="line-height:4px;font-size:4px;" id="footer-top-spacing">&nbsp;</div><div class="layout email-flexible-footer email-footer" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;" id="footer-content">
+      <div class="layout__inner center-aligned-footer" style="border-collapse: collapse;display: table;width: 100%;">
+        <!--[if (mso)|(IE)]><table style="width: 600px;" align="center" cellpadding="0" cellspacing="0" role="presentation"><![endif]-->
+        <!--[if (mso)|(IE)]><tr class="layout-email-footer"><![endif]-->
+          <div class="column" style="text-align: center;font-size: 12px;line-height: 19px;color: #ffea96;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;display: none;" align="center">
+      <div class="footer-logo emb-logo-margin-box" style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #7b663d;font-family: Roboto,Tahoma,sans-serif;" align="center">
+        <div emb-flexible-footer-logo align="center"></div>
+      </div>
+    </div>
+        <!--[if (mso)|(IE)]></tr><![endif]-->
+        <!--[if (mso)|(IE)]><tr class="layout-email-footer"><![endif]-->
+          <div class="column" style="text-align: center;font-size: 12px;line-height: 19px;color: #ffea96;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;display: none;" align="center">
+      
+    </div>
+        <!--[if (mso)|(IE)]></tr><![endif]-->
+        <!--[if (mso)|(IE)]><tr class="layout-email-footer"><![endif]-->
+          <table style="border-collapse: collapse;table-layout: fixed;width: 100%;" cellpadding="0" cellspacing="0"><tbody><tr><td><div class="column js-footer-additional-info" style="text-align: center;font-size: 12px;line-height: 19px;color: #ffea96;font-family: Raleway,Trebuchet MS,Avenir,Segoe UI,sans-serif;display: inline;width: 100%;" align="center">
+      <div style="margin-left: 0;margin-right: 0;Margin-top: 10px;Margin-bottom: 10px;">
+        <div class="email-footer__additional-info" style="font-size: 12px;line-height: 19px;margin-bottom: 18px;margin-top: 0px;">
+          <div bind-to="address"><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">PPA Kalvari IO-868</p><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">&nbsp;Jl. Werkudoro No.33, Polehan, Kec. Blimbing, Kota Malang, Jawa Timur 65121</p></div>
+        </div>
+        <div class="email-footer__additional-info" style="font-size: 12px;line-height: 19px;margin-bottom: 18px;margin-top: 0px;">
+          <div><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">Youth revival program through local community services.</p></div>
+        </div>
+        <div class="email-footer__additional-info" style="font-size: 12px;line-height: 19px;margin-bottom: 15px;">
+          <div bind-to="permission"><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">Anda menerima email ini sebagai pemberitahuan jika ada cuti karyawan.</p></div>
+        </div>
+        <div class="email-footer__additional-info" style="font-size: 12px;line-height: 19px;margin-bottom: 15px;">
+          <span><preferences style="text-decoration: underline;" lang="en">Preferences</preferences>&nbsp;&nbsp;|&nbsp;&nbsp;</span><unsubscribe style="text-decoration: underline;">Unsubscribe</unsubscribe>
+        </div>
+        <!--[if mso]>&nbsp;<![endif]-->
+      </div>
+    </div></td></tr></tbody></table>
+        <!--[if (mso)|(IE)]></tr></table><![endif]-->
+      </div>
+    </div><div style="line-height:40px;font-size:40px;" id="footer-bottom-spacing">&nbsp;</div></div>
+      
+    </td></tr></tbody></table>
+  <style type="text/css">
+@media (max-width:619px){.email-flexible-footer .left-aligned-footer .column,.email-flexible-footer .center-aligned-footer,.email-flexible-footer .right-aligned-footer .column{max-width:100% !important;text-align:center !important;width:100% !important}.flexible-footer-logo{margin-left:0px !important;margin-right:0px !important}.email-flexible-footer .left-aligned-footer .flexible-footer__share-button__container,.email-flexible-footer .center-aligned-footer .flexible-footer__share-button__container,.email-flexible-footer .right-aligned-footer .flexible-footer__share-button__container{display:inline-block;margin-left:5px !important;margin-right:5px !important}.email-flexible-footer__additionalinfo--center{text-align:center !important}.email-flexible-footer .left-aligned-footer table,.email-flexible-footer .center-aligned-footer table,.email-flexible-footer .right-aligned-footer 
+table{display:table !important;width:100% !important}.email-flexible-footer .footer__share-button,.email-flexible-footer .email-footer__additional-info{margin-left:20px;margin-right:20px}}
+</style>
+</body></html>
