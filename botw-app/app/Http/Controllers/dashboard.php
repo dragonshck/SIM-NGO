@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\DB;
+use Spatie\GoogleCalendar\Event;
 
 class dashboard extends Controller
 {
@@ -80,14 +81,67 @@ class dashboard extends Controller
             $totalrapor = RaporAnak::with('anak2rapor')->where('anak_id', $user->anak->id)->count('lampiran_rapor');
             // dd($totalabsen);
 
-            return view('dashboardanak', compact('student', 'totalabsen', 'totalrapor'));
+            // Kegiatan Juga
+        
+            $events = Event::get();
+            $tanggalbang = [];
+            $bulanbang = [];
+            $tanggalmulai = [];
+            $tanggalselesai = [];
+            $jammulai = [];
+
+            foreach ($events as $key => $item) {
+                $to = Carbon::createFromFormat('c', $item->start->dateTime);
+                $tanggalbang[] = $to->format('d');
+                $bulanbang[] = $to->format('M');
+                $tanggalmulai[] = $to->toFormattedDateString();
+                $jammulai[] = $to->toTimeString();
+
+                $xx = Carbon::createFromFormat('c', $item->end->dateTime);
+                $tanggalselesai[] = $xx->toFormattedDateString();
+
+            }
+
+            $tanggal = $tanggalbang;
+            $bulan = $bulanbang;
+            $startdate = $tanggalmulai;
+            $enddate = $tanggalselesai;
+            $starthour = $jammulai;
+
+            return view('dashboardanak', compact('student', 'totalabsen', 'totalrapor', 'tanggal', 'bulan', 'startdate', 'enddate', 'starthour', 'events'));
         }
+
+        $events = Event::get();
+        $tanggalbang = [];
+        $bulanbang = [];
+        $tanggalmulai = [];
+        $tanggalselesai = [];
+        $jammulai = [];
+
+        foreach ($events as $key => $item) {
+            $to = Carbon::createFromFormat('c', $item->start->dateTime);
+            $tanggalbang[] = $to->format('d');
+            $bulanbang[] = $to->format('M');
+            $tanggalmulai[] = $to->toFormattedDateString();
+            $jammulai[] = $to->toTimeString();
+
+            $xx = Carbon::createFromFormat('c', $item->end->dateTime);
+            $tanggalselesai[] = $xx->toFormattedDateString();
+
+        }
+
+        $tanggal = $tanggalbang;
+        $bulan = $bulanbang;
+        $startdate = $tanggalmulai;
+        $enddate = $tanggalselesai;
+        $starthour = $jammulai;
 
 
         // dd($student->toArray());
 
 
-        return view('dashboard', compact('data_anak', 'data_staff', 'labelsku', 'datachart', 'all_month', 'jumlahabsen', 'total_data', 'data_anak', 'data_staff', 'data_sp'));
+        return view('dashboard', compact('data_anak', 'data_staff', 'labelsku', 'datachart', 'all_month', 'jumlahabsen', 'total_data', 'data_anak', 'data_staff', 'data_sp',
+        'tanggal', 'bulan', 'startdate', 'enddate', 'starthour', 'events'));
     }
 
     public function fetch_dashboard($id)
