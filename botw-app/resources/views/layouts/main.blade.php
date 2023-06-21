@@ -183,10 +183,15 @@
           @yield('tutortambah')
 
           {{-- Tutor --}}
-          {{-- Absensi Anak / Kelompok Umur --}}
+          {{-- Absensi Anak / Kelompok Umur [Deprecated] --}}
           @yield('dataabsenanak')
           @yield('inputabsenanak')
           @yield('detailabsenanak')
+          @yield('dataabsenlain')
+
+          {{-- Absensi Baru --}}
+          @yield('filterabsen')
+
           {{-- Lesson Plan --}}
           @yield('formtambahlp')
           @yield('daftarlessonplan')
@@ -253,6 +258,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="https:maps.googleapis.com/maps/api/js?key=AIzaSyCWQCfQ2umNqVoSCKQPQJdeM4QDHJl0JZE&callback=initMap" async="async"></script>
     <script src="{{ asset('falcon/public/vendors/choices/choices.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     @yield('jawascript')\
     @yield('getPeriodeAbsensi')
     @yield('js')
@@ -260,6 +266,7 @@
     @yield('charts-dashboard')
     @yield('chartpie')
     @yield('charts')
+    @yield('rangebulan')
   </body>
 
 </html>

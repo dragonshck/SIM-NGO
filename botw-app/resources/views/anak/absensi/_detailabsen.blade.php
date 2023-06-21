@@ -47,16 +47,17 @@
                     @if ($item_absen['status_absen'] == 1)
                     @php
                       $total++;
-                  @endphp
+                    @endphp
                     <td><span class="fas fa-check"></span></td>
                     @elseif($item_absen['status_absen'] == 2)
-                    <td><span class="fas fa-envelope-square"></span></td>
+                    <td>AS</td>
                     
                     @elseif($item_absen['status_absen'] == 3)
-                    <td><span class="fas fa-hospital-symbol"></span></td>
+                    <td>DK</td>
 
                     @elseif($item_absen['status_absen'] == 4)
-                    <td><span class="fas fa-exclamation-triangle"></span></td>
+                    <td>JB</td>
+
                     @elseif($item_absen['status_absen'] == 5)
                     <td>KM</td>
                     @elseif($item_absen['status_absen'] == 6)

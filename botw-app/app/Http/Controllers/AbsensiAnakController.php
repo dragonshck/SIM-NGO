@@ -9,9 +9,12 @@ use App\Models\kodeabsensi;
 use App\Models\StaffPPA;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Google\Service\CloudSearch\Id;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AbsensiAnakController extends Controller
 {
@@ -23,10 +26,26 @@ class AbsensiAnakController extends Controller
      */
     public function index()
     {
+        $usrlain1 = auth()->user()->hasRole('mentor');
+        $usrlain2 = auth()->user()->hasRole('koordinator');
+        $usrlain3 = auth()->user()->hasRole('sekretaris');
+
         // $data = AbsensiAnak::groupBy('periode')->orderBy('periode', 'desc')->get();
-        $absen = DB::select('select tanggal_absen, count(tanggal_absen) from `absensi_anak` group by `periode` order by `periode` asc;');
-        $data = AbsensiAnak::groupBy('periode')->orderBy('tanggal_absen', 'desc')->get();
-        return view('anak.absensi.absensianak', compact('data'));
+
+        if ($usrlain1 || $usrlain2 || $usrlain3) {
+            $absen = DB::select('select tanggal_absen, count(tanggal_absen) from `absensi_anak` group by `periode` order by `periode` asc;');
+            $data = AbsensiAnak::groupBy('periode')->orderBy('tanggal_absen', 'desc')->get();
+
+            return view('anak.absensi._listabsenother', compact('data'));
+        } elseif ($usr = auth()->user()->hasRole('tutor')) {
+            $kelompok_umur = auth()->user()->staff->kelompokumur;
+            $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
+
+            $absen = DB::select('select tanggal_absen, count(tanggal_absen) from `absensi_anak` group by `periode` order by `periode` asc;');
+            $data = AbsensiAnak::groupBy('periode')->orderBy('tanggal_absen', 'desc')->get();
+
+            return view('anak.absensi.printabsen', compact('data', 'kelompok_umur', 'anak'));
+        }
     }
 
     /**
@@ -37,7 +56,7 @@ class AbsensiAnakController extends Controller
     public function create()
     {
         $ex = auth()->user()->staff;
-        
+
         $data_ku = KelompokUmur::where('id', $ex->kelompok_umur_id)->get();
         $kabsen = kodeabsensi::with('buatabsen')->get();
         // foreach ($kabsen as $item) {
@@ -86,13 +105,14 @@ class AbsensiAnakController extends Controller
 
     public function show(Request $request, $id)
     {
-    
+
         $usr = auth()->user()->hasRole('tutor');
-        if($usr) {
+
+        if ($usr) {
             $kelompok_umur = auth()->user()->staff->kelompokumur;
             // dd(auth()->user()->staff->kelompokumur);
-
             $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
+
             $data = AbsensiAnak::where('periode', $id)
                 ->groupBy('anak_p_p_a_id')
                 ->with('_anak')
@@ -115,7 +135,7 @@ class AbsensiAnakController extends Controller
             $tahun = $id;
             return view('anak.absensi._detailabsen', compact('data', 'all_periode', 'tahun'));
         } else {
-                $data = AbsensiAnak::where('periode', $id)
+            $data = AbsensiAnak::where('periode', $id)
                 ->groupBy('anak_p_p_a_id')
                 ->with('_anak')
                 ->get();
@@ -136,7 +156,6 @@ class AbsensiAnakController extends Controller
             $tahun = $id;
             return view('anak.absensi._rekapabsen', compact('data', 'all_periode', 'tahun'));
         }
-        
     }
 
     public static function getAnakByDate($id, $year, $date)
@@ -152,7 +171,7 @@ class AbsensiAnakController extends Controller
 
         // dd($begin_date, $end_date);
         foreach ($period as $index => $item) {
-            
+
             $tanggal_absen = $item->format('Y-m-d');
             $data = AbsensiAnak::where('anak_p_p_a_id', $id)->where('tanggal_absen', $tanggal_absen)->first();
 

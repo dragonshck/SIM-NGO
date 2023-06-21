@@ -17,6 +17,35 @@
                 </div>
               </div>
             <div class="table-responsive scrollbar">
+              @if ($kelompok_umur == null)
+              <div class="card-body text-center py-5">
+                <div class="row justify-content-center">
+                  <div class="col-7 col-md-5"><img class="img-fluid" src="{{ asset('assets/not_in_class.jpg') }}" alt="" style="width:58%;"></div>
+                </div>
+                <h3 class="mt-3 fw-normal fs-2 mt-md-4 fs-md-3">Anda belum terdaftar di kelas!</h3>
+                <p class="lead mb-5">Silahkan hubungi Mentor untuk<br class="d-none d-md-block">melakukan konfirmasi kelas.
+                </p>
+                <div class="row justify-content-center">
+                  <div class="col-md-7">
+                    
+                  </div>
+                </div>
+              </div>
+              @elseif ($anak == null)
+                <div class="card-body text-center py-5">
+                  <div class="row justify-content-center">
+                    <div class="col-7 col-md-5"><img class="img-fluid" src="https://i.pinimg.com/564x/5a/91/17/5a9117ace993a15c4198875e0d98f350.jpg" alt="" style="width:58%;"></div>
+                  </div>
+                  <h3 class="mt-3 fw-normal fs-2 mt-md-4 fs-md-3">Anda belum melakukan absensi.</h3>
+                  <p class="lead mb-5">Silahkan melakukan pendataan absensi<br class="d-none d-md-block">terlebih dahulu.
+                  </p>
+                  <div class="row justify-content-center">
+                    <div class="col-md-7">
+                      
+                    </div>
+                  </div>
+                </div>
+              @else
                 <table class="table table-striped overflow-hidden">
                   <thead>
                     <tr class="btn-reveal-trigger">
@@ -44,6 +73,7 @@
                       </td>
                     </tr>
                     @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>
