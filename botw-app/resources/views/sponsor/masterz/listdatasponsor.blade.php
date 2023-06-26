@@ -41,7 +41,7 @@
             <td class="w-auto">
               @can('read access sekretaris')
               <div class="btn-group btn-group hover-actions end-0 me-4">
-                <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="{{ route('sponsormaster.show', $item -> id) }}"><span class="fas fa-edit"></span></a>
+                <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="{{ route('sponsormaster.edit', $item -> id) }}"><span class="fas fa-edit"></span></a>
                 <a class="btn btn-light ps-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" href="{{ route('sponsormaster.destroy', $item -> id) }}"><span class="fas fa-trash-alt"></span></a>
               </div>
               @endcan

@@ -133,7 +133,8 @@ class AbsensiAnakController extends Controller
             }
 
             $tahun = $id;
-            return view('anak.absensi._detailabsen', compact('data', 'all_periode', 'tahun'));
+            $kodeabsen = kodeabsensi::all();
+            return view('anak.absensi._detailabsen', compact('data', 'all_periode', 'tahun', 'kodeabsen'));
         } else {
             $data = AbsensiAnak::where('periode', $id)
                 ->groupBy('anak_p_p_a_id')
@@ -154,7 +155,8 @@ class AbsensiAnakController extends Controller
             }
 
             $tahun = $id;
-            return view('anak.absensi._rekapabsen', compact('data', 'all_periode', 'tahun'));
+            $kodeabsen = kodeabsensi::all();
+            return view('anak.absensi._rekapabsen', compact('data', 'all_periode', 'tahun', 'kodeabsen'));
         }
     }
 

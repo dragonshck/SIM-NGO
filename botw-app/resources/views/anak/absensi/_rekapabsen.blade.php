@@ -6,6 +6,34 @@
       <p class="mb-0">Periode : {{ \Carbon\Carbon::parse($tahun)->format('F') }}</p>
     </div>
   </div>
+
+  <div class="card mb-3">
+    <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../../assets/img/icons/spot-illustrations/corner-4.png);">
+    </div>
+    <!--/.bg-holder-->
+
+    <div class="card-body position-relative">
+      <div class="row">
+        <div class="col-lg-8">
+          <p class="mb-0">Tekan tombol di bawah ini untuk melihat keterangan absensi pada Anak.</p>
+          <br>
+          <button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Keterangan Absensi</button>
+            <div class="offcanvas offcanvas-start" id="offcanvasScrolling" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" aria-labelledby="offcanvasScrollingLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Keterangan Absensi</h5>
+                <button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                @foreach ($kodeabsen as $item)
+                <p>{{ $item->kode_absen }} : {{ $item->keterangan }}</p>
+                @endforeach
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-body">
         <div class="d-flex justify-content-end">

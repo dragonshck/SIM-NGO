@@ -130,19 +130,31 @@ class AnakPPAController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::table('anakppa')
-            ->select('anakppa.*', 'kelompok_umur.*', 'sponsor_anaks.*', 'tutor.*', 'users.*', 'users_anakppa.*')
-            ->leftJoin('kelompok_umur', 'anakppa.kelompok_umur_id', '=', 'kelompok_umur.id')
-            ->leftJoin('sponsor_anaks', 'anakppa.sponsor_anak_id', '=', 'sponsor_anaks.id')
-            ->leftJoin('tutor', 'kelompok_umur.tutor_anak_id', '=', 'tutor.id')
-            ->leftJoin('users', 'tutor.tutor_id', '=', 'users.id')
-            ->leftJoin('users as users_anakppa', 'anakppa.user_id', '=', 'users_anakppa.id')
-            ->where('anakppa.id', $id)
-            ->first();
+        $data =  AnakPPA::with('user')->findOrFail($id);
+        $gender = $data->gender;
+        if ($gender == 'male') {
+            $gender = 'Laki-Laki';
+        } else {
+            $gender = 'Perempuan';
+        }
+        $datasponsor = AnakPPA::with('sponsor')->findOrFail($id);
 
         $data_ku = KelompokUmur::with('tutor', 'anakku')->latest()->get();
+        $kelompokumurskrg = $data->kelompok_umur_id;
+        if ($kelompokumurskrg == 1) {
+            $kelompokumurskrg = 'Taman Kanak-Kanak';
+        } elseif ($kelompokumurskrg == 2) {
+            $kelompokumurskrg = 'Sekolah Dasar';
+        } elseif ($kelompokumurskrg == 3) {
+            $kelompokumurskrg = 'Sekolah Menengah Pertama';
+        } elseif ($kelompokumurskrg == 4) {
+            $kelompokumurskrg = 'SMA-K / Kuliah';
+        }
+
+        $sponsorskrg = AnakPPA::with('sponsor')->find($id);
+        // dd($sponsorskrg->toArray());
         $data_sp = SponsorAnak::with('sponsoranak')->latest()->get();
-        return view('anak.editchild', compact('data', 'data_ku', 'data_sp', 'id'));
+        return view('anak.editchild', compact('data', 'datasponsor', 'data_ku', 'data_sp', 'id', 'gender', 'kelompokumurskrg', 'sponsorskrg'));
     }
 
     /**
@@ -155,10 +167,10 @@ class AnakPPAController extends Controller
     public function update(Request $request, $id)
     {
         $getAnakId = AnakPPA::with('user')->find($id);
+
         $request->validate([
             'name'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:users,email,' . $getAnakId->user_id,
-            'password'          => 'required|string|min:8',
             'sponsor_anak_id'         => 'required|numeric',
             'kelompok_umur_id'          => 'required|numeric',
             'gender'            => 'required|string',

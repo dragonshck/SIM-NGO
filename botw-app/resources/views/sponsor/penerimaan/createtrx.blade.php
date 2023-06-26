@@ -1,5 +1,3 @@
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 @extends('layouts.main')
 
 @section('tambahdatapenerimaansponsor')
@@ -10,7 +8,7 @@
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Tambah Data Penerimaan Hadiah Sponsor</h5>
                 </div>
               </div>
-            <form action="{{ route('hadiahsponsor.store') }}" method="POST" enctype="multipart/form-data" class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone">
+            <form action="{{ route('hadiahsponsor.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
                 <div class="mb-3">
                   <label class="form-label" for="basic-form-name">Nama Transaksi</label>
