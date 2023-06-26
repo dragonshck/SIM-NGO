@@ -22,7 +22,7 @@ class RaporAnakController extends Controller
     {
         $usr = auth()->user()->hasRole('tutor');
         if ($usr) {
-            $kelompok_umur = auth()->user()->staff;
+            $kelompok_umur = auth()->user()->staff->kelompokumur;
             $anak = AnakPPA::where('kelompok_umur_id', $kelompok_umur->id)->pluck('id')->toArray();
             // dd($anak);
             // dd($kelompok_umur);
@@ -36,7 +36,7 @@ class RaporAnakController extends Controller
             $datarapor = RaporAnak::with('anak2rapor')->get();
             return view('anak.raporanak.raporanak', compact('datarapor', 'now'));
         } else {
-            $id = \Auth::user()->anak->id;
+            $id = auth()->user()->anak->id;
             $now = Carbon::now();
             // dd($id);
             $datarapor = RaporAnak::with('anak2rapor')->where('anak_id', $id)->get();

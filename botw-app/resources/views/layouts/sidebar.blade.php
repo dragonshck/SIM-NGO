@@ -149,10 +149,6 @@
                 </div>
             </a>
             <!-- parent pages-->
-            <a class="nav-link" href="{{ route('sponsormaster.index') }}" role="button" aria-expanded="false">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-empire"></span></span><span class="nav-link-text ps-1">Sponsors</span>
-                </div>
-            </a>
         </li>
         @endcan
 
@@ -178,8 +174,13 @@
             </a>
 
             <a class="nav-link" href="{{ route('hadiahsponsor.index') }}" role="button" aria-expanded="false">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-battle-net"></span></span><span class="nav-link-text ps-1">Sponsors</span>
+                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-battle-net"></span></span><span class="nav-link-text ps-1">Hadiah Sponsors</span>
                 </div>
+            </a>
+
+            <a class="nav-link" href="{{ route('sponsormaster.index') }}" role="button" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-empire"></span></span><span class="nav-link-text ps-1">Master Sponsors</span>
+              </div>
             </a>
 
             <a class="nav-link" href="/lap-pengeluaran" role="button" aria-expanded="false">
@@ -255,7 +256,7 @@
             </a>
 
             <a class="nav-link" href="{{ route('hadiahsponsor.index') }}" role="button" aria-expanded="false">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-battle-net"></span></span><span class="nav-link-text ps-1">Sponsors</span>
+                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-battle-net"></span></span><span class="nav-link-text ps-1">Hadiah Sponsors</span>
                 </div>
             </a>
 
@@ -273,7 +274,7 @@
           </a>
           <!-- parent pages-->
           <a class="nav-link" href="{{ route('sponsormaster.index') }}" role="button" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-empire"></span></span><span class="nav-link-text ps-1">Sponsors</span>
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-empire"></span></span><span class="nav-link-text ps-1">Master Sponsors</span>
               </div>
           </a>
         </li>
