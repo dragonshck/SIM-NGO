@@ -60,13 +60,13 @@ class StaffPPAController extends Controller
         ]);
 
         $register = [
-            'name' => $request ->name,
-            'email' => $request ->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone' => $request ->phone,
-            'dateofbirth' => $request ->dateofbirth,
-            'current_addr' => $request ->current_addr,
-            'perm_addr' => $request ->perm_addr,
+            'phone' => $request->phone,
+            'dateofbirth' => $request->dateofbirth,
+            'current_addr' => $request->current_addr,
+            'perm_addr' => $request->perm_addr,
             'jabatan_staff_id' => $request->jabatan_staff_id,
             // 'kelompok_umur_id' => $request->kelompok_umur_id
         ];
@@ -79,7 +79,7 @@ class StaffPPAController extends Controller
         // DB::table('model_has_roles')
         // ->where('model_id', $request->userid)
         // ->update(['role_id' =>  $request->editusertype]);
-        
+
 
         $user = User::create($register);
 
@@ -94,10 +94,10 @@ class StaffPPAController extends Controller
         ]);
 
         $user->staff()->create([
-            'phone' => $request ->phone,
-            'dateofbirth' => $request ->dateofbirth,
-            'current_addr' => $request ->current_addr,
-            'perm_addr' => $request ->perm_addr,
+            'phone' => $request->phone,
+            'dateofbirth' => $request->dateofbirth,
+            'current_addr' => $request->current_addr,
+            'perm_addr' => $request->perm_addr,
             'jabatan_staff_id' => $request->jabatan_staff_id,
         ]);
 
@@ -108,7 +108,7 @@ class StaffPPAController extends Controller
 
         //     // $get_staff = \DB::
         // }
-        
+
 
         // $user->teacher()->create([
         //     'gender'            => $request->gender,
@@ -121,10 +121,10 @@ class StaffPPAController extends Controller
         return redirect()->route('staffppa.index');
     }
 
-    public function assignRole(Request $request , $id)
+    public function assignRole(Request $request, $id)
     {
         $staffPPA = StaffPPA::with('user')->find($id);
-        if($staffPPA->user->hasRole($request->role)) {
+        if ($staffPPA->user->hasRole($request->role)) {
             return back()->with('message', 'Role sudah ada!');
         }
 
@@ -132,10 +132,10 @@ class StaffPPAController extends Controller
         return back()->with('message', 'Role telah diberikan.');
     }
 
-    public function revokeRole(Request $request , $id)
+    public function revokeRole(Request $request, $id)
     {
         $staffPPA = StaffPPA::with('user')->find($id);
-        if($staffPPA->user->hasRole($request->role)) {
+        if ($staffPPA->user->hasRole($request->role)) {
             return back()->with('message', 'Role dihapus!');
         }
 
@@ -186,11 +186,11 @@ class StaffPPAController extends Controller
      * @param  \App\Models\StaffPPA  $staffPPA
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StaffPPA $staffPPA)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name'              => 'required|string|max:255',
-            'email'             => 'required|string|email|max:255|unique:users,email,' . $staffPPA->user_id,
+            'email'             => 'required|string|email|max:255|unique:users,email,' . $id,
             'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
             'dateofbirth'       => 'required|date',
@@ -198,7 +198,7 @@ class StaffPPAController extends Controller
             'perm_addr' => 'required|string|max:255'
         ]);
 
-        $user = User::findOrFail($staffPPA->user_id);
+        $user = StaffPPA::with('user')->findOrFail($id);
 
         if ($request->hasFile('profile_picture')) {
             $profile = Str::slug($user->name) . '-' . $user->id . '.' . $request->profile_picture->getClientOriginalExtension();
@@ -230,11 +230,13 @@ class StaffPPAController extends Controller
      * @param  \App\Models\StaffPPA  $staffPPA
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StaffPPA $staffPPA)
-    {
-        $user = User::findOrFail($staffPPA->user_id);
 
-        $user->teacher()->delete();
+    public function destroy($id)
+    {
+        $user = StaffPPA::with('user')->findOrFail($id);
+        dd($user);
+
+        $user->staff()->delete();
 
         $user->removeRole('tutor');
 

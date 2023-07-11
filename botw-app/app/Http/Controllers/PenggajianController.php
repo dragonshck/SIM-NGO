@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsensiStaff;
 use App\Models\JabatanStaff;
 use App\Models\Penggajian;
 use App\Models\StaffPPA;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
 
 class PenggajianController extends Controller
 {
@@ -131,6 +132,8 @@ class PenggajianController extends Controller
     {
         $data_staff = StaffPPA::where('id', $id)->first();
         $data_gaji = JabatanStaff::where('id', $data_staff->jabatan_staff_id)->first();
+        $data_gaji['count_kehadiran'] = AbsensiStaff::where('staff_p_p_a_id', $data_staff->user_id)->where('status_absen', 1)->whereMonth('created_at', now()->month)->count();
+        $data_gaji['count_tidakmasuk'] = AbsensiStaff::where('staff_p_p_a_id', $data_staff->user_id)->where('status_absen', 4)->whereMonth('created_at', now()->month)->count();
         return json_encode(['success' => true, 'data' => $data_gaji]);
     }
 }

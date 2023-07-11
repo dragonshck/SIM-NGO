@@ -31,7 +31,7 @@ class LapPengeluaranController extends Controller
         $mapsd = DB::select("select kelompok_umur.ku_name, SUM(amount_hadiah) as TotalTransaksi from hadiahsponsors, anakppa, kelompok_umur WHERE hadiahsponsors.anak_id = anakppa.id AND anakppa.kelompok_umur_id = kelompok_umur.id AND kelompok_umur.ku_description LIKE 'Sekolah Dasar' GROUP BY kelompok_umur.ku_description;");
         $maptk = DB::select("select kelompok_umur.ku_name, SUM(amount_hadiah) as TotalTransaksi from hadiahsponsors, anakppa, kelompok_umur WHERE hadiahsponsors.anak_id = anakppa.id AND anakppa.kelompok_umur_id = kelompok_umur.id AND kelompok_umur.ku_description LIKE 'Taman Kanak-Kanak' GROUP BY kelompok_umur.ku_description;");
         $mapsmp = DB::select("select kelompok_umur.ku_name, SUM(amount_hadiah) as TotalTransaksi from hadiahsponsors, anakppa, kelompok_umur WHERE hadiahsponsors.anak_id = anakppa.id AND anakppa.kelompok_umur_id = kelompok_umur.id AND kelompok_umur.ku_description LIKE 'Sekolah Menengah Pertama' GROUP BY kelompok_umur.ku_description;");
-        $mapsmk = DB::select("select kelompok_umur.ku_name, SUM(amount_hadiah) as TotalTransaksi from hadiahsponsors, anakppa, kelompok_umur WHERE hadiahsponsors.anak_id = anakppa.id AND anakppa.kelompok_umur_id = kelompok_umur.id AND kelompok_umur.ku_description LIKE 'SMA/K - Kuliah' GROUP BY kelompok_umur.ku_description;");
+        $mapsmk = DB::select("select kelompok_umur.ku_name, SUM(amount_hadiah) as TotalTransaksi from hadiahsponsors, anakppa, kelompok_umur WHERE hadiahsponsors.anak_id = anakppa.id AND anakppa.kelompok_umur_id = kelompok_umur.id AND kelompok_umur.ku_description LIKE 'SMA-K / Kuliah' GROUP BY kelompok_umur.ku_description;");
 
         $sumsd = "";
         $sumtk = "";

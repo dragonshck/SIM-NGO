@@ -25,7 +25,7 @@ class CutistaffController extends Controller
     public function index()
     {
         $usr = auth()->user()->hasRole('koordinator');
-        if($usr) {
+        if ($usr) {
             $collection = cutistaff::with('cuti2staff')->get();
             $daysdiff = [];
 
@@ -40,20 +40,21 @@ class CutistaffController extends Controller
 
             return view('staff.cuti.datacuti', compact('collection', 'hari_cuti'));
         } else {
-        $id = \Auth::user()->staff->id;
-        $collection = cutistaff::with('cuti2staff')->where('staff_id', $id)->get();
-        $daysdiff = [];
+            $id = \Auth::user()->staff->id;
 
-        foreach ($collection as $index => $item) {
-            $to = Carbon::createFromFormat('Y-m-d', $item->tgl_mulai);
-            $from = Carbon::createFromFormat('Y-m-d', $item->tgl_selesai);
+            $collection = cutistaff::with('cuti2staff')->where('staff_id', $id)->get();
+            $daysdiff = [];
 
-            $daysdiff[] = $to->diffInDays($from);
-        }
+            foreach ($collection as $index => $item) {
+                $to = Carbon::createFromFormat('Y-m-d', $item->tgl_mulai);
+                $from = Carbon::createFromFormat('Y-m-d', $item->tgl_selesai);
 
-        $hari_cuti = $daysdiff;
+                $daysdiff[] = $to->diffInDays($from);
+            }
 
-        return view('staff.cuti.datacuti', compact('collection', 'hari_cuti'));
+            $hari_cuti = $daysdiff;
+
+            return view('staff.cuti.datacuti', compact('collection', 'hari_cuti', 'id'));
         }
     }
 
@@ -76,22 +77,24 @@ class CutistaffController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $data = CutiStaff::create($request->all());
-        // if ($request->hasFile('gambar_bukti')) {
-        //     foreach ($request->file('gambar_bukti') as $image) {
-        //         $imageName = $data['keterangan'] . '-image-' . time() . rand(1, 1000) . '.' . $image->extension();
-        //         $request->file('gambar_bukti')->move('bukticuti_images/', $request->file('gambar_bukti')->$imageName);
-        //         $data->gambar_bukti = $request->file('gambar_bukti')->$imageName;
-        //         $data->save();
-        //     }
-        // }
+        if ($request->hasFile('gambar_bukti')) {
+            foreach ($request->file('gambar_bukti') as $image) {
+                $imageName = $data['keterangan'] . '-image-' . time() . rand(1, 1000) . '.' . $image->extension();
+                $request->file('gambar_bukti')->move('bukticuti_images/', $request->file('gambar_bukti')->$imageName);
+                $data->gambar_bukti = $request->file('gambar_bukti')->$imageName;
+                $data->save();
+            }
+        }
         if ($request->hasFile('gambar_bukti')) {
             $request->file('gambar_bukti')->move('bukticuti_staff/', $request->file('gambar_bukti')->getClientOriginalName());
             $data->gambar_bukti = $request->file('gambar_bukti')->getClientOriginalName();
             $data->save();
         }
 
-        try{
+        try {
             Mail::to('specterknight96@gmail.com')->send(new CutiNotify($data));
             return redirect()->route('cutiizin.index');
         } catch (Error $err) {
@@ -178,5 +181,11 @@ class CutistaffController extends Controller
         }
 
         return redirect()->route('cutiizin.index');
+    }
+
+    function WarningLimitCuti($id)
+    {
+        $warnUser = cutistaff::where('staff_id', $id)->whereMonth('created_at', Carbon::now()->month)->count();
+        return json_encode(['success' => true, 'data' => $warnUser]);
     }
 }

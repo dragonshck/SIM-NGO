@@ -26,7 +26,15 @@
             <div class="col-12">
                 <label class="form-label" for="inputAddress">Uang Makan</label>
                 <input class="form-control" id="inputAddress" type="text" name="tunjangan_makanan" />
-              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="inputAddress">Denda Staf / Absensi</label>
+              <input class="form-control" id="inputAddress" type="text" name="denda_alpha" />
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="inputAddress">Lembur Staf</label>
+            <input class="form-control" id="inputAddress" type="text" name="lembur_staf" />
+        </div>
             <div class="col-12">
               <button class="btn btn-primary" type="submit">Submit</button>
             </div>

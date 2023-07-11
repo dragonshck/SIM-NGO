@@ -40,7 +40,11 @@
                       <td class="w-auto">
                         <div class="btn-group btn-group hover-actions end-0 me-4">
                           {{-- <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" href="{{ route('staffppa.edit', $item -> id)}}" title="Edit"><span class="fas fa-edit"></span></a> --}}
-                          <a class="btn btn-light ps-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" href="{{ route('staffppa.destroy', $item -> id)}}" title="Delete"><span class="fas fa-trash-alt"></span></a>
+                          <form action="{{ route('staffppa.destroy', $item -> id)}}" method="POST">
+                          <input name="_method" type="hidden" value="DELETE">
+                          @csrf
+                          {{-- <a class="btn btn-light ps-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" href="" title="Delete"><span class="fas fa-trash-alt"></span></a> --}}
+                          </form>
                         </div>
                       </td>
                       <td class="align-middle text-nowrap">{{ $item-> jabatan -> nama_jabatan ?? '' }}</td>

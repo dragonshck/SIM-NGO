@@ -13,7 +13,9 @@ class JabatanStaff extends Model
         'nama_jabatan',
         'gaji_pokok',
         'tunjangan_kendaraan',
-        'tunjangan_makanan'
+        'tunjangan_makanan',
+        'lembur_staf',
+        'denda_alpha'
     ];
 
     public function staff()

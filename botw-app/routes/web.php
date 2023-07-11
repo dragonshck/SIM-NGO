@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kelompokumur', KelompokUmurController::class);
     Route::resource('kodeabsensi', KodeabsensiController::class);
     Route::resource('anak', AnakPPAController::class);
+    Route::get('/getWarningLimitCuti/{id}', [CutistaffController::class, 'WarningLimitCuti']);
 
     Route::get('/fetch-anak/{id}', [AbsensiAnakController::class, 'getAnakbyKelompokUmur']);
     Route::get('/fetch-tgl-anak/{id}/{tgl}', [AbsensiAnakController::class, 'getAnakByDate']);
@@ -94,7 +95,7 @@ Route::group(['middleware' => ['auth', 'role:koordinator']], function () {
     Route::delete('/staffppa/{id}/roles/{role}', [StaffPPAController::class, 'revokeRole'])->name('staffz.role.remove');
 });
 
-Route::group(['middleware' => ['auth', 'role:mentor']], function() {
+Route::group(['middleware' => ['auth', 'role:mentor']], function () {
     Route::get('/ubah-status-lp/{id}', [LessonplanController::class, 'status_update']);
 });
 

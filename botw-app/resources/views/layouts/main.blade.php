@@ -41,6 +41,7 @@
     <link href="{{ asset('falcon/public/vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('falcon/public/vendors/dropzone/dropzone.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('falcon/public/vendors/choices/choices.min.css')}}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -259,7 +260,8 @@
     <script src="https:maps.googleapis.com/maps/api/js?key=AIzaSyCWQCfQ2umNqVoSCKQPQJdeM4QDHJl0JZE&callback=initMap" async="async"></script>
     <script src="{{ asset('falcon/public/vendors/choices/choices.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    @yield('jawascript')\
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    @yield('jawascript')
     @yield('getPeriodeAbsensi')
     @yield('js')
     @yield('jsx')
@@ -267,6 +269,7 @@
     @yield('chartpie')
     @yield('charts')
     @yield('rangebulan')
+    @yield('limitpermonth')
   </body>
 
 </html>

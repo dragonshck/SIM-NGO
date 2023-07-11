@@ -22,6 +22,8 @@
                   <th scope="col">Gaji Pokok</th>
                   <th scope="col">Transportasi</th>
                   <th scope="col">Uang Makan</th>
+                  <th scope="col">Denda Absen</th>
+                  <th scope="col">Bonus Lembur</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,6 +37,8 @@
                   <td class="align-middle text-nowrap">@currency($item -> gaji_pokok)</td>
                   <td class="align-middle text-nowrap">@currency($item -> tunjangan_kendaraan)</td>
                   <td class="align-middle text-nowrap">@currency($item -> tunjangan_makanan)</td>
+                  <td class="align-middle text-nowrap">@currency($item -> denda_alpha)</td>
+                  <td class="align-middle text-nowrap">@currency($item -> lembur_staf)</td>
                   <td class="w-auto">
                     <div class="btn-group btn-group hover-actions end-0 me-4">
                       <a class="btn btn-light pe-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="/role-edit/{{ $item -> id }}"><span class="fas fa-edit"></span></a>

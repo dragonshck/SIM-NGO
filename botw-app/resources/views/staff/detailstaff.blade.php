@@ -49,7 +49,7 @@
       <div class="col-lg-4 pe-lg-2">
       <div class="card mb-3">
         <div class="card-header bg-light">
-          <h5 class="mb-0">Penempatan Role</h5>
+          <h5 class="mb-0">Penempatan Hak Akses</h5>
         </div>
         <div class="card-body fs--1">
           <div class="d-flex">
@@ -71,7 +71,7 @@
                   <form action="{{route('staffz.role.add', $staff->id)}}" method="POST">
                     @csrf
                   <select class="form-select" aria-label="Default select example" name="role">
-                    <option selected="">Pilih Role</option>
+                    <option selected="">Pilih Hak Akses</option>
                     @foreach ($role as $item)
                       <option value="{{ $item -> id}}">{{ $item -> name }}</option>
                     @endforeach

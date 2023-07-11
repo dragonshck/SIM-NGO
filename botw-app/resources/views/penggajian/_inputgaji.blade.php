@@ -52,13 +52,19 @@
       <div class="row mb-3">
         <label class="col-sm-2 col-form-label" for="colFormLabel">Lembur</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="lembur" placeholder="Banyak Jam Lembur" name="jumlah_overtime"/>
+          <input class="form-control" type="text" id="lembur" placeholder="Banyak Jam Lembur" name="jumlah_overtime" onkeyup="setLembur(event)"/>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2 col-form-label" for="colFormLabel">Gaji Lembur</label>
+        <label class="col-sm-2 col-form-label" for="gaji_lembur">Gaji Lembur</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="gaji_lembur" placeholder="Rp / Jam" name="uang_overtime" onkeyup="setLembur(event)"/>
+          <input class="form-control" id="gaji_lembur" type="text" disabled value=""/>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="tunjangan_makanan">Denda Tidak Masuk</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="denda_alpha" type="text" disabled value="" />
         </div>
       </div>
       <div class="row mb-3">
@@ -85,13 +91,15 @@
         event.preventDefault()
         let val = event.target.value
         let lembur = document.getElementById('lembur').value
+        // let lembur_staf = $('#gaji_lembur').val() ?? 0
         let gaji_pokok =  $('#gaji_pokok').val() ?? 0
         let transport =  $('#tunjangan_kendaraan').val() ?? 0
         let uang_makan =  $('#tunjangan_makanan').val() ?? 0
+        let denda_tdkmasuk = $('#denda_alpha').val() ?? 0
 
-        let total = (parseInt(gaji_pokok) + parseInt(transport) + parseInt(uang_makan)) + (parseInt(val) * parseInt(lembur));
+        let total = (parseInt(gaji_pokok) + parseInt(transport) + parseInt(uang_makan)) + (parseInt(val) * parseInt(lembur)) - parseInt(denda_tdkmasuk);
 
-        $('#total_lembur').val(total)
+        $('#total_lembur').val(total);
 
       }
 
@@ -103,11 +111,13 @@
           dataType: 'json',
           success: function(response) {
             let staffArray = response.data
-            console.log(staffArray.gaji_pokok);
+            console.log(staffArray.count_tidakmasuk);
 
-            $('#gaji_pokok').val(staffArray.gaji_pokok)
+            $('#gaji_pokok').val(staffArray.gaji_pokok * staffArray.count_kehadiran)
             $('#tunjangan_kendaraan').val(staffArray.tunjangan_kendaraan)
             $('#tunjangan_makanan').val(staffArray.tunjangan_makanan)
+            $('#gaji_lembur').val(staffArray.lembur_staf)
+            $('#denda_alpha').val(staffArray.denda_alpha * staffArray.count_tidakmasuk)
           }
         });
       });
